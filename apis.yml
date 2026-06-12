@@ -1,0 +1,130 @@
+aid: magicbell
+name: MagicBell
+description: >
+  MagicBell is a multichannel push notification infrastructure platform that enables developers
+  to deliver in-app, email, mobile push, web push, SMS, Slack, and Microsoft Teams notifications
+  through a single unified REST API. The platform provides a ready-made notification inbox
+  component, built-in user preference management, smart delivery workflows with fallback rules,
+  and full delivery observability with event logging and debugging. MagicBell handles all channel
+  routing and token management so product teams can focus on building rather than maintaining
+  notification infrastructure. It is a Y Combinator (W21) company offering SDKs for JavaScript,
+  React, Go, Swift, Java, and Android along with a CLI for project management.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - notifications
+  - push notifications
+  - in-app notifications
+  - email
+  - SMS
+  - Slack
+  - Microsoft Teams
+  - webhooks
+  - notification inbox
+  - multichannel
+  - mobile push
+  - web push
+url: https://raw.githubusercontent.com/api-evangelist/magicbell/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+
+apis:
+
+  - aid: magicbell:rest-api-v2
+    name: MagicBell REST API v2
+    description: >
+      The primary MagicBell REST API (v2) for sending notifications, managing users, configuring
+      delivery channels, creating broadcasts, defining workflows, and querying delivery events.
+      Supports JWT-based authentication (Project JWT and User JWT), idempotent requests via
+      Idempotency-Key header, and returns 429 Too Many Requests on rate limit exceeded.
+    humanURL: https://www.magicbell.com/docs/api
+    baseURL: https://api.magicbell.com/v2
+    tags:
+      - notifications
+      - broadcasts
+      - users
+      - channels
+      - workflows
+      - events
+      - REST
+    properties:
+      - type: Documentation
+        url: https://www.magicbell.com/docs/api
+      - type: OpenAPI
+        url: https://public.magicbell.com/specs/openapi.v2.json
+      - type: ReferenceDocumentation
+        url: https://www.magicbell.com/docs/api/reference
+      - type: Authentication
+        url: https://www.magicbell.com/docs/api/authentication
+
+  - aid: magicbell:rest-api-v1
+    name: MagicBell REST API v1
+    description: >
+      The legacy MagicBell REST API (v1) for notification delivery, user management, and
+      channel configuration. Supports API key and user external ID based authentication.
+      Rate limits are lower than v2 (100 req/min for read endpoints, 60 req/min for write
+      endpoints). New integrations should use v2.
+    humanURL: https://www.magicbell.com/docs/v1
+    baseURL: https://api.magicbell.com
+    tags:
+      - notifications
+      - users
+      - legacy
+      - REST
+    properties:
+      - type: Documentation
+        url: https://www.magicbell.com/docs/v1
+      - type: PostmanCollection
+        url: https://documenter.getpostman.com/view/2269098/2sAYdhLAjv
+
+common:
+
+  - type: Website
+    url: https://www.magicbell.com/
+
+  - type: Documentation
+    url: https://www.magicbell.com/docs
+
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+
+  - type: GitHubOrganization
+    url: https://github.com/magicbell
+
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/magicbell
+
+  - type: X
+    url: https://x.com/magicbell_io
+
+  - type: Blog
+    url: https://www.magicbell.com/blog
+
+  - type: Pricing
+    url: https://www.magicbell.com/pricing
+
+  - type: StatusPage
+    url: https://status.magicbell.com/
+
+  - type: Changelog
+    url: https://github.com/orgs/magicbell/discussions/categories/product-changelog
+
+  - type: SDKs
+    url: https://www.magicbell.com/docs/libraries
+
+  - type: DeveloperTools
+    url: https://www.magicbell.com/tools
+
+  - type: Plans
+    url: plans/magicbell-plans-pricing.yml
+
+  - type: RateLimits
+    url: rate-limits/magicbell-rate-limits.yml
+
+  - type: FinOps
+    url: finops/magicbell-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

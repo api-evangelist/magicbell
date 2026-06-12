@@ -1,0 +1,85 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: MagicBell
+providerId: magicbell
+created: '2026-06-12'
+modified: '2026-06-12'
+
+retryAfter: Retry-After
+throttledStatusCode: 429
+throttledMessage: "You have exceeded the rate limit for this endpoint type."
+
+limits:
+
+  - scope: project
+    api: REST API v2
+    metric: requests
+    methods:
+      - GET
+      - OPTIONS
+      - HEAD
+    limit: 250
+    timeFrame: 60
+    timeFrameUnit: seconds
+    notes: >
+      250 requests per minute for read operations on the v2 REST API.
+      Applies to all project-scoped and user-scoped GET/OPTIONS/HEAD endpoints.
+
+  - scope: project
+    api: REST API v2
+    metric: requests
+    methods:
+      - POST
+      - PATCH
+      - PUT
+      - DELETE
+    limit: 200
+    timeFrame: 60
+    timeFrameUnit: seconds
+    notes: >
+      200 requests per minute for write operations on the v2 REST API.
+      Applies to all project-scoped and user-scoped POST/PATCH/PUT/DELETE endpoints.
+
+  - scope: project
+    api: REST API v1
+    metric: requests
+    methods:
+      - GET
+      - OPTIONS
+      - HEAD
+    limit: 100
+    timeFrame: 60
+    timeFrameUnit: seconds
+    notes: >
+      100 requests per minute for read operations on the legacy v1 REST API.
+
+  - scope: project
+    api: REST API v1
+    metric: requests
+    methods:
+      - POST
+      - PATCH
+      - PUT
+      - DELETE
+    limit: 60
+    timeFrame: 60
+    timeFrameUnit: seconds
+    notes: >
+      60 requests per minute for write operations on the legacy v1 REST API.
+
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  format: UUID
+  cacheDuration: 86400
+  cacheDurationUnit: seconds
+  notes: >
+    Idempotency keys expire after 24 hours. Use UUID values to prevent duplicate
+    operations for supported endpoints. Recommended for broadcast and notification
+    creation operations.
+
+enterpriseNote: >
+  Rate limits may be adjusted for Enterprise plan customers. Rate limits for non-Enterprise
+  plans are subject to change without prior announcement.
+
+source: https://www.magicbell.com/docs/api

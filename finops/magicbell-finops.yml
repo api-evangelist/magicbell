@@ -1,0 +1,97 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: MagicBell
+providerId: magicbell
+created: '2026-06-12'
+modified: '2026-06-12'
+
+billingModel: freemium-tiered-with-overage
+description: >
+  MagicBell uses a tiered subscription billing model with a free Builder tier,
+  a flat-rate Startup tier with per-delivery overage charges, and custom Enterprise
+  pricing. The primary billable unit is a "delivery" — one notification sent to one
+  user via one channel. Multi-channel notifications multiply the delivery count.
+
+focusColumns:
+  - ChargeCategory: Usage
+  - BillingCurrency: USD
+  - BillingPeriod: Monthly
+  - ServiceName: MagicBell Notification Platform
+  - SkuName: Notification Delivery
+  - ConsumedUnit: delivery
+  - ConsumedQuantity: actual_deliveries_per_month
+
+meters:
+
+  - name: notification_deliveries
+    description: >
+      Count of individual notification deliveries across all channels. Each
+      channel delivery to a user counts as one unit. Sending to 100 users via
+      in-app and 50 via email = 150 deliveries.
+    unit: delivery
+    billingModel: quota_with_overage
+    tiers:
+      - tier: Builder
+        included: 1000
+        overageRate: 0
+        overageCurrency: USD
+      - tier: Startup
+        included: 50000
+        overageRate: 0.0025
+        overageCurrency: USD
+        overageUnit: per delivery
+      - tier: Enterprise
+        included: unlimited
+        overageRate: custom
+
+  - name: projects
+    description: >
+      Number of separate MagicBell projects (environments/tenants) in the account.
+    unit: project
+    billingModel: quota_with_expansion
+    tiers:
+      - tier: Builder
+        included: 1
+        expansionRate: 0
+      - tier: Startup
+        included: 5
+        expansionRate: 99
+        expansionCurrency: USD
+        expansionUnit: per project per month
+      - tier: Enterprise
+        included: unlimited
+        expansionRate: custom
+
+principles:
+
+  - name: Visibility
+    description: >
+      MagicBell provides a Metrics page for monitoring delivery usage in real time
+      and a Billing page for tracking spend estimates and overage projections.
+      Per-delivery counting is fully transparent: users can see exactly how
+      multi-channel sends multiply delivery counts.
+    controls:
+      - type: UsageDashboard
+        url: https://app.magicbell.com/metrics
+      - type: BillingDashboard
+        url: https://app.magicbell.com/billing
+
+  - name: Optimization
+    recommendations:
+      - description: >
+          Use Smart Delivery workflows with fallback rules to avoid unnecessary
+          multi-channel sends; only escalate to additional channels when required.
+      - description: >
+          Batch notifications using Broadcasts API to reduce per-request overhead
+          and keep API calls within rate limits.
+      - description: >
+          Leverage the Builder (free) tier for development and staging environments
+          to avoid incurring production costs during testing.
+      - description: >
+          Monitor overage usage via the Metrics page and upgrade plan tiers before
+          overage charges accumulate significantly above the Startup base rate.
+      - description: >
+          Use idempotency keys for broadcast and notification creation to prevent
+          accidental duplicate deliveries that would inflate delivery counts and costs.
+
+source: https://www.magicbell.com/pricing

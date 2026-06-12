@@ -1,0 +1,96 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: MagicBell
+providerId: magicbell
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+type: freemium
+
+plans:
+
+  - name: Builder
+    description: >
+      Free tier for developers and small projects. Includes 1,000 notification deliveries
+      per month across all channels with access to all integrations and Smart Delivery.
+      Unlimited team members and users.
+    type: free
+    cost: 0
+    currency: USD
+    billingPeriod: monthly
+    quotas:
+      - metric: notification_deliveries
+        limit: 1000
+        timeFrame: monthly
+        type: quota
+      - metric: projects
+        limit: 1
+        type: boolean
+    features:
+      - All delivery channels (email, mobile push, web push, SMS, Slack, Teams, in-app)
+      - All integrations
+      - Smart Delivery workflows
+      - Unlimited team members
+      - Unlimited users
+      - Delivery observability and event logs
+
+  - name: Startup
+    description: >
+      Paid tier for growing teams and production workloads. Includes 50,000 notification
+      deliveries per month with overage billing at $0.0025 per additional delivery.
+      Supports up to 5 projects with additional projects available at $99 each.
+    type: paid
+    cost: 249
+    currency: USD
+    billingPeriod: monthly
+    quotas:
+      - metric: notification_deliveries
+        limit: 50000
+        timeFrame: monthly
+        type: quota
+      - metric: notification_deliveries_overage_rate
+        limit: 0.0025
+        unit: per delivery
+        type: metered
+      - metric: projects
+        limit: 5
+        type: quota
+      - metric: additional_projects
+        limit: 99
+        unit: per project per month
+        type: metered
+    features:
+      - All Builder features
+      - 5 projects included
+      - Overage billing for additional deliveries
+      - Additional projects at $99/month each
+
+  - name: Enterprise
+    description: >
+      Custom pricing for large-scale deployments with unlimited notification deliveries
+      and projects. Includes dedicated integration support, invoice billing,
+      security review, and SLA commitments.
+    type: enterprise
+    cost: custom
+    currency: USD
+    billingPeriod: custom
+    quotas:
+      - metric: notification_deliveries
+        limit: unlimited
+        type: boolean
+      - metric: projects
+        limit: unlimited
+        type: boolean
+    features:
+      - All Startup features
+      - Unlimited deliveries
+      - Unlimited projects
+      - Dedicated integration support
+      - Invoice billing
+      - Security review
+      - Custom SLA
+
+notes: >
+  A "delivery" is counted per channel per user. For example, sending a notification to
+  100 users where all receive in-app and 50 receive email counts as 150 deliveries.
+  Pricing sourced from https://www.magicbell.com/pricing on 2026-06-12.
