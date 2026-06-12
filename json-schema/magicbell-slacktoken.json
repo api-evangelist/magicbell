@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/magicbell/main/json-schema/magicbell-slacktoken.json",
+  "title": "SlackToken",
+  "minProperties": 1,
+  "type": "object",
+  "properties": {
+    "oauth": {
+      "required": [
+        "channel_id",
+        "installation_id"
+      ],
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "installation_id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        }
+      }
+    },
+    "webhook": {
+      "required": [
+        "url"
+      ],
+      "type": "object",
+      "properties": {
+        "url": {
+          "minLength": 1,
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "example": {
+    "webhook": {
+      "url": "https://example.com/webhook"
+    }
+  }
+}

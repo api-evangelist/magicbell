@@ -1,0 +1,19 @@
+{
+  "title": "Your order has shipped!",
+  "content": "Your order #ORD-98765 has been shipped and will arrive by Friday.",
+  "action_url": "https://app.example.com/orders/ORD-98765",
+  "category": "order-updates",
+  "recipients": {
+    "matches": "email:customer@example.com"
+  },
+  "overrides": {
+    "channels": {
+      "email": {
+        "subject": "Order #ORD-98765 Shipped"
+      },
+      "mobile_push": {
+        "title": "Your order shipped!"
+      }
+    }
+  }
+}

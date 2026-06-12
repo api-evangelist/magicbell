@@ -1,0 +1,119 @@
+{
+  "@context": {
+    "@vocab": "https://schema.magicbell.com/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+
+    "Broadcast": "https://schema.magicbell.com/Broadcast",
+    "Notification": "https://schema.magicbell.com/Notification",
+    "User": "https://schema.magicbell.com/User",
+    "Topic": "https://schema.magicbell.com/Topic",
+    "Event": "https://schema.magicbell.com/Event",
+    "Integration": "https://schema.magicbell.com/Integration",
+    "Token": "https://schema.magicbell.com/Token",
+    "DeliveryConfig": "https://schema.magicbell.com/DeliveryConfig",
+    "AccessToken": "https://schema.magicbell.com/AccessToken",
+
+    "id": "@id",
+    "type": "@type",
+
+    "title": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "content": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "action_url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "category": {
+      "@id": "https://schema.magicbell.com/category",
+      "@type": "xsd:string"
+    },
+    "topic": {
+      "@id": "https://schema.magicbell.com/topic",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "https://schema.magicbell.com/status",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "external_id": {
+      "@id": "https://schema.magicbell.com/externalId",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "first_name": {
+      "@id": "schema:givenName",
+      "@type": "xsd:string"
+    },
+    "last_name": {
+      "@id": "schema:familyName",
+      "@type": "xsd:string"
+    },
+    "custom_attributes": {
+      "@id": "https://schema.magicbell.com/customAttributes"
+    },
+
+    "recipients": {
+      "@id": "https://schema.magicbell.com/recipients"
+    },
+    "sent_count": {
+      "@id": "https://schema.magicbell.com/sentCount",
+      "@type": "xsd:integer"
+    },
+    "failed_count": {
+      "@id": "https://schema.magicbell.com/failedCount",
+      "@type": "xsd:integer"
+    },
+
+    "channel": {
+      "@id": "https://schema.magicbell.com/channel",
+      "@type": "xsd:string"
+    },
+    "token": {
+      "@id": "https://schema.magicbell.com/token",
+      "@type": "xsd:string"
+    },
+    "device_token": {
+      "@id": "https://schema.magicbell.com/deviceToken",
+      "@type": "xsd:string"
+    },
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "https://schema.magicbell.com/data"
+    },
+
+    "links": {
+      "@id": "hydra:link"
+    },
+    "next": {
+      "@id": "hydra:next",
+      "@type": "@id"
+    },
+    "prev": {
+      "@id": "hydra:previous",
+      "@type": "@id"
+    }
+  }
+}

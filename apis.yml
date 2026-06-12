@@ -53,6 +53,8 @@ apis:
         url: https://www.magicbell.com/docs/api
       - type: OpenAPI
         url: https://public.magicbell.com/specs/openapi.v2.json
+      - type: OpenAPI
+        url: openapi/magicbell-rest-api-v2-openapi.yml
       - type: ReferenceDocumentation
         url: https://www.magicbell.com/docs/api/reference
       - type: Authentication
@@ -124,6 +126,12 @@ common:
 
   - type: FinOps
     url: finops/magicbell-finops.yml
+
+  - type: Vocabulary
+    url: vocabulary/magicbell-vocabulary.yml
+
+  - type: JSONLDContext
+    url: json-ld/magicbell-context.jsonld
 
 maintainers:
   - FN: Kin Lane

@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/magicbell/main/json-schema/magicbell-teamstoken.json",
+  "title": "TeamsToken",
+  "type": "object",
+  "properties": {
+    "webhook": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "example": {}
+}

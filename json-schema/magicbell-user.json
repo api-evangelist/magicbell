@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/magicbell/main/json-schema/magicbell-user.json",
+  "title": "user",
+  "type": "object",
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "required": [
+            "email"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "external_id": {
+              "pattern": "\\s*",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "required": [
+            "email"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "external_id": {
+              "pattern": "^[^\\s]+",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "required": [
+            "external_id"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "external_id": {
+              "pattern": "^[^\\s]+",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "required": [
+            "external_id"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "\\s+"
+            },
+            "external_id": {
+              "minLength": 1,
+              "pattern": "^[^\\s]+",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "minProperties": 1,
+      "type": "object",
+      "properties": {
+        "custom_attributes": {
+          "type": "object"
+        },
+        "email": {
+          "maxLength": 255,
+          "type": "string"
+        },
+        "external_id": {
+          "maxLength": 255,
+          "type": "string"
+        },
+        "first_name": {
+          "maxLength": 255,
+          "type": "string"
+        },
+        "last_name": {
+          "maxLength": 255,
+          "type": "string"
+        },
+        "phone_numbers": {
+          "type": "array",
+          "items": {
+            "pattern": "^\\+\\d{1,3}\\s?\\d{1,14}$",
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

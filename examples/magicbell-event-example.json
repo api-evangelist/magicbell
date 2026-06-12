@@ -1,0 +1,11 @@
+{
+  "id": "evt_xyz789",
+  "name": "notification/sent",
+  "data": {
+    "notification_id": "notif_abc123",
+    "user_id": "usr_abc123",
+    "channel": "email",
+    "status": "delivered"
+  },
+  "created_at": "2026-06-12T10:01:00Z"
+}

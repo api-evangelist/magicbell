@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/magicbell/main/json-schema/magicbell-fcmtoken.json",
+  "title": "FCMToken",
+  "required": [
+    "device_token"
+  ],
+  "type": "object",
+  "properties": {
+    "device_token": {
+      "minLength": 64,
+      "type": "string"
+    },
+    "installation_id": {
+      "enum": [
+        "development",
+        "production"
+      ],
+      "type": "string"
+    }
+  },
+  "example": {
+    "device_token": "eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt",
+    "installation_id": "development"
+  }
+}

@@ -1,0 +1,160 @@
+vocabulary:
+  name: MagicBell API Vocabulary
+  description: >
+    Canonical terms and concepts used across the MagicBell multichannel notification
+    infrastructure API (v2). Covers notifications, delivery channels, integrations,
+    user management, and event observability.
+  version: "2.0.0"
+  url: https://www.magicbell.com/docs/api
+
+terms:
+
+  - term: broadcast
+    label: Broadcast
+    definition: >
+      A notification delivery job that sends a notification to one or more recipients
+      across configured delivery channels. A broadcast transitions through statuses:
+      enqueued, processing, sent, and failed.
+    type: resource
+    related:
+      - notification
+      - recipient
+      - topic
+
+  - term: notification
+    label: Notification
+    definition: >
+      An individual message delivered to a single user via one or more channels.
+      Contains a title, optional content, action URL, category, and custom attributes.
+    type: resource
+    related:
+      - broadcast
+      - channel
+      - user
+
+  - term: channel
+    label: Channel
+    definition: >
+      A delivery medium through which notifications are sent. Supported channels include
+      in-app inbox, email, mobile push (APNS, FCM, Expo), web push, Slack, and
+      Microsoft Teams.
+    type: concept
+    values:
+      - in_app
+      - email
+      - mobile_push
+      - web_push
+      - slack
+      - ms_teams
+
+  - term: user
+    label: User
+    definition: >
+      A MagicBell-registered recipient of notifications. Users are identified by an
+      external_id (your system's user ID), an email address, or both. Users can manage
+      per-channel and per-category notification preferences.
+    type: resource
+    related:
+      - notification
+      - broadcast
+      - channel
+
+  - term: topic
+    label: Topic
+    definition: >
+      A logical grouping or thread for notifications, enabling in-app inbox threading
+      and per-topic mute controls. Topics allow users to follow or unfollow specific
+      notification streams.
+    type: resource
+    related:
+      - broadcast
+      - notification
+
+  - term: integration
+    label: Integration
+    definition: >
+      A configured third-party service connection that enables a delivery channel.
+      Examples include APNS (Apple Push), FCM (Firebase Cloud Messaging), Mailgun,
+      SendGrid, Twilio, Slack, and Stripe webhook integrations.
+    type: resource
+    related:
+      - channel
+      - token
+
+  - term: token
+    label: Token
+    definition: >
+      A device or service credential stored for a user to enable push delivery. Types
+      include APNS tokens (iOS), FCM tokens (Android), Expo tokens, Slack tokens,
+      Teams tokens, and web push tokens.
+    type: resource
+    related:
+      - channel
+      - user
+      - integration
+
+  - term: event
+    label: Event
+    definition: >
+      An observable delivery lifecycle record emitted by MagicBell. Events capture
+      notification sent, delivered, opened, clicked, and failed states per channel,
+      enabling full delivery observability.
+    type: resource
+    related:
+      - broadcast
+      - notification
+
+  - term: jwt
+    label: JWT
+    definition: >
+      A JSON Web Token used for API authentication. MagicBell issues two JWT scopes:
+      Project JWTs (full API access) and User JWTs (scoped to a single user's data).
+      Tokens can be created and revoked via the /jwt endpoints.
+    type: concept
+    related:
+      - authentication
+      - user
+
+  - term: deliveryconfig
+    label: Delivery Configuration
+    definition: >
+      Project-level or category-level rules that define which channels receive
+      notifications and in what priority order, including fallback rules when a
+      preferred channel fails.
+    type: concept
+    related:
+      - channel
+      - broadcast
+
+  - term: idempotency_key
+    label: Idempotency Key
+    definition: >
+      A client-supplied header (Idempotency-Key) that ensures duplicate POST requests
+      produce the same result as a single request. MagicBell deduplicates requests
+      sharing the same key within a time window.
+    type: concept
+    related:
+      - broadcast
+
+  - term: category
+    label: Category
+    definition: >
+      A string label on a notification or broadcast that groups notifications by type
+      (e.g., "order-updates", "billing", "security-alerts"). Users can set per-category
+      delivery preferences.
+    type: concept
+    related:
+      - notification
+      - deliveryconfig
+      - user
+
+  - term: custom_attributes
+    label: Custom Attributes
+    definition: >
+      An arbitrary key-value map attached to notifications, broadcasts, or users for
+      storing application-specific metadata that passes through to delivery payloads.
+    type: concept
+    related:
+      - notification
+      - broadcast
+      - user

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/magicbell/main/json-schema/magicbell-event.json",
+  "title": "Event",
+  "required": [
+    "id",
+    "type",
+    "timestamp"
+  ],
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "context": {
+      "type": "object",
+      "nullable": true
+    },
+    "id": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "log": {
+      "type": "string",
+      "nullable": true
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}
