@@ -10,7 +10,7 @@ description: >
   notification infrastructure. It is a Y Combinator (W21) company offering SDKs for JavaScript,
   React, Go, Swift, Java, and Android along with a CLI for project management.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - notifications
   - push notifications
