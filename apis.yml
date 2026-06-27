@@ -109,7 +109,7 @@ common:
   - type: StatusPage
     url: https://status.magicbell.com/
 
-  - type: Changelog
+  - type: ChangeLog
     url: https://github.com/orgs/magicbell/discussions/categories/product-changelog
 
   - type: SDKs

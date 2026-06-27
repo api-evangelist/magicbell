@@ -2,13 +2,13 @@
   "repo": "magicbell",
   "feeds": [
     {
-      "source": "https://x.com/magicbell_io",
-      "feed_url": "https://x.com/magicbell_io",
-      "title": "",
+      "source": "https://www.magicbell.com/blog",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
+      "method": "agent-scrape"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:53:30Z",
+  "agent_pulled": "2026-06-27"
 }
