@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://www.magicbell.com/security
+url: https://www.magicbell.com/security
+certifications:
+- GDPR
+evidence:
+- source: https://www.magicbell.com/security
+  keywords:
+  - trust centre
+  - gdpr

@@ -82,6 +82,10 @@ apis:
 
 common:
 
+  - type: TrustCenter
+    url: security/magicbell-trust-center.yml
+  - type: DomainSecurity
+    url: security/magicbell-domain-security.yml
   - type: Website
     url: https://www.magicbell.com/
 
