@@ -82,6 +82,8 @@ apis:
 
 common:
 
+  - type: AgenticAccess
+    url: agentic-access/magicbell-agentic-access.yml
   - type: TrustCenter
     url: security/magicbell-trust-center.yml
   - type: DomainSecurity
