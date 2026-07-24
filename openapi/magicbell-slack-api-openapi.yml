@@ -1,0 +1,645 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns slack API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: slack
+paths:
+  /channels/slack/tokens:
+    get:
+      tags:
+      - slack
+      description: Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_slack_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackTokenResponses'
+    post:
+      tags:
+      - slack
+      description: Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_slack_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackToken'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+  /channels/slack/tokens/{token_id}:
+    delete:
+      tags:
+      - slack
+      description: Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_slack_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - slack
+      description: Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_slack_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackTokenResponse'
+  /integrations/slack:
+    delete:
+      tags:
+      - slack
+      description: Removes a slack integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_slack_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+    get:
+      tags:
+      - slack
+      description: Retrieves the current slack integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_slack_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackConfigObjects'
+    put:
+      tags:
+      - slack
+      description: Creates or updates a slack integration for the project. Only administrators can configure integrations.
+      operationId: save_slack_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackConfig'
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+  /integrations/slack/installations:
+    post:
+      tags:
+      - slack
+      description: Creates a new installation of a slack integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackInstallation'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackInstallation'
+  /integrations/slack/installations/finish:
+    post:
+      tags:
+      - slack
+      description: Completes the installation flow for a slack integration. This endpoint is typically called after the user has completed any required authorization steps with slack.
+      operationId: finish_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackFinishInstallResponse'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackInstallation'
+  /integrations/slack/installations/start:
+    post:
+      tags:
+      - slack
+      description: Initiates the installation flow for a slack integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackStartInstall'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackStartInstallResponseContent'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+  /integrations/slack/{id}:
+    delete:
+      tags:
+      - slack
+      description: Removes a specific slack integration instance by ID from the project.
+      operationId: delete_slack_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+  /users/{user_id}/channels/slack/tokens:
+    get:
+      tags:
+      - slack
+      description: Lists all slack tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_slack_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackTokenResponses'
+  /users/{user_id}/channels/slack/tokens/{token_id}:
+    delete:
+      tags:
+      - slack
+      description: Revokes a specific user's slack token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_slack_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - slack
+      description: Retrieves a specific slack token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_slack_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackTokenResponse'
+components:
+  schemas:
+    SlackStartInstall:
+      required:
+      - app_id
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        extra_scopes:
+          type: array
+          items:
+            type: string
+        redirect_url:
+          type: string
+      additionalProperties: false
+      example:
+        app_id: '12345678901'
+        auth_url: https://example.com/auth
+        extra_scopes:
+        - scope1
+        - scope2
+        redirect_url: https://example.com/redirect
+    ArrayOfSlackTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+          webhook:
+            url: https://example.com/webhook
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackStartInstallResponseContent:
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+      example:
+        app_id: app-id
+        auth_url: https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write
+        scopes:
+        - channels:read
+        - chat:write
+    SlackToken:
+      minProperties: 1
+      type: object
+      properties:
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      additionalProperties: false
+      example:
+        webhook:
+          url: https://example.com/webhook
+    ArrayOfSlackConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: '12345678901'
+            client_id: '1.0'
+            client_secret: '12345678901234567890123456789012'
+            signing_secret: '12345678901234567890123456789012'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SlackConfig'
+        id:
+          type: string
+        name:
+          type: string
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    SlackFinishInstallResponse:
+      required:
+      - app_id
+      - code
+      type: object
+      properties:
+        app_id:
+          type: string
+        code:
+          type: string
+        redirect_url:
+          type: string
+      example:
+        app_id: '12345678901'
+        code: string
+        redirect_url: string
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    SlackConfig:
+      required:
+      - app_id
+      - client_id
+      - client_secret
+      - signing_secret
+      type: object
+      properties:
+        app_id:
+          pattern: ^[0-9A-Z]+$
+          type: string
+          description: The Slack app ID that can be found in the app's settings page of the Slack API dashboard.
+        client_id:
+          pattern: ^[0-9]+\.[0-9]+$
+          type: string
+          description: The Slack client ID that can be found in the app's settings page of the Slack API dashboard.
+        client_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack client secret that can be found in the app's settings page of the Slack API dashboard.
+        signing_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack signing secret that can be found in the app's settings page of the Slack API dashboard.
+      example:
+        app_id: '12345678901'
+        client_id: '1.0'
+        client_secret: '12345678901234567890123456789012'
+        signing_secret: '12345678901234567890123456789012'
+    SlackInstallation:
+      required:
+      - access_token
+      - authed_user
+      - team
+      - app_id
+      type: object
+      properties:
+        access_token:
+          type: string
+        app_id:
+          type: string
+        authed_user:
+          required:
+          - id
+          type: object
+          properties:
+            access_token:
+              type: string
+            expires_in:
+              type: integer
+            id:
+              type: string
+            refresh_token:
+              type: string
+            scope:
+              type: string
+            token_type:
+              type: string
+        bot_user_id:
+          type: string
+        enterprise:
+          required:
+          - name
+          - id
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        expires_in:
+          type: integer
+        id:
+          pattern: ^[A-Z0-9/]*$
+          type: string
+        incoming_webhook:
+          required:
+          - channel
+          - configuration_url
+          - url
+          type: object
+          properties:
+            channel:
+              type: string
+            configuration_url:
+              type: string
+            url:
+              type: string
+        is_enterprise_install:
+          type: boolean
+        refresh_token:
+          type: string
+        scope:
+          type: string
+        team:
+          required:
+          - id
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        token_type:
+          type: string
+      example:
+        access_token: xoxb-REDACTED-EXAMPLE-TOKEN
+        app_id: A12345678
+        authed_user:
+          id: U12345678
+          scope: identify,commands
+        bot_user_id: U12345678
+        enterprise_id: E12345678
+        enterprise_name: Enterprise Grid, Inc.
+        id: T0G9PQBBK
+        incoming_webhook:
+          channel: C12345678
+          channel_id: C12345678
+          configuration_url: https://teamname.slack.com/services/B12345678
+          url: https://example.slack.com/incoming-webhook-url
+        scope: identify,commands,bot
+        team:
+          id: T123
+          name: Team Installing Your App
+        team_id: T12345678
+        team_name: Team Installing Your App
+    SlackTokenResponse:
+      required:
+      - created_at
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+        webhook:
+          url: https://example.com/webhook

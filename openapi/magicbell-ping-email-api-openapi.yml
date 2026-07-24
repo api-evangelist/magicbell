@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns ping_email API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: ping_email
+paths:
+  /integrations/ping_email:
+    delete:
+      tags:
+      - ping_email
+      description: Removes a ping_email integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ping_email_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+    get:
+      tags:
+      - ping_email
+      description: Retrieves the current ping_email integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ping_email_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfPingConfigObjects'
+    put:
+      tags:
+      - ping_email
+      description: Creates or updates a ping_email integration for the project. Only administrators can configure integrations.
+      operationId: save_ping_email_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PingConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingConfig'
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+  /integrations/ping_email/{id}:
+    delete:
+      tags:
+      - ping_email
+      description: Removes a specific ping_email integration instance by ID from the project.
+      operationId: delete_ping_email_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+components:
+  schemas:
+    PingConfig:
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: URL to ping
+          format: uri
+      example:
+        url: https://example.com/webhook
+    ArrayOfPingConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PingConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            url: https://example.com/webhook
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    PingConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/PingConfig'
+        id:
+          type: string
+        name:
+          type: string
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

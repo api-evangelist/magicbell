@@ -1,0 +1,563 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channel/mobile_push API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channel/mobile_push
+paths:
+  /integrations/apns:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a apns integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_apns_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+    get:
+      tags:
+      - channel/mobile_push
+      description: Retrieves the current apns integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_apns_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSConfigObjects'
+    put:
+      tags:
+      - channel/mobile_push
+      description: Creates or updates a apns integration for the project. Only administrators can configure integrations.
+      operationId: save_apns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /integrations/apns/{id}:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a specific apns integration instance by ID from the project.
+      operationId: delete_apns_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /integrations/expo:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a expo integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_expo_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+    get:
+      tags:
+      - channel/mobile_push
+      description: Retrieves the current expo integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_expo_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoConfigObjects'
+    put:
+      tags:
+      - channel/mobile_push
+      description: Creates or updates a expo integration for the project. Only administrators can configure integrations.
+      operationId: save_expo_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /integrations/expo/{id}:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a specific expo integration instance by ID from the project.
+      operationId: delete_expo_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /integrations/fcm:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a fcm integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_fcm_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+    get:
+      tags:
+      - channel/mobile_push
+      description: Retrieves the current fcm integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_fcm_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMConfigObjects'
+    put:
+      tags:
+      - channel/mobile_push
+      description: Creates or updates a fcm integration for the project. Only administrators can configure integrations.
+      operationId: save_fcm_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+  /integrations/fcm/{id}:
+    delete:
+      tags:
+      - channel/mobile_push
+      description: Removes a specific fcm integration instance by ID from the project.
+      operationId: delete_fcm_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+components:
+  schemas:
+    APNSConfig:
+      required:
+      - app_id
+      - certificate
+      - key_id
+      - team_id
+      - badge
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
+        badge:
+          enum:
+          - unread
+          - unseen
+          type: string
+        certificate:
+          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
+          type: string
+          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
+          x-ui:
+            tagName: textarea
+        key_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+        payload_version:
+          enum:
+          - '1'
+          - '2'
+          type: string
+          default: '2'
+          x-ui:
+            type: hidden
+        team_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+      example:
+        app_id: com.example.myapp
+        badge: unread
+        certificate: '-----BEGIN PRIVATE KEY-----
+
+          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+          -----END PRIVATE KEY-----'
+        key_id: ABCD1234EF
+        team_id: ABCD1234EF
+    ArrayOfAPNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: com.example.myapp
+            badge: unread
+            certificate: '-----BEGIN PRIVATE KEY-----
+
+              MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+              -----END PRIVATE KEY-----'
+            key_id: ABCD1234EF
+            team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfExpoConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            access_token: expo_access_token
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ExpoConfig:
+      required:
+      - access_token
+      type: object
+      properties:
+        access_token:
+          minLength: 1
+          type: string
+      example:
+        access_token: expo_access_token
+    FCMConfig:
+      required:
+      - type
+      - project_id
+      - private_key_id
+      - private_key
+      - client_email
+      - client_id
+      - auth_uri
+      - token_uri
+      - auth_provider_x509_cert_url
+      - client_x509_cert_url
+      - universe_domain
+      type: object
+      properties:
+        auth_provider_x509_cert_url:
+          type: string
+        auth_uri:
+          type: string
+        client_email:
+          type: string
+        client_id:
+          type: string
+        client_x509_cert_url:
+          type: string
+        private_key:
+          pattern: ^-+?\s?BEGIN[A-Z ]+-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END[A-Z ]+-+\n?$
+          type: string
+          x-ui:
+            tagName: textarea
+        private_key_id:
+          type: string
+        project_id:
+          type: string
+        token_uri:
+          type: string
+        type:
+          enum:
+          - service_account
+          type: string
+        universe_domain:
+          type: string
+      example:
+        auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+        client_id: '117893100789081023083'
+        client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+        private_key: '-----BEGIN PRIVATE KEY-----
+
+          MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+          ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+          QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+          iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+          t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+          y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+          yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+          qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+          rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+          C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+          pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+          9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+          FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+          9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+          YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+          yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+          O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+          espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+          FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+          wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+          vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+          H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+          hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+          N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+          0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+          ps+wuWO8MN5yQTBZvAEIfQs=
+
+          -----END PRIVATE KEY-----
+
+          '
+        private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+        project_id: platform-development
+        token_uri: https://oauth2.googleapis.com/token
+        type: service_account
+        universe_domain: googleapis.com
+    FCMConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/FCMConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ExpoConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ExpoConfig'
+        id:
+          type: string
+        name:
+          type: string
+    APNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/APNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    ArrayOfFCMConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+            auth_uri: https://accounts.google.com/o/oauth2/auth
+            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+            client_id: '117893100789081023083'
+            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+            private_key: '-----BEGIN PRIVATE KEY-----
+
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+              ps+wuWO8MN5yQTBZvAEIfQs=
+
+              -----END PRIVATE KEY-----
+
+              '
+            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+            project_id: platform-development
+            token_uri: https://oauth2.googleapis.com/token
+            type: service_account
+            universe_domain: googleapis.com
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

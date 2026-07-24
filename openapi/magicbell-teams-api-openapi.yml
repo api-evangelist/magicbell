@@ -1,0 +1,259 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns teams API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: teams
+paths:
+  /channels/teams/tokens:
+    get:
+      tags:
+      - teams
+      description: Lists all teams tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_teams_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTeamsTokenResponses'
+    post:
+      tags:
+      - teams
+      description: Saves a teams token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_teams_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsToken'
+  /channels/teams/tokens/{token_id}:
+    delete:
+      tags:
+      - teams
+      description: Revokes one of the authenticated user's teams tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_teams_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - teams
+      description: Retrieves details of a specific teams token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_teams_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTokenResponse'
+  /users/{user_id}/channels/teams/tokens:
+    get:
+      tags:
+      - teams
+      description: Lists all teams tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_teams_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTeamsTokenResponses'
+  /users/{user_id}/channels/teams/tokens/{token_id}:
+    delete:
+      tags:
+      - teams
+      description: Revokes a specific user's teams token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_teams_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - teams
+      description: Retrieves a specific teams token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_teams_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTokenResponse'
+components:
+  schemas:
+    ArrayOfTeamsTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamsTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    TeamsTokenResponse:
+      required:
+      - created_at
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    TeamsToken:
+      type: object
+      properties:
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example: {}

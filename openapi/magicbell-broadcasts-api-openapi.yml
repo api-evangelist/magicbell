@@ -1,0 +1,422 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns broadcasts API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: broadcasts
+paths:
+  /broadcasts:
+    get:
+      tags:
+      - broadcasts
+      description: Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.
+      operationId: list_broadcasts
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfBroadcasts'
+    post:
+      tags:
+      - broadcasts
+      description: Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project. Only administrators can create broadcasts.
+      operationId: create_broadcast
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Broadcast'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Broadcast'
+  /broadcasts/{broadcast_id}:
+    get:
+      tags:
+      - broadcasts
+      description: Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.
+      operationId: fetch_broadcast
+      parameters:
+      - name: broadcast_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Broadcast'
+components:
+  schemas:
+    user:
+      type: object
+      allOf:
+      - anyOf:
+        - required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: \s*
+              type: string
+        - required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: ^[^\s]+
+              type: string
+        - required:
+          - external_id
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: ^[^\s]+
+              type: string
+        - required:
+          - external_id
+          type: object
+          properties:
+            email:
+              type: string
+              format: \s+
+            external_id:
+              minLength: 1
+              pattern: ^[^\s]+
+              type: string
+      - minProperties: 1
+        type: object
+        properties:
+          custom_attributes:
+            type: object
+          email:
+            maxLength: 255
+            type: string
+          external_id:
+            maxLength: 255
+            type: string
+          first_name:
+            maxLength: 255
+            type: string
+          last_name:
+            maxLength: 255
+            type: string
+          phone_numbers:
+            type: array
+            items:
+              pattern: ^\+\d{1,3}\s?\d{1,14}$
+              type: string
+        additionalProperties: false
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    Broadcast:
+      required:
+      - title
+      - recipients
+      type: object
+      properties:
+        action_url:
+          maxLength: 2048
+          type: string
+          nullable: true
+        category:
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type: string
+          nullable: true
+        content:
+          maxLength: 10485760
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          description: The timestamp when the broadcast was created.
+          format: date-time
+          readOnly: true
+        custom_attributes:
+          type: object
+          nullable: true
+        id:
+          type: string
+          description: The unique id for this broadcast.
+        overrides:
+          type: object
+          properties:
+            channels:
+              type: object
+              properties:
+                email:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                in_app:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                mobile_push:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                slack:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                sms:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                web_push:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type: string
+                      nullable: true
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+            providers:
+              type: object
+              properties:
+                amazon_ses:
+                  type: object
+                android:
+                  type: object
+                ios:
+                  type: object
+                mailgun:
+                  type: object
+                postmark:
+                  type: object
+                sendgrid:
+                  type: object
+                slack:
+                  type: object
+          additionalProperties: false
+          nullable: true
+        recipients:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            type: object
+            oneOf:
+            - $ref: '#/components/schemas/topic'
+            - $ref: '#/components/schemas/user'
+        status:
+          required:
+          - status
+          - summary
+          - errors
+          type: object
+          properties:
+            errors:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+              nullable: true
+            status:
+              enum:
+              - enqueued
+              - processing
+              - processed
+              type: string
+              readOnly: true
+            summary:
+              required:
+              - total
+              - failures
+              type: object
+              properties:
+                failures:
+                  type: integer
+                  description: The number of failures while processing the broadcast.
+                  readOnly: true
+                total:
+                  type: integer
+                  description: The number of recipients that the broadcast was sent to.
+                  readOnly: true
+        title:
+          maxLength: 255
+          minLength: 1
+          type: string
+        topic:
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type: string
+          nullable: true
+      example:
+        action_url: https://example.com
+        category: example
+        content: Hello, World!
+        custom_attributes: {}
+        id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+        overrides: {}
+        recipients:
+        - custom_attributes:
+            plan: enterprise
+            preferred_pronoun: They
+            pricing_version: v10
+          email: test@example.com
+          external_id: 83d987a-83fd034
+          first_name: Person
+          last_name: Doe
+          phone_numbers:
+          - +1 5005550001
+        title: Hello, World!
+        topic: example
+    topic:
+      required:
+      - topic
+      type: object
+      properties:
+        topic:
+          required:
+          - subscribers
+          type: object
+          properties:
+            subscribers:
+              type: boolean
+          additionalProperties: false
+      additionalProperties: false
+    ArrayOfBroadcasts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Broadcast'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - action_url: https://example.com
+          category: example
+          content: Hello, World!
+          custom_attributes: {}
+          id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+          overrides: {}
+          recipients:
+          - custom_attributes:
+              plan: enterprise
+              preferred_pronoun: They
+              pricing_version: v10
+            email: test@example.com
+            external_id: 83d987a-83fd034
+            first_name: Person
+            last_name: Doe
+            phone_numbers:
+            - +1 5005550001
+          title: Hello, World!
+          topic: example
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns stripe API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: stripe
+paths:
+  /integrations/stripe:
+    delete:
+      tags:
+      - stripe
+      description: Removes a stripe integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_stripe_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Stripe
+        name: stripe
+    get:
+      tags:
+      - stripe
+      description: Retrieves the current stripe integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_stripe_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfStripeConfigObjects'
+    put:
+      tags:
+      - stripe
+      description: Creates or updates a stripe integration for the project. Only administrators can configure integrations.
+      operationId: save_stripe_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: Stripe
+        name: stripe
+  /integrations/stripe/webhooks/incoming/{id}:
+    post:
+      tags:
+      - stripe
+      description: Receives and processes incoming webhook events from the stripe integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_stripe_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeWebhookEvent'
+  /integrations/stripe/{id}:
+    delete:
+      tags:
+      - stripe
+      description: Removes a specific stripe integration instance by ID from the project.
+      operationId: delete_stripe_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Stripe
+        name: stripe
+components:
+  schemas:
+    StripeWebhookEvent:
+      required:
+      - id
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the webhook event
+        id:
+          type: string
+          description: Unique identifier for the webhook event
+      example:
+        description: example event
+        id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
+        type: invoice.created
+    StripeConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Stripe
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    StripeConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/StripeConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfStripeConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StripeConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

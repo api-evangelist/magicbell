@@ -1,0 +1,547 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns fcm API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: fcm
+paths:
+  /channels/mobile_push/fcm/tokens:
+    get:
+      tags:
+      - fcm
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_fcm_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMTokenResponses'
+    post:
+      tags:
+      - fcm
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_fcm_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+  /channels/mobile_push/fcm/tokens/{token_id}:
+    delete:
+      tags:
+      - fcm
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - fcm
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenResponse'
+  /integrations/fcm:
+    delete:
+      tags:
+      - fcm
+      description: Removes a fcm integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_fcm_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+    get:
+      tags:
+      - fcm
+      description: Retrieves the current fcm integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_fcm_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMConfigObjects'
+    put:
+      tags:
+      - fcm
+      description: Creates or updates a fcm integration for the project. Only administrators can configure integrations.
+      operationId: save_fcm_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+  /integrations/fcm/{id}:
+    delete:
+      tags:
+      - fcm
+      description: Removes a specific fcm integration instance by ID from the project.
+      operationId: delete_fcm_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+  /users/{user_id}/channels/mobile_push/fcm/tokens:
+    get:
+      tags:
+      - fcm
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_fcm_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMTokenResponses'
+  /users/{user_id}/channels/mobile_push/fcm/tokens/{token_id}:
+    delete:
+      tags:
+      - fcm
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_fcm_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - fcm
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_fcm_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenResponse'
+components:
+  schemas:
+    FCMToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    FCMConfig:
+      required:
+      - type
+      - project_id
+      - private_key_id
+      - private_key
+      - client_email
+      - client_id
+      - auth_uri
+      - token_uri
+      - auth_provider_x509_cert_url
+      - client_x509_cert_url
+      - universe_domain
+      type: object
+      properties:
+        auth_provider_x509_cert_url:
+          type: string
+        auth_uri:
+          type: string
+        client_email:
+          type: string
+        client_id:
+          type: string
+        client_x509_cert_url:
+          type: string
+        private_key:
+          pattern: ^-+?\s?BEGIN[A-Z ]+-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END[A-Z ]+-+\n?$
+          type: string
+          x-ui:
+            tagName: textarea
+        private_key_id:
+          type: string
+        project_id:
+          type: string
+        token_uri:
+          type: string
+        type:
+          enum:
+          - service_account
+          type: string
+        universe_domain:
+          type: string
+      example:
+        auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+        client_id: '117893100789081023083'
+        client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+        private_key: '-----BEGIN PRIVATE KEY-----
+
+          MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+          ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+          QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+          iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+          t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+          y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+          yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+          qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+          rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+          C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+          pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+          9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+          FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+          9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+          YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+          yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+          O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+          espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+          FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+          wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+          vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+          H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+          hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+          N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+          0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+          ps+wuWO8MN5yQTBZvAEIfQs=
+
+          -----END PRIVATE KEY-----
+
+          '
+        private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+        project_id: platform-development
+        token_uri: https://oauth2.googleapis.com/token
+        type: service_account
+        universe_domain: googleapis.com
+    FCMConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/FCMConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfFCMTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    FCMTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfFCMConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+            auth_uri: https://accounts.google.com/o/oauth2/auth
+            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+            client_id: '117893100789081023083'
+            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+            private_key: '-----BEGIN PRIVATE KEY-----
+
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+              ps+wuWO8MN5yQTBZvAEIfQs=
+
+              -----END PRIVATE KEY-----
+
+              '
+            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+            project_id: platform-development
+            token_uri: https://oauth2.googleapis.com/token
+            type: service_account
+            universe_domain: googleapis.com
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

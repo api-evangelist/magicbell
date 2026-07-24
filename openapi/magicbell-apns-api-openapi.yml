@@ -1,0 +1,439 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: apns
+paths:
+  /channels/mobile_push/apns/tokens:
+    get:
+      tags:
+      - apns
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_apns_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSTokenResponses'
+    post:
+      tags:
+      - apns
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_apns_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSToken'
+  /channels/mobile_push/apns/tokens/{token_id}:
+    delete:
+      tags:
+      - apns
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - apns
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenResponse'
+  /integrations/apns:
+    delete:
+      tags:
+      - apns
+      description: Removes a apns integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_apns_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+    get:
+      tags:
+      - apns
+      description: Retrieves the current apns integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_apns_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSConfigObjects'
+    put:
+      tags:
+      - apns
+      description: Creates or updates a apns integration for the project. Only administrators can configure integrations.
+      operationId: save_apns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /integrations/apns/{id}:
+    delete:
+      tags:
+      - apns
+      description: Removes a specific apns integration instance by ID from the project.
+      operationId: delete_apns_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /users/{user_id}/channels/mobile_push/apns/tokens:
+    get:
+      tags:
+      - apns
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_apns_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSTokenResponses'
+  /users/{user_id}/channels/mobile_push/apns/tokens/{token_id}:
+    delete:
+      tags:
+      - apns
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_apns_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - apns
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_apns_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenResponse'
+components:
+  schemas:
+    APNSToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    APNSConfig:
+      required:
+      - app_id
+      - certificate
+      - key_id
+      - team_id
+      - badge
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
+        badge:
+          enum:
+          - unread
+          - unseen
+          type: string
+        certificate:
+          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
+          type: string
+          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
+          x-ui:
+            tagName: textarea
+        key_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+        payload_version:
+          enum:
+          - '1'
+          - '2'
+          type: string
+          default: '2'
+          x-ui:
+            type: hidden
+        team_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+      example:
+        app_id: com.example.myapp
+        badge: unread
+        certificate: '-----BEGIN PRIVATE KEY-----
+
+          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+          -----END PRIVATE KEY-----'
+        key_id: ABCD1234EF
+        team_id: ABCD1234EF
+    ArrayOfAPNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: com.example.myapp
+            badge: unread
+            certificate: '-----BEGIN PRIVATE KEY-----
+
+              MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+              -----END PRIVATE KEY-----'
+            key_id: ABCD1234EF
+            team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    APNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/APNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    APNSTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    ArrayOfAPNSTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

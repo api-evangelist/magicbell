@@ -1,0 +1,407 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns inbox API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: inbox
+paths:
+  /integrations/inbox:
+    delete:
+      tags:
+      - inbox
+      description: Removes a inbox integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_inbox_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Inbox
+        name: inbox
+    get:
+      tags:
+      - inbox
+      description: Retrieves the current inbox integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_inbox_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfInboxConfigObjects'
+    put:
+      tags:
+      - inbox
+      description: Creates or updates a inbox integration for the project. Only administrators can configure integrations.
+      operationId: save_inbox_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+      x-meta:
+        displayName: Inbox
+        name: inbox
+  /integrations/inbox/installations:
+    post:
+      tags:
+      - inbox
+      description: Creates a new installation of a inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_inbox_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfig'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+  /integrations/inbox/installations/start:
+    post:
+      tags:
+      - inbox
+      description: Initiates the installation flow for a inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_inbox_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+  /integrations/inbox/{id}:
+    delete:
+      tags:
+      - inbox
+      description: Removes a specific inbox integration instance by ID from the project.
+      operationId: delete_inbox_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Inbox
+        name: inbox
+components:
+  schemas:
+    InboxConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/InboxConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfInboxConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboxConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            images:
+              emptyInboxUrl: ''
+            locale: de
+            theme:
+              banner:
+                backgroundColor: '#F8F5FF'
+                fontSize: 14px
+                textColor: '#3A424D'
+              dialog:
+                accentColor: '#5225C1'
+                backgroundColor: '#F5F5F5'
+                textColor: '#313131'
+              footer:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              header:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              icon:
+                borderColor: '#EDEDEF'
+                width: 24px
+              unseenBadge:
+                backgroundColor: '#F80808'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    InboxConfig:
+      required:
+      - theme
+      - locale
+      - images
+      type: object
+      properties:
+        images:
+          minProperties: 1
+          required:
+          - emptyInboxUrl
+          type: object
+          properties:
+            emptyInboxUrl:
+              type: string
+          nullable: true
+        locale:
+          minLength: 2
+          type: string
+          nullable: true
+        theme:
+          minProperties: 1
+          type: object
+          properties:
+            banner:
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                backgroundOpacity:
+                  type: number
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            dialog:
+              required:
+              - backgroundColor
+              - textColor
+              - accentColor
+              type: object
+              properties:
+                accentColor:
+                  type: string
+                backgroundColor:
+                  type: string
+                textColor:
+                  type: string
+            footer:
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                borderRadius:
+                  type: string
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            header:
+              required:
+              - fontFamily
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                borderRadius:
+                  type: string
+                fontFamily:
+                  type: string
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            icon:
+              required:
+              - borderColor
+              - width
+              type: object
+              properties:
+                borderColor:
+                  type: string
+                width:
+                  type: string
+            notification:
+              required:
+              - default
+              - unseen
+              - unread
+              type: object
+              properties:
+                default:
+                  required:
+                  - fontFamily
+                  - fontSize
+                  - textColor
+                  - borderRadius
+                  - backgroundColor
+                  - margin
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    borderRadius:
+                      type: string
+                    fontFamily:
+                      type: string
+                    fontSize:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    margin:
+                      type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+                unread:
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+                unseen:
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+            unseenBadge:
+              required:
+              - backgroundColor
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+          nullable: true
+      example:
+        images:
+          emptyInboxUrl: ''
+        locale: de
+        theme:
+          banner:
+            backgroundColor: '#F8F5FF'
+            fontSize: 14px
+            textColor: '#3A424D'
+          dialog:
+            accentColor: '#5225C1'
+            backgroundColor: '#F5F5F5'
+            textColor: '#313131'
+          footer:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          header:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          icon:
+            borderColor: '#EDEDEF'
+            width: 24px
+          unseenBadge:
+            backgroundColor: '#F80808'
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

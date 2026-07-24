@@ -1,0 +1,454 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns web_push API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: web_push
+paths:
+  /channels/web_push/tokens:
+    get:
+      tags:
+      - web_push
+      description: Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_web_push_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebPushTokenResponses'
+    post:
+      tags:
+      - web_push
+      description: Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_web_push_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+  /channels/web_push/tokens/{token_id}:
+    delete:
+      tags:
+      - web_push
+      description: Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - web_push
+      description: Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenResponse'
+  /integrations/web_push:
+    delete:
+      tags:
+      - web_push
+      description: Removes a web_push integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_web_push_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+    get:
+      tags:
+      - web_push
+      description: Retrieves the current web_push integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_web_push_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebpushConfigObjects'
+    put:
+      tags:
+      - web_push
+      description: Creates or updates a web_push integration for the project. Only administrators can configure integrations.
+      operationId: save_web_push_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebpushConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebpushConfig'
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+  /integrations/web_push/installations:
+    post:
+      tags:
+      - web_push
+      description: Creates a new installation of a web_push integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_web_push_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+  /integrations/web_push/installations/start:
+    post:
+      tags:
+      - web_push
+      description: Initiates the installation flow for a web_push integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_web_push_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushStartInstallationResponse'
+  /integrations/web_push/{id}:
+    delete:
+      tags:
+      - web_push
+      description: Removes a specific web_push integration instance by ID from the project.
+      operationId: delete_web_push_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+  /users/{user_id}/channels/web_push/tokens:
+    get:
+      tags:
+      - web_push
+      description: Lists all web_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_web_push_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebPushTokenResponses'
+  /users/{user_id}/channels/web_push/tokens/{token_id}:
+    delete:
+      tags:
+      - web_push
+      description: Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_web_push_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - web_push
+      description: Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_web_push_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenResponse'
+components:
+  schemas:
+    ArrayOfWebPushTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebPushTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          endpoint: https://example.com/webhook
+          id: '123'
+          keys:
+            auth: <string>
+            p256dh: <string>
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    WebPushStartInstallationResponse:
+      required:
+      - public_key
+      - auth_token
+      type: object
+      properties:
+        auth_token:
+          minLength: 8
+          type: string
+        public_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+      example:
+        auth_token: eyGhb...GA2Bw
+        public_key: BHaJd...gRHDk
+    WebpushConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/WebpushConfig'
+        id:
+          type: string
+        name:
+          type: string
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    WebPushTokenResponse:
+      required:
+      - created_at
+      - endpoint
+      - id
+      - keys
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        endpoint:
+          type: string
+          format: uri
+        id:
+          type: string
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        endpoint: https://example.com/webhook
+        id: '123'
+        keys:
+          auth: <string>
+          p256dh: <string>
+        updated_at: '2021-01-01T00:00:00Z'
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    WebpushConfig:
+      required:
+      - public_key
+      - private_key
+      type: object
+      properties:
+        private_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+        public_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+      example:
+        private_key: <string>
+        public_key: <string>
+    ArrayOfWebpushConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebpushConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            private_key: <string>
+            public_key: <string>
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    WebPushToken:
+      required:
+      - endpoint
+      - keys
+      type: object
+      properties:
+        endpoint:
+          type: string
+          format: uri
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+      example:
+        endpoint: https://example.com/webhook
+        keys:
+          auth: <string>
+          p256dh: <string>

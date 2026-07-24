@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns mailgun API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: mailgun
+paths:
+  /integrations/mailgun:
+    delete:
+      tags:
+      - mailgun
+      description: Removes a mailgun integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_mailgun_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+    get:
+      tags:
+      - mailgun
+      description: Retrieves the current mailgun integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_mailgun_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMailgunConfigObjects'
+    put:
+      tags:
+      - mailgun
+      description: Creates or updates a mailgun integration for the project. Only administrators can configure integrations.
+      operationId: save_mailgun_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailgunConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailgunConfig'
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+  /integrations/mailgun/{id}:
+    delete:
+      tags:
+      - mailgun
+      description: Removes a specific mailgun integration instance by ID from the project.
+      operationId: delete_mailgun_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    MailgunConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/MailgunConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfMailgunConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailgunConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: mailgun_api_key
+            domain: mailgun_domain
+            region: us
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    MailgunConfig:
+      required:
+      - api_key
+      - region
+      - domain
+      type: object
+      properties:
+        api_key:
+          minLength: 1
+          type: string
+        domain:
+          minLength: 1
+          type: string
+        region:
+          enum:
+          - us
+          - eu
+          type: string
+      example:
+        api_key: mailgun_api_key
+        domain: mailgun_domain
+        region: us

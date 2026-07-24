@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns templates API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: templates
+paths:
+  /integrations/templates:
+    delete:
+      tags:
+      - templates
+      description: Removes a templates integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_templates_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Templates
+        name: templates
+    get:
+      tags:
+      - templates
+      description: Retrieves the current templates integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_templates_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTemplatesConfigObjects'
+    put:
+      tags:
+      - templates
+      description: Creates or updates a templates integration for the project. Only administrators can configure integrations.
+      operationId: save_templates_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplatesConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesConfig'
+      x-meta:
+        displayName: Templates
+        name: templates
+  /integrations/templates/installations:
+    post:
+      tags:
+      - templates
+      description: Creates a new installation of a templates integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_templates_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplatesInstallation'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesInstallation'
+  /integrations/templates/{id}:
+    delete:
+      tags:
+      - templates
+      description: Removes a specific templates integration instance by ID from the project.
+      operationId: delete_templates_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Templates
+        name: templates
+components:
+  schemas:
+    ArrayOfTemplatesConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatesConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            apns:
+              app_id: com.example.myapp
+              badge: unread
+              certificate: MIICXQIBAAKBgQC3J2
+              key_id: ABCD1234EF
+              team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TemplatesInstallation:
+      required:
+      - text
+      - channel
+      type: object
+      properties:
+        category:
+          type: string
+          nullable: true
+        channel:
+          type: string
+        text:
+          type: string
+      example:
+        channel: email
+        text: Installation
+    TemplatesConfig:
+      type: object
+      example:
+        apns:
+          app_id: com.example.myapp
+          badge: unread
+          certificate: MIICXQIBAAKBgQC3J2
+          key_id: ABCD1234EF
+          team_id: ABCD1234EF
+      x-ui:
+        type: hidden
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    TemplatesConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TemplatesConfig'
+        id:
+          type: string
+        name:
+          type: string

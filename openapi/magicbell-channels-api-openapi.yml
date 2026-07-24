@@ -1,0 +1,1566 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channels API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channels
+paths:
+  /channels/deliveryconfig:
+    get:
+      tags:
+      - channels
+      description: ''
+      operationId: get_project_deliveryconfig
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDeliveryConfig'
+    put:
+      tags:
+      - channels
+      description: ''
+      operationId: save_project_deliveryconfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDeliveryConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDeliveryConfig'
+  /channels/mobile_push/apns/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_apns_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_apns_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSToken'
+  /channels/mobile_push/apns/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenResponse'
+  /channels/mobile_push/expo/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_expo_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_expo_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoToken'
+  /channels/mobile_push/expo/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenResponse'
+  /channels/mobile_push/fcm/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_fcm_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_fcm_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+  /channels/mobile_push/fcm/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenResponse'
+  /channels/slack/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_slack_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_slack_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackToken'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+  /channels/slack/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_slack_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_slack_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackTokenResponse'
+  /channels/teams/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all teams tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_teams_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTeamsTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a teams token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_teams_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsToken'
+  /channels/teams/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's teams tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_teams_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific teams token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_teams_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTokenResponse'
+  /channels/web_push/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_web_push_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebPushTokenResponses'
+    post:
+      tags:
+      - channels
+      description: Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_web_push_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+  /channels/web_push/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenResponse'
+  /users/{user_id}/channels/mobile_push/apns/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_apns_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSTokenResponses'
+  /users/{user_id}/channels/mobile_push/apns/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_apns_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_apns_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenResponse'
+  /users/{user_id}/channels/mobile_push/expo/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_expo_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoTokenResponses'
+  /users/{user_id}/channels/mobile_push/expo/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_expo_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_expo_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenResponse'
+  /users/{user_id}/channels/mobile_push/fcm/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_fcm_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMTokenResponses'
+  /users/{user_id}/channels/mobile_push/fcm/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_fcm_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_fcm_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenResponse'
+  /users/{user_id}/channels/slack/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all slack tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_slack_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackTokenResponses'
+  /users/{user_id}/channels/slack/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's slack token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_slack_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific slack token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_slack_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackTokenResponse'
+  /users/{user_id}/channels/teams/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all teams tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_teams_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTeamsTokenResponses'
+  /users/{user_id}/channels/teams/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's teams token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_teams_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific teams token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_teams_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTokenResponse'
+  /users/{user_id}/channels/web_push/tokens:
+    get:
+      tags:
+      - channels
+      description: Lists all web_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_web_push_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebPushTokenResponses'
+  /users/{user_id}/channels/web_push/tokens/{token_id}:
+    delete:
+      tags:
+      - channels
+      description: Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_web_push_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - channels
+      description: Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_web_push_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenResponse'
+components:
+  schemas:
+    CategoryDeliveryConfig:
+      required:
+      - channels
+      - key
+      type: object
+      properties:
+        channels:
+          type: array
+          items:
+            required:
+            - channel
+            type: object
+            properties:
+              channel:
+                enum:
+                - in_app
+                - slack
+                - web_push
+                - mobile_push
+                - teams
+                - email
+                type: string
+              delay:
+                minimum: 0
+                type: integer
+              disabled:
+                type: boolean
+                default: false
+              if:
+                type: string
+              priority:
+                minimum: 0
+                type: integer
+        disabled:
+          type: boolean
+          default: false
+        key:
+          minLength: 3
+          pattern: ^[A-Za-z0-9_\.\-:]+$
+          type: string
+      example:
+        channels:
+        - channel: in_app
+        - channel: email
+          if: '{{notification.unseen}} == false'
+        disabled: false
+        key: project
+    SlackToken:
+      minProperties: 1
+      type: object
+      properties:
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      additionalProperties: false
+      example:
+        webhook:
+          url: https://example.com/webhook
+    ArrayOfTeamsTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamsTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ExpoTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 1
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: expo-device-id
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    FCMTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfAPNSTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TeamsToken:
+      type: object
+      properties:
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example: {}
+    ArrayOfWebPushTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebPushTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          endpoint: https://example.com/webhook
+          id: '123'
+          keys:
+            auth: <string>
+            p256dh: <string>
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    FCMToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    ArrayOfSlackTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+          webhook:
+            url: https://example.com/webhook
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TeamsTokenResponse:
+      required:
+      - created_at
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfFCMTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    APNSTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    ArrayOfExpoTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: expo-device-id
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ExpoToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 1
+          type: string
+      example:
+        device_token: expo-device-id
+    WebPushToken:
+      required:
+      - endpoint
+      - keys
+      type: object
+      properties:
+        endpoint:
+          type: string
+          format: uri
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+      example:
+        endpoint: https://example.com/webhook
+        keys:
+          auth: <string>
+          p256dh: <string>
+    APNSToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    WebPushTokenResponse:
+      required:
+      - created_at
+      - endpoint
+      - id
+      - keys
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        endpoint:
+          type: string
+          format: uri
+        id:
+          type: string
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        endpoint: https://example.com/webhook
+        id: '123'
+        keys:
+          auth: <string>
+          p256dh: <string>
+        updated_at: '2021-01-01T00:00:00Z'
+    SlackTokenResponse:
+      required:
+      - created_at
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+        webhook:
+          url: https://example.com/webhook

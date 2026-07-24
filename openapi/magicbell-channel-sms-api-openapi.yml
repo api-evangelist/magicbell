@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channel/sms API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channel/sms
+paths:
+  /integrations/twilio:
+    delete:
+      tags:
+      - channel/sms
+      description: Removes a twilio integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_twilio_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+    get:
+      tags:
+      - channel/sms
+      description: Retrieves the current twilio integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_twilio_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTwilioConfigObjects'
+    put:
+      tags:
+      - channel/sms
+      description: Creates or updates a twilio integration for the project. Only administrators can configure integrations.
+      operationId: save_twilio_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwilioConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwilioConfig'
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+  /integrations/twilio/{id}:
+    delete:
+      tags:
+      - channel/sms
+      description: Removes a specific twilio integration instance by ID from the project.
+      operationId: delete_twilio_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+components:
+  schemas:
+    TwilioConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TwilioConfig'
+        id:
+          type: string
+        name:
+          type: string
+    TwilioConfig:
+      required:
+      - account_sid
+      - api_key
+      - api_secret
+      - from
+      type: object
+      properties:
+        account_sid:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The SID for your Twilio account
+        api_key:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API key for Twilio
+        api_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API Secret for Twilio
+        from:
+          maxLength: 100
+          minLength: 1
+          pattern: ^\+[0-9]{1,14}$
+          type: string
+          description: The phone number to send from, in E.164 format
+        region:
+          enum:
+          - us1
+          - ie1
+          - au1
+          type: string
+          description: The region to use for Twilio, defaults to 'us1'
+      example:
+        account_sid: ACXXXXXXXX
+        api_key: SKXXXXXXXX
+        api_secret: your_api_secret
+        from: '+15017122661'
+        region: us1
+    ArrayOfTwilioConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TwilioConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            account_sid: ACXXXXXXXX
+            api_key: SKXXXXXXXX
+            api_secret: your_api_secret
+            from: '+15017122661'
+            region: us1
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

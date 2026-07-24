@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns sendgrid API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: sendgrid
+paths:
+  /integrations/sendgrid:
+    delete:
+      tags:
+      - sendgrid
+      description: Removes a sendgrid integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_sendgrid_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+    get:
+      tags:
+      - sendgrid
+      description: Retrieves the current sendgrid integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_sendgrid_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSendgridConfigObjects'
+    put:
+      tags:
+      - sendgrid
+      description: Creates or updates a sendgrid integration for the project. Only administrators can configure integrations.
+      operationId: save_sendgrid_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendgridConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendgridConfig'
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+  /integrations/sendgrid/{id}:
+    delete:
+      tags:
+      - sendgrid
+      description: Removes a specific sendgrid integration instance by ID from the project.
+      operationId: delete_sendgrid_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+components:
+  schemas:
+    SendgridConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SendgridConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfSendgridConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendgridConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: SG.1234567890
+            from:
+              email: matt@magicbell.com
+              name: Matt
+            reply_to:
+              email: hana@magicbell.com
+              name: Hana
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    SendgridConfig:
+      required:
+      - api_key
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for Sendgrid
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        reply_to:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to reply to
+              format: email
+            name:
+              type: string
+              description: The name to reply to
+              nullable: true
+      example:
+        api_key: SG.1234567890
+        from:
+          email: matt@magicbell.com
+          name: Matt
+        reply_to:
+          email: hana@magicbell.com
+          name: Hana

@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channel/slack API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channel/slack
+paths:
+  /integrations/slack:
+    delete:
+      tags:
+      - channel/slack
+      description: Removes a slack integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_slack_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+    get:
+      tags:
+      - channel/slack
+      description: Retrieves the current slack integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_slack_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackConfigObjects'
+    put:
+      tags:
+      - channel/slack
+      description: Creates or updates a slack integration for the project. Only administrators can configure integrations.
+      operationId: save_slack_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackConfig'
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+  /integrations/slack/{id}:
+    delete:
+      tags:
+      - channel/slack
+      description: Removes a specific slack integration instance by ID from the project.
+      operationId: delete_slack_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+components:
+  schemas:
+    ArrayOfSlackConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: '12345678901'
+            client_id: '1.0'
+            client_secret: '12345678901234567890123456789012'
+            signing_secret: '12345678901234567890123456789012'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SlackConfig'
+        id:
+          type: string
+        name:
+          type: string
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    SlackConfig:
+      required:
+      - app_id
+      - client_id
+      - client_secret
+      - signing_secret
+      type: object
+      properties:
+        app_id:
+          pattern: ^[0-9A-Z]+$
+          type: string
+          description: The Slack app ID that can be found in the app's settings page of the Slack API dashboard.
+        client_id:
+          pattern: ^[0-9]+\.[0-9]+$
+          type: string
+          description: The Slack client ID that can be found in the app's settings page of the Slack API dashboard.
+        client_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack client secret that can be found in the app's settings page of the Slack API dashboard.
+        signing_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack signing secret that can be found in the app's settings page of the Slack API dashboard.
+      example:
+        app_id: '12345678901'
+        client_id: '1.0'
+        client_secret: '12345678901234567890123456789012'
+        signing_secret: '12345678901234567890123456789012'

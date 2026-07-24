@@ -1,0 +1,545 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channel/email API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channel/email
+paths:
+  /integrations/mailgun:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a mailgun integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_mailgun_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+    get:
+      tags:
+      - channel/email
+      description: Retrieves the current mailgun integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_mailgun_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMailgunConfigObjects'
+    put:
+      tags:
+      - channel/email
+      description: Creates or updates a mailgun integration for the project. Only administrators can configure integrations.
+      operationId: save_mailgun_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailgunConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailgunConfig'
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+  /integrations/mailgun/{id}:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a specific mailgun integration instance by ID from the project.
+      operationId: delete_mailgun_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+  /integrations/ping_email:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a ping_email integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ping_email_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+    get:
+      tags:
+      - channel/email
+      description: Retrieves the current ping_email integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ping_email_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfPingConfigObjects'
+    put:
+      tags:
+      - channel/email
+      description: Creates or updates a ping_email integration for the project. Only administrators can configure integrations.
+      operationId: save_ping_email_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PingConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingConfig'
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+  /integrations/ping_email/{id}:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a specific ping_email integration instance by ID from the project.
+      operationId: delete_ping_email_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+  /integrations/sendgrid:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a sendgrid integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_sendgrid_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+    get:
+      tags:
+      - channel/email
+      description: Retrieves the current sendgrid integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_sendgrid_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSendgridConfigObjects'
+    put:
+      tags:
+      - channel/email
+      description: Creates or updates a sendgrid integration for the project. Only administrators can configure integrations.
+      operationId: save_sendgrid_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendgridConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendgridConfig'
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+  /integrations/sendgrid/{id}:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a specific sendgrid integration instance by ID from the project.
+      operationId: delete_sendgrid_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+  /integrations/ses:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a ses integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ses_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+    get:
+      tags:
+      - channel/email
+      description: Retrieves the current ses integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ses_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSESConfigObjects'
+    put:
+      tags:
+      - channel/email
+      description: Creates or updates a ses integration for the project. Only administrators can configure integrations.
+      operationId: save_ses_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SESConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SESConfig'
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+  /integrations/ses/{id}:
+    delete:
+      tags:
+      - channel/email
+      description: Removes a specific ses integration instance by ID from the project.
+      operationId: delete_ses_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+components:
+  schemas:
+    MailgunConfig:
+      required:
+      - api_key
+      - region
+      - domain
+      type: object
+      properties:
+        api_key:
+          minLength: 1
+          type: string
+        domain:
+          minLength: 1
+          type: string
+        region:
+          enum:
+          - us
+          - eu
+          type: string
+      example:
+        api_key: mailgun_api_key
+        domain: mailgun_domain
+        region: us
+    PingConfig:
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: URL to ping
+          format: uri
+      example:
+        url: https://example.com/webhook
+    SESConfig:
+      required:
+      - key_id
+      - secret_key
+      - region
+      type: object
+      properties:
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        key_id:
+          minLength: 1
+          type: string
+          description: AWS Access Key ID
+        region:
+          minLength: 1
+          type: string
+          description: AWS Region
+        secret_key:
+          minLength: 1
+          type: string
+          description: AWS Secret Key
+      example:
+        from:
+          email: person@example.com
+          name: Person Name
+        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+        region: eu-west-1
+        secret_key: MY_FAKE_AWS_SECRET_KEY
+    PingConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/PingConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfSESConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SESConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            from:
+              email: person@example.com
+              name: Person Name
+            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+            region: eu-west-1
+            secret_key: MY_FAKE_AWS_SECRET_KEY
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfMailgunConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailgunConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: mailgun_api_key
+            domain: mailgun_domain
+            region: us
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SendgridConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SendgridConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfSendgridConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendgridConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: SG.1234567890
+            from:
+              email: matt@magicbell.com
+              name: Matt
+            reply_to:
+              email: hana@magicbell.com
+              name: Hana
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    SendgridConfig:
+      required:
+      - api_key
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for Sendgrid
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        reply_to:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to reply to
+              format: email
+            name:
+              type: string
+              description: The name to reply to
+              nullable: true
+      example:
+        api_key: SG.1234567890
+        from:
+          email: matt@magicbell.com
+          name: Matt
+        reply_to:
+          email: hana@magicbell.com
+          name: Hana
+    MailgunConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/MailgunConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SESConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SESConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfPingConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PingConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            url: https://example.com/webhook
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

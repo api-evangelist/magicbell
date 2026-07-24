@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns github API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: github
+paths:
+  /integrations/github:
+    delete:
+      tags:
+      - github
+      description: Removes a github integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_github_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: GitHub
+        name: github
+    get:
+      tags:
+      - github
+      description: Retrieves the current github integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_github_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfGithubConfigObjects'
+    put:
+      tags:
+      - github
+      description: Creates or updates a github integration for the project. Only administrators can configure integrations.
+      operationId: save_github_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GithubConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: GitHub
+        name: github
+  /integrations/github/webhooks/incoming/{id}:
+    post:
+      tags:
+      - github
+      description: Receives and processes incoming webhook events from the github integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_github_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GithubWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubWebhookEvent'
+  /integrations/github/{id}:
+    delete:
+      tags:
+      - github
+      description: Removes a specific github integration instance by ID from the project.
+      operationId: delete_github_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: GitHub
+        name: github
+components:
+  schemas:
+    GithubWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+        type:
+          type: string
+      example:
+        description: example event
+        payload: {}
+        type: ping
+    GithubConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Github
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    ArrayOfGithubConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GithubConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    GithubConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GithubConfig'
+        id:
+          type: string
+        name:
+          type: string

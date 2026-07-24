@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns awssns API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: awssns
+paths:
+  /integrations/awssns:
+    delete:
+      tags:
+      - awssns
+      description: Removes a awssns integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_awssns_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+    get:
+      tags:
+      - awssns
+      description: Retrieves the current awssns integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_awssns_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAWSSNSConfigObjects'
+    put:
+      tags:
+      - awssns
+      description: Creates or updates a awssns integration for the project. Only administrators can configure integrations.
+      operationId: save_awssns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSNSConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWSSNSConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+  /integrations/awssns/webhooks/incoming/{id}:
+    post:
+      tags:
+      - awssns
+      description: Receives and processes incoming webhook events from the awssns integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_awssns_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSNSWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWSSNSWebhookEvent'
+  /integrations/awssns/{id}:
+    delete:
+      tags:
+      - awssns
+      description: Removes a specific awssns integration instance by ID from the project.
+      operationId: delete_awssns_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+components:
+  schemas:
+    AWSSNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/AWSSNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    AWSSNSConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          minLength: 1
+          type: string
+          description: The signing certificate from AWS SNS
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    ArrayOfAWSSNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AWSSNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    AWSSNSWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+          nullable: true
+        type:
+          type: string
+      example:
+        payload: {}
+        type: ping

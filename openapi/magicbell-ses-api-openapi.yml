@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns ses API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: ses
+paths:
+  /integrations/ses:
+    delete:
+      tags:
+      - ses
+      description: Removes a ses integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ses_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+    get:
+      tags:
+      - ses
+      description: Retrieves the current ses integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ses_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSESConfigObjects'
+    put:
+      tags:
+      - ses
+      description: Creates or updates a ses integration for the project. Only administrators can configure integrations.
+      operationId: save_ses_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SESConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SESConfig'
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+  /integrations/ses/{id}:
+    delete:
+      tags:
+      - ses
+      description: Removes a specific ses integration instance by ID from the project.
+      operationId: delete_ses_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+components:
+  schemas:
+    SESConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SESConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SESConfig:
+      required:
+      - key_id
+      - secret_key
+      - region
+      type: object
+      properties:
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        key_id:
+          minLength: 1
+          type: string
+          description: AWS Access Key ID
+        region:
+          minLength: 1
+          type: string
+          description: AWS Region
+        secret_key:
+          minLength: 1
+          type: string
+          description: AWS Secret Key
+      example:
+        from:
+          email: person@example.com
+          name: Person Name
+        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+        region: eu-west-1
+        secret_key: MY_FAKE_AWS_SECRET_KEY
+    ArrayOfSESConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SESConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            from:
+              email: person@example.com
+              name: Person Name
+            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+            region: eu-west-1
+            secret_key: MY_FAKE_AWS_SECRET_KEY
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns channel/web_push API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: channel/web_push
+paths:
+  /integrations/web_push:
+    delete:
+      tags:
+      - channel/web_push
+      description: Removes a web_push integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_web_push_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+    get:
+      tags:
+      - channel/web_push
+      description: Retrieves the current web_push integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_web_push_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebpushConfigObjects'
+    put:
+      tags:
+      - channel/web_push
+      description: Creates or updates a web_push integration for the project. Only administrators can configure integrations.
+      operationId: save_web_push_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebpushConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebpushConfig'
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+  /integrations/web_push/{id}:
+    delete:
+      tags:
+      - channel/web_push
+      description: Removes a specific web_push integration instance by ID from the project.
+      operationId: delete_web_push_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+components:
+  schemas:
+    WebpushConfig:
+      required:
+      - public_key
+      - private_key
+      type: object
+      properties:
+        private_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+        public_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+      example:
+        private_key: <string>
+        public_key: <string>
+    ArrayOfWebpushConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebpushConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            private_key: <string>
+            public_key: <string>
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    WebpushConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/WebpushConfig'
+        id:
+          type: string
+        name:
+          type: string
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true

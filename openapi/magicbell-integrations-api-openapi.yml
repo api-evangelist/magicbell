@@ -1,0 +1,2786 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns integrations API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: integrations
+paths:
+  /integrations:
+    get:
+      tags:
+      - integrations
+      summary: List Integrations
+      description: Lists all available and configured integrations for the project. Returns a summary of each integration including its type, status, and basic configuration information.
+      operationId: list_integrations
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfIntegrationObjects'
+  /integrations/apns:
+    delete:
+      tags:
+      - integrations
+      description: Removes a apns integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_apns_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current apns integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_apns_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAPNSConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a apns integration for the project. Only administrators can configure integrations.
+      operationId: save_apns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /integrations/apns/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific apns integration instance by ID from the project.
+      operationId: delete_apns_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+  /integrations/awssns:
+    delete:
+      tags:
+      - integrations
+      description: Removes a awssns integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_awssns_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current awssns integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_awssns_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAWSSNSConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a awssns integration for the project. Only administrators can configure integrations.
+      operationId: save_awssns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSNSConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWSSNSConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+  /integrations/awssns/webhooks/incoming/{id}:
+    post:
+      tags:
+      - integrations
+      description: Receives and processes incoming webhook events from the awssns integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_awssns_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AWSSNSWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AWSSNSWebhookEvent'
+  /integrations/awssns/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific awssns integration instance by ID from the project.
+      operationId: delete_awssns_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Amazon SNS
+        name: awssns
+  /integrations/expo:
+    delete:
+      tags:
+      - integrations
+      description: Removes a expo integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_expo_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current expo integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_expo_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a expo integration for the project. Only administrators can configure integrations.
+      operationId: save_expo_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /integrations/expo/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific expo integration instance by ID from the project.
+      operationId: delete_expo_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /integrations/fcm:
+    delete:
+      tags:
+      - integrations
+      description: Removes a fcm integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_fcm_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current fcm integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_fcm_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfFCMConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a fcm integration for the project. Only administrators can configure integrations.
+      operationId: save_fcm_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+  /integrations/fcm/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific fcm integration instance by ID from the project.
+      operationId: delete_fcm_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+  /integrations/github:
+    delete:
+      tags:
+      - integrations
+      description: Removes a github integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_github_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: GitHub
+        name: github
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current github integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_github_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfGithubConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a github integration for the project. Only administrators can configure integrations.
+      operationId: save_github_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GithubConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: GitHub
+        name: github
+  /integrations/github/webhooks/incoming/{id}:
+    post:
+      tags:
+      - integrations
+      description: Receives and processes incoming webhook events from the github integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_github_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GithubWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubWebhookEvent'
+  /integrations/github/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific github integration instance by ID from the project.
+      operationId: delete_github_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: GitHub
+        name: github
+  /integrations/inbox:
+    delete:
+      tags:
+      - integrations
+      description: Removes a inbox integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_inbox_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Inbox
+        name: inbox
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current inbox integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_inbox_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfInboxConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a inbox integration for the project. Only administrators can configure integrations.
+      operationId: save_inbox_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+      x-meta:
+        displayName: Inbox
+        name: inbox
+  /integrations/inbox/installations:
+    post:
+      tags:
+      - integrations
+      description: Creates a new installation of a inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_inbox_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfig'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+  /integrations/inbox/installations/start:
+    post:
+      tags:
+      - integrations
+      description: Initiates the installation flow for a inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_inbox_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfig'
+  /integrations/inbox/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific inbox integration instance by ID from the project.
+      operationId: delete_inbox_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Inbox
+        name: inbox
+  /integrations/mailgun:
+    delete:
+      tags:
+      - integrations
+      description: Removes a mailgun integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_mailgun_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current mailgun integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_mailgun_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMailgunConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a mailgun integration for the project. Only administrators can configure integrations.
+      operationId: save_mailgun_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailgunConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailgunConfig'
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+  /integrations/mailgun/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific mailgun integration instance by ID from the project.
+      operationId: delete_mailgun_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Mailgun
+        name: mailgun
+  /integrations/ping_email:
+    delete:
+      tags:
+      - integrations
+      description: Removes a ping_email integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ping_email_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current ping_email integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ping_email_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfPingConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a ping_email integration for the project. Only administrators can configure integrations.
+      operationId: save_ping_email_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PingConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingConfig'
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+  /integrations/ping_email/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific ping_email integration instance by ID from the project.
+      operationId: delete_ping_email_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+  /integrations/sendgrid:
+    delete:
+      tags:
+      - integrations
+      description: Removes a sendgrid integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_sendgrid_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current sendgrid integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_sendgrid_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSendgridConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a sendgrid integration for the project. Only administrators can configure integrations.
+      operationId: save_sendgrid_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendgridConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendgridConfig'
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+  /integrations/sendgrid/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific sendgrid integration instance by ID from the project.
+      operationId: delete_sendgrid_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: SendGrid
+        name: sendgrid
+  /integrations/ses:
+    delete:
+      tags:
+      - integrations
+      description: Removes a ses integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ses_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current ses integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_ses_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSESConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a ses integration for the project. Only administrators can configure integrations.
+      operationId: save_ses_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SESConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SESConfig'
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+  /integrations/ses/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific ses integration instance by ID from the project.
+      operationId: delete_ses_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+  /integrations/slack:
+    delete:
+      tags:
+      - integrations
+      description: Removes a slack integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_slack_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current slack integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_slack_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSlackConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a slack integration for the project. Only administrators can configure integrations.
+      operationId: save_slack_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackConfig'
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+  /integrations/slack/installations:
+    post:
+      tags:
+      - integrations
+      description: Creates a new installation of a slack integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackInstallation'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackInstallation'
+  /integrations/slack/installations/finish:
+    post:
+      tags:
+      - integrations
+      description: Completes the installation flow for a slack integration. This endpoint is typically called after the user has completed any required authorization steps with slack.
+      operationId: finish_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackFinishInstallResponse'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackInstallation'
+  /integrations/slack/installations/start:
+    post:
+      tags:
+      - integrations
+      description: Initiates the installation flow for a slack integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_slack_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackStartInstall'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackStartInstallResponseContent'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+  /integrations/slack/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific slack integration instance by ID from the project.
+      operationId: delete_slack_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: slack
+        displayName: Slack
+        name: slack
+  /integrations/stripe:
+    delete:
+      tags:
+      - integrations
+      description: Removes a stripe integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_stripe_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Stripe
+        name: stripe
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current stripe integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_stripe_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfStripeConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a stripe integration for the project. Only administrators can configure integrations.
+      operationId: save_stripe_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeConfig'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-meta:
+        displayName: Stripe
+        name: stripe
+  /integrations/stripe/webhooks/incoming/{id}:
+    post:
+      tags:
+      - integrations
+      description: Receives and processes incoming webhook events from the stripe integration. Each integration can define its own webhook payload format and handling logic.
+      operationId: handle_stripe_webhook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeWebhookEvent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeWebhookEvent'
+  /integrations/stripe/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific stripe integration instance by ID from the project.
+      operationId: delete_stripe_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Stripe
+        name: stripe
+  /integrations/templates:
+    delete:
+      tags:
+      - integrations
+      description: Removes a templates integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_templates_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Templates
+        name: templates
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current templates integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_templates_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTemplatesConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a templates integration for the project. Only administrators can configure integrations.
+      operationId: save_templates_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplatesConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesConfig'
+      x-meta:
+        displayName: Templates
+        name: templates
+  /integrations/templates/installations:
+    post:
+      tags:
+      - integrations
+      description: Creates a new installation of a templates integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_templates_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplatesInstallation'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesInstallation'
+  /integrations/templates/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific templates integration instance by ID from the project.
+      operationId: delete_templates_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        displayName: Templates
+        name: templates
+  /integrations/twilio:
+    delete:
+      tags:
+      - integrations
+      description: Removes a twilio integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_twilio_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current twilio integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_twilio_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTwilioConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a twilio integration for the project. Only administrators can configure integrations.
+      operationId: save_twilio_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwilioConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwilioConfig'
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+  /integrations/twilio/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific twilio integration instance by ID from the project.
+      operationId: delete_twilio_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+  /integrations/web_push:
+    delete:
+      tags:
+      - integrations
+      description: Removes a web_push integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_web_push_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+    get:
+      tags:
+      - integrations
+      description: Retrieves the current web_push integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_web_push_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfWebpushConfigObjects'
+    put:
+      tags:
+      - integrations
+      description: Creates or updates a web_push integration for the project. Only administrators can configure integrations.
+      operationId: save_web_push_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebpushConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebpushConfig'
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+  /integrations/web_push/installations:
+    post:
+      tags:
+      - integrations
+      description: Creates a new installation of a web_push integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_web_push_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+  /integrations/web_push/installations/start:
+    post:
+      tags:
+      - integrations
+      description: Initiates the installation flow for a web_push integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_web_push_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushStartInstallationResponse'
+  /integrations/web_push/{id}:
+    delete:
+      tags:
+      - integrations
+      description: Removes a specific web_push integration instance by ID from the project.
+      operationId: delete_web_push_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+components:
+  schemas:
+    IntegrationObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/Integration'
+        id:
+          type: string
+        name:
+          type: string
+    InboxConfig:
+      required:
+      - theme
+      - locale
+      - images
+      type: object
+      properties:
+        images:
+          minProperties: 1
+          required:
+          - emptyInboxUrl
+          type: object
+          properties:
+            emptyInboxUrl:
+              type: string
+          nullable: true
+        locale:
+          minLength: 2
+          type: string
+          nullable: true
+        theme:
+          minProperties: 1
+          type: object
+          properties:
+            banner:
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                backgroundOpacity:
+                  type: number
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            dialog:
+              required:
+              - backgroundColor
+              - textColor
+              - accentColor
+              type: object
+              properties:
+                accentColor:
+                  type: string
+                backgroundColor:
+                  type: string
+                textColor:
+                  type: string
+            footer:
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                borderRadius:
+                  type: string
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            header:
+              required:
+              - fontFamily
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+                borderRadius:
+                  type: string
+                fontFamily:
+                  type: string
+                fontSize:
+                  type: string
+                textColor:
+                  type: string
+            icon:
+              required:
+              - borderColor
+              - width
+              type: object
+              properties:
+                borderColor:
+                  type: string
+                width:
+                  type: string
+            notification:
+              required:
+              - default
+              - unseen
+              - unread
+              type: object
+              properties:
+                default:
+                  required:
+                  - fontFamily
+                  - fontSize
+                  - textColor
+                  - borderRadius
+                  - backgroundColor
+                  - margin
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    borderRadius:
+                      type: string
+                    fontFamily:
+                      type: string
+                    fontSize:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    margin:
+                      type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+                unread:
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+                unseen:
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                    hover:
+                      required:
+                      - backgroundColor
+                      type: object
+                      properties:
+                        backgroundColor:
+                          type: string
+                    state:
+                      required:
+                      - color
+                      type: object
+                      properties:
+                        color:
+                          type: string
+                    textColor:
+                      type: string
+            unseenBadge:
+              required:
+              - backgroundColor
+              type: object
+              properties:
+                backgroundColor:
+                  type: string
+          nullable: true
+      example:
+        images:
+          emptyInboxUrl: ''
+        locale: de
+        theme:
+          banner:
+            backgroundColor: '#F8F5FF'
+            fontSize: 14px
+            textColor: '#3A424D'
+          dialog:
+            accentColor: '#5225C1'
+            backgroundColor: '#F5F5F5'
+            textColor: '#313131'
+          footer:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          header:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          icon:
+            borderColor: '#EDEDEF'
+            width: 24px
+          unseenBadge:
+            backgroundColor: '#F80808'
+    StripeConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Stripe
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    ArrayOfTemplatesConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatesConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            apns:
+              app_id: com.example.myapp
+              badge: unread
+              certificate: MIICXQIBAAKBgQC3J2
+              key_id: ABCD1234EF
+              team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackStartInstallResponseContent:
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+      example:
+        app_id: app-id
+        auth_url: https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write
+        scopes:
+        - channels:read
+        - chat:write
+    TemplatesInstallation:
+      required:
+      - text
+      - channel
+      type: object
+      properties:
+        category:
+          type: string
+          nullable: true
+        channel:
+          type: string
+        text:
+          type: string
+      example:
+        channel: email
+        text: Installation
+    ExpoConfig:
+      required:
+      - access_token
+      type: object
+      properties:
+        access_token:
+          minLength: 1
+          type: string
+      example:
+        access_token: expo_access_token
+    PingConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/PingConfig'
+        id:
+          type: string
+        name:
+          type: string
+    FCMConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/FCMConfig'
+        id:
+          type: string
+        name:
+          type: string
+    GithubWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+        type:
+          type: string
+      example:
+        description: example event
+        payload: {}
+        type: ping
+    AWSSNSConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          minLength: 1
+          type: string
+          description: The signing certificate from AWS SNS
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    APNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/APNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SlackConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SlackConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SendgridConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SendgridConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfSendgridConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendgridConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: SG.1234567890
+            from:
+              email: matt@magicbell.com
+              name: Matt
+            reply_to:
+              email: hana@magicbell.com
+              name: Hana
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfTwilioConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TwilioConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            account_sid: ACXXXXXXXX
+            api_key: SKXXXXXXXX
+            api_secret: your_api_secret
+            from: '+15017122661'
+            region: us1
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackFinishInstallResponse:
+      required:
+      - app_id
+      - code
+      type: object
+      properties:
+        app_id:
+          type: string
+        code:
+          type: string
+        redirect_url:
+          type: string
+      example:
+        app_id: '12345678901'
+        code: string
+        redirect_url: string
+    TwilioConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TwilioConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfInboxConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboxConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            images:
+              emptyInboxUrl: ''
+            locale: de
+            theme:
+              banner:
+                backgroundColor: '#F8F5FF'
+                fontSize: 14px
+                textColor: '#3A424D'
+              dialog:
+                accentColor: '#5225C1'
+                backgroundColor: '#F5F5F5'
+                textColor: '#313131'
+              footer:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              header:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              icon:
+                borderColor: '#EDEDEF'
+                width: 24px
+              unseenBadge:
+                backgroundColor: '#F80808'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TemplatesConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TemplatesConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SlackConfig:
+      required:
+      - app_id
+      - client_id
+      - client_secret
+      - signing_secret
+      type: object
+      properties:
+        app_id:
+          pattern: ^[0-9A-Z]+$
+          type: string
+          description: The Slack app ID that can be found in the app's settings page of the Slack API dashboard.
+        client_id:
+          pattern: ^[0-9]+\.[0-9]+$
+          type: string
+          description: The Slack client ID that can be found in the app's settings page of the Slack API dashboard.
+        client_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack client secret that can be found in the app's settings page of the Slack API dashboard.
+        signing_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack signing secret that can be found in the app's settings page of the Slack API dashboard.
+      example:
+        app_id: '12345678901'
+        client_id: '1.0'
+        client_secret: '12345678901234567890123456789012'
+        signing_secret: '12345678901234567890123456789012'
+    Integration:
+      type: object
+    PingConfig:
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: URL to ping
+          format: uri
+      example:
+        url: https://example.com/webhook
+    AWSSNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/AWSSNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfSESConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SESConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            from:
+              email: person@example.com
+              name: Person Name
+            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+            region: eu-west-1
+            secret_key: MY_FAKE_AWS_SECRET_KEY
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfStripeConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StripeConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfMailgunConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailgunConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: mailgun_api_key
+            domain: mailgun_domain
+            region: us
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    MailgunConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/MailgunConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SendgridConfig:
+      required:
+      - api_key
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: The API key for Sendgrid
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        reply_to:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to reply to
+              format: email
+            name:
+              type: string
+              description: The name to reply to
+              nullable: true
+      example:
+        api_key: SG.1234567890
+        from:
+          email: matt@magicbell.com
+          name: Matt
+        reply_to:
+          email: hana@magicbell.com
+          name: Hana
+    WebpushConfig:
+      required:
+      - public_key
+      - private_key
+      type: object
+      properties:
+        private_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+        public_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+      example:
+        private_key: <string>
+        public_key: <string>
+    InboxConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/InboxConfig'
+        id:
+          type: string
+        name:
+          type: string
+    GithubConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GithubConfig'
+        id:
+          type: string
+        name:
+          type: string
+    APNSConfig:
+      required:
+      - app_id
+      - certificate
+      - key_id
+      - team_id
+      - badge
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
+        badge:
+          enum:
+          - unread
+          - unseen
+          type: string
+        certificate:
+          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
+          type: string
+          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
+          x-ui:
+            tagName: textarea
+        key_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+        payload_version:
+          enum:
+          - '1'
+          - '2'
+          type: string
+          default: '2'
+          x-ui:
+            type: hidden
+        team_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+      example:
+        app_id: com.example.myapp
+        badge: unread
+        certificate: '-----BEGIN PRIVATE KEY-----
+
+          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+          -----END PRIVATE KEY-----'
+        key_id: ABCD1234EF
+        team_id: ABCD1234EF
+    MailgunConfig:
+      required:
+      - api_key
+      - region
+      - domain
+      type: object
+      properties:
+        api_key:
+          minLength: 1
+          type: string
+        domain:
+          minLength: 1
+          type: string
+        region:
+          enum:
+          - us
+          - eu
+          type: string
+      example:
+        api_key: mailgun_api_key
+        domain: mailgun_domain
+        region: us
+    SESConfig:
+      required:
+      - key_id
+      - secret_key
+      - region
+      type: object
+      properties:
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type: string
+              description: The name to send from
+              nullable: true
+        key_id:
+          minLength: 1
+          type: string
+          description: AWS Access Key ID
+        region:
+          minLength: 1
+          type: string
+          description: AWS Region
+        secret_key:
+          minLength: 1
+          type: string
+          description: AWS Secret Key
+      example:
+        from:
+          email: person@example.com
+          name: Person Name
+        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+        region: eu-west-1
+        secret_key: MY_FAKE_AWS_SECRET_KEY
+    FCMConfig:
+      required:
+      - type
+      - project_id
+      - private_key_id
+      - private_key
+      - client_email
+      - client_id
+      - auth_uri
+      - token_uri
+      - auth_provider_x509_cert_url
+      - client_x509_cert_url
+      - universe_domain
+      type: object
+      properties:
+        auth_provider_x509_cert_url:
+          type: string
+        auth_uri:
+          type: string
+        client_email:
+          type: string
+        client_id:
+          type: string
+        client_x509_cert_url:
+          type: string
+        private_key:
+          pattern: ^-+?\s?BEGIN[A-Z ]+-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END[A-Z ]+-+\n?$
+          type: string
+          x-ui:
+            tagName: textarea
+        private_key_id:
+          type: string
+        project_id:
+          type: string
+        token_uri:
+          type: string
+        type:
+          enum:
+          - service_account
+          type: string
+        universe_domain:
+          type: string
+      example:
+        auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+        client_id: '117893100789081023083'
+        client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+        private_key: '-----BEGIN PRIVATE KEY-----
+
+          MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+          ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+          QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+          iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+          t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+          y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+          yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+          qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+          rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+          C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+          pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+          9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+          FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+          9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+          YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+          yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+          O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+          espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+          FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+          wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+          vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+          H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+          hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+          N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+          0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+          ps+wuWO8MN5yQTBZvAEIfQs=
+
+          -----END PRIVATE KEY-----
+
+          '
+        private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+        project_id: platform-development
+        token_uri: https://oauth2.googleapis.com/token
+        type: service_account
+        universe_domain: googleapis.com
+    ExpoConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ExpoConfig'
+        id:
+          type: string
+        name:
+          type: string
+    TemplatesConfig:
+      type: object
+      example:
+        apns:
+          app_id: com.example.myapp
+          badge: unread
+          certificate: MIICXQIBAAKBgQC3J2
+          key_id: ABCD1234EF
+          team_id: ABCD1234EF
+      x-ui:
+        type: hidden
+    ArrayOfSlackConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: '12345678901'
+            client_id: '1.0'
+            client_secret: '12345678901234567890123456789012'
+            signing_secret: '12345678901234567890123456789012'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfGithubConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GithubConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfWebpushConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebpushConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            private_key: <string>
+            public_key: <string>
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    WebPushToken:
+      required:
+      - endpoint
+      - keys
+      type: object
+      properties:
+        endpoint:
+          type: string
+          format: uri
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+      example:
+        endpoint: https://example.com/webhook
+        keys:
+          auth: <string>
+          p256dh: <string>
+    ArrayOfPingConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PingConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            url: https://example.com/webhook
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfIntegrationObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_url: https://example.com/webhook
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    AWSSNSWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+          nullable: true
+        type:
+          type: string
+      example:
+        payload: {}
+        type: ping
+    WebPushStartInstallationResponse:
+      required:
+      - public_key
+      - auth_token
+      type: object
+      properties:
+        auth_token:
+          minLength: 8
+          type: string
+        public_key:
+          maxLength: 128
+          minLength: 8
+          type: string
+      example:
+        auth_token: eyGhb...GA2Bw
+        public_key: BHaJd...gRHDk
+    StripeWebhookEvent:
+      required:
+      - id
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the webhook event
+        id:
+          type: string
+          description: Unique identifier for the webhook event
+      example:
+        description: example event
+        id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
+        type: invoice.created
+    SlackStartInstall:
+      required:
+      - app_id
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        extra_scopes:
+          type: array
+          items:
+            type: string
+        redirect_url:
+          type: string
+      additionalProperties: false
+      example:
+        app_id: '12345678901'
+        auth_url: https://example.com/auth
+        extra_scopes:
+        - scope1
+        - scope2
+        redirect_url: https://example.com/redirect
+    ArrayOfAPNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            app_id: com.example.myapp
+            badge: unread
+            certificate: '-----BEGIN PRIVATE KEY-----
+
+              MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+              -----END PRIVATE KEY-----'
+            key_id: ABCD1234EF
+            team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfExpoConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            access_token: expo_access_token
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    WebpushConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/WebpushConfig'
+        id:
+          type: string
+        name:
+          type: string
+    StripeConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/StripeConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfAWSSNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AWSSNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TwilioConfig:
+      required:
+      - account_sid
+      - api_key
+      - api_secret
+      - from
+      type: object
+      properties:
+        account_sid:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The SID for your Twilio account
+        api_key:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API key for Twilio
+        api_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API Secret for Twilio
+        from:
+          maxLength: 100
+          minLength: 1
+          pattern: ^\+[0-9]{1,14}$
+          type: string
+          description: The phone number to send from, in E.164 format
+        region:
+          enum:
+          - us1
+          - ie1
+          - au1
+          type: string
+          description: The region to use for Twilio, defaults to 'us1'
+      example:
+        account_sid: ACXXXXXXXX
+        api_key: SKXXXXXXXX
+        api_secret: your_api_secret
+        from: '+15017122661'
+        region: us1
+    GithubConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Github
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    SESConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SESConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SlackInstallation:
+      required:
+      - access_token
+      - authed_user
+      - team
+      - app_id
+      type: object
+      properties:
+        access_token:
+          type: string
+        app_id:
+          type: string
+        authed_user:
+          required:
+          - id
+          type: object
+          properties:
+            access_token:
+              type: string
+            expires_in:
+              type: integer
+            id:
+              type: string
+            refresh_token:
+              type: string
+            scope:
+              type: string
+            token_type:
+              type: string
+        bot_user_id:
+          type: string
+        enterprise:
+          required:
+          - name
+          - id
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        expires_in:
+          type: integer
+        id:
+          pattern: ^[A-Z0-9/]*$
+          type: string
+        incoming_webhook:
+          required:
+          - channel
+          - configuration_url
+          - url
+          type: object
+          properties:
+            channel:
+              type: string
+            configuration_url:
+              type: string
+            url:
+              type: string
+        is_enterprise_install:
+          type: boolean
+        refresh_token:
+          type: string
+        scope:
+          type: string
+        team:
+          required:
+          - id
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        token_type:
+          type: string
+      example:
+        access_token: xoxb-REDACTED-EXAMPLE-TOKEN
+        app_id: A12345678
+        authed_user:
+          id: U12345678
+          scope: identify,commands
+        bot_user_id: U12345678
+        enterprise_id: E12345678
+        enterprise_name: Enterprise Grid, Inc.
+        id: T0G9PQBBK
+        incoming_webhook:
+          channel: C12345678
+          channel_id: C12345678
+          configuration_url: https://teamname.slack.com/services/B12345678
+          url: https://example.slack.com/incoming-webhook-url
+        scope: identify,commands,bot
+        team:
+          id: T123
+          name: Team Installing Your App
+        team_id: T12345678
+        team_name: Team Installing Your App
+    ArrayOfFCMConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+            auth_uri: https://accounts.google.com/o/oauth2/auth
+            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+            client_id: '117893100789081023083'
+            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+            private_key: '-----BEGIN PRIVATE KEY-----
+
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+              ps+wuWO8MN5yQTBZvAEIfQs=
+
+              -----END PRIVATE KEY-----
+
+              '
+            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+            project_id: platform-development
+            token_uri: https://oauth2.googleapis.com/token
+            type: service_account
+            universe_domain: googleapis.com
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null

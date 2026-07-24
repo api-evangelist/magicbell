@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  title: MagicBell apns expo API
+  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://magicbell.com
+    email: hello@magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell REST API Base URL
+tags:
+- name: expo
+paths:
+  /channels/mobile_push/expo/tokens:
+    get:
+      tags:
+      - expo
+      description: Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: get_mobile_push_expo_tokens
+      parameters:
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoTokenResponses'
+    post:
+      tags:
+      - expo
+      description: Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_mobile_push_expo_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoToken'
+  /channels/mobile_push/expo/tokens/{token_id}:
+    delete:
+      tags:
+      - expo
+      description: Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: discard_mobile_push_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - expo
+      description: Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: get_mobile_push_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenResponse'
+  /integrations/expo:
+    delete:
+      tags:
+      - expo
+      description: Removes a expo integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_expo_integration
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+    get:
+      tags:
+      - expo
+      description: Retrieves the current expo integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: get_expo_integration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoConfigObjects'
+    put:
+      tags:
+      - expo
+      description: Creates or updates a expo integration for the project. Only administrators can configure integrations.
+      operationId: save_expo_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoConfig'
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /integrations/expo/{id}:
+    delete:
+      tags:
+      - expo
+      description: Removes a specific expo integration instance by ID from the project.
+      operationId: delete_expo_integration_by_id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+  /users/{user_id}/channels/mobile_push/expo/tokens:
+    get:
+      tags:
+      - expo
+      description: Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: get_mobile_push_expo_user_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[after]
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page[before]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfExpoTokenResponses'
+  /users/{user_id}/channels/mobile_push/expo/tokens/{token_id}:
+    delete:
+      tags:
+      - expo
+      description: Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: discard_mobile_push_expo_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+    get:
+      tags:
+      - expo
+      description: Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: get_mobile_push_expo_user_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenResponse'
+components:
+  schemas:
+    ArrayOfExpoConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            access_token: expo_access_token
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ExpoConfig:
+      required:
+      - access_token
+      type: object
+      properties:
+        access_token:
+          minLength: 1
+          type: string
+      example:
+        access_token: expo_access_token
+    ExpoConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ExpoConfig'
+        id:
+          type: string
+        name:
+          type: string
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    ExpoTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 1
+          type: string
+        discarded_at:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: expo-device-id
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfExpoTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: expo-device-id
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type: string
+          nullable: true
+        prev:
+          type: string
+          nullable: true
+    ExpoToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 1
+          type: string
+      example:
+        device_token: expo-device-id
