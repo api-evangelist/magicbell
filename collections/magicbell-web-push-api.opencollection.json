@@ -1,0 +1,257 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns web_push API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "web_push",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_web_push_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_web_push_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/web_push"
+          },
+          "docs": "Retrieves the current web_push integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_web_push_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/web_push",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a web_push integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_web_push_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/web_push"
+          },
+          "docs": "Removes a web_push integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "save_web_push_installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/integrations/web_push/installations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new installation of a web_push integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration."
+        },
+        {
+          "info": {
+            "name": "start_web_push_installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/integrations/web_push/installations/start"
+          },
+          "docs": "Initiates the installation flow for a web_push integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required."
+        },
+        {
+          "info": {
+            "name": "delete_web_push_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/web_push/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific web_push integration instance by ID from the project."
+        },
+        {
+          "info": {
+            "name": "get_web_push_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all web_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_web_push_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_web_push_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

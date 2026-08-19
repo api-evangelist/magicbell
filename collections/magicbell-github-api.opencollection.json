@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns github API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "github",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_github_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/github"
+          },
+          "docs": "Retrieves the current github integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_github_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/github",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a github integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_github_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/github"
+          },
+          "docs": "Removes a github integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "handle_github_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/integrations/github/webhooks/incoming/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Receives and processes incoming webhook events from the github integration. Each integration can define its own webhook payload format and handling logic."
+        },
+        {
+          "info": {
+            "name": "delete_github_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/github/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific github integration instance by ID from the project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,997 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns channels API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_project_deliveryconfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/deliveryconfig",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "save_project_deliveryconfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/channels/deliveryconfig",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_apns_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/apns/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_mobile_push_apns_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/apns/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_apns_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/apns/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_apns_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/apns/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_expo_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/expo/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_mobile_push_expo_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/expo/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_expo_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/expo/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_expo_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/expo/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_fcm_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/fcm/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_mobile_push_fcm_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/fcm/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_fcm_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/fcm/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_fcm_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/mobile_push/fcm/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_slack_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/slack/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_slack_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/slack/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_slack_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/slack/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_slack_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/slack/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_teams_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/teams/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all teams tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_teams_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/teams/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a teams token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_teams_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/teams/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific teams token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_teams_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/teams/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's teams tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_web_push_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "save_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel."
+        },
+        {
+          "info": {
+            "name": "get_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens."
+        },
+        {
+          "info": {
+            "name": "discard_web_push_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_apns_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/apns/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_apns_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/apns/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_apns_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/apns/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_expo_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/expo/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_expo_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/expo/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_expo_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/expo/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_fcm_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/fcm/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_mobile_push_fcm_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/fcm/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_mobile_push_fcm_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/mobile_push/fcm/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "get_slack_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/slack/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all slack tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_slack_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/slack/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific slack token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_slack_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/slack/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's slack token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "get_teams_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/teams/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all teams tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_teams_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/teams/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific teams token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_teams_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/teams/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's teams token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "get_web_push_user_tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all web_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens."
+        },
+        {
+          "info": {
+            "name": "get_web_push_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "discard_web_push_user_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/users/:user_id/channels/web_push/tokens/:token_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

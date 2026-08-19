@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns channel/email API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "channel/email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_mailgun_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/mailgun"
+          },
+          "docs": "Retrieves the current mailgun integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_mailgun_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/mailgun",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a mailgun integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_mailgun_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/mailgun"
+          },
+          "docs": "Removes a mailgun integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "delete_mailgun_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/mailgun/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific mailgun integration instance by ID from the project."
+        },
+        {
+          "info": {
+            "name": "get_ping_email_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/ping_email"
+          },
+          "docs": "Retrieves the current ping_email integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_ping_email_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/ping_email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a ping_email integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_ping_email_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/ping_email"
+          },
+          "docs": "Removes a ping_email integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "delete_ping_email_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/ping_email/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific ping_email integration instance by ID from the project."
+        },
+        {
+          "info": {
+            "name": "get_sendgrid_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/sendgrid"
+          },
+          "docs": "Retrieves the current sendgrid integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_sendgrid_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/sendgrid",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a sendgrid integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_sendgrid_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/sendgrid"
+          },
+          "docs": "Removes a sendgrid integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "delete_sendgrid_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/sendgrid/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific sendgrid integration instance by ID from the project."
+        },
+        {
+          "info": {
+            "name": "get_ses_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/ses"
+          },
+          "docs": "Retrieves the current ses integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_ses_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/ses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a ses integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_ses_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/ses"
+          },
+          "docs": "Removes a ses integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "delete_ses_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/ses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific ses integration instance by ID from the project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "99d27e27-559a-4f69-a900-73d130281c65",
+      "name": "channel/sms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c5fe2f43-cf3b-4aca-87a4-fbb49b2b7b79",
+          "name": "delete twilio integration",
+          "request": {
+            "name": "delete twilio integration",
+            "description": {
+              "content": "Removes a twilio integration configuration from the project. This will disable the integration's functionality within the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "twilio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c36ad97-d659-4ca8-85db-87cd020bcd92",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "twilio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f68b0b28-c3b5-4cd8-8185-1d6052ef968b",
+          "name": "get twilio integration",
+          "request": {
+            "name": "get twilio integration",
+            "description": {
+              "content": "Retrieves the current twilio integration configurations for a specific integration type in the project. Returns configuration details and status information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "twilio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bb79ce2-003e-4417-a292-5a8217ff1eee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "twilio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"account_sid\": \"ACXXXXXXXX\",\n        \"api_key\": \"SKXXXXXXXX\",\n        \"api_secret\": \"your_api_secret\",\n        \"from\": \"+15017122661\",\n        \"region\": \"us1\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"account_sid\": \"ACXXXXXXXX\",\n        \"api_key\": \"SKXXXXXXXX\",\n        \"api_secret\": \"your_api_secret\",\n        \"from\": \"+15017122661\",\n        \"region\": \"us1\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57cec4a7-4452-4e25-8b33-d54befc2755c",
+          "name": "save twilio integration",
+          "request": {
+            "name": "save twilio integration",
+            "description": {
+              "content": "Creates or updates a twilio integration for the project. Only administrators can configure integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "twilio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_sid\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"api_secret\": \"<string>\",\n  \"from\": \"<string>\",\n  \"region\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7030fe88-0433-4535-bd20-f7e289dccc1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "twilio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_sid\": \"ACXXXXXXXX\",\n  \"api_key\": \"SKXXXXXXXX\",\n  \"api_secret\": \"your_api_secret\",\n  \"from\": \"+15017122661\",\n  \"region\": \"us1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_sid\": \"ACXXXXXXXX\",\n  \"api_key\": \"SKXXXXXXXX\",\n  \"api_secret\": \"your_api_secret\",\n  \"from\": \"+15017122661\",\n  \"region\": \"us1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c385188e-cacd-442f-aed6-8783ee32739d",
+          "name": "delete twilio integration by id",
+          "request": {
+            "name": "delete twilio integration by id",
+            "description": {
+              "content": "Removes a specific twilio integration instance by ID from the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "twilio",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ebbd78d-671f-492c-86e4-e83a4e7003b9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "twilio",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.magicbell.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f2f1520e-ec53-423c-bd10-048e297ce2f4",
+    "name": "MagicBell apns channel/sms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.0.3 Specification for MagicBell API.\n\nContact Support:\n Name: MagicBell\n Email: hello@magicbell.com",
+      "type": "text/plain"
+    }
+  }
+}

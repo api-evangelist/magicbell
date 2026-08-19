@@ -1,0 +1,506 @@
+{
+  "item": [
+    {
+      "id": "af059c2e-4d3f-416b-8fb0-c72290ee074a",
+      "name": "inbox",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1b6106c4-7c7d-4c79-bbe6-4f86cd0c8cff",
+          "name": "delete inbox integration",
+          "request": {
+            "name": "delete inbox integration",
+            "description": {
+              "content": "Removes a inbox integration configuration from the project. This will disable the integration's functionality within the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1ee045d-7a53-4f53-9351-257b91ddb3fb",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1c0c370-9239-4629-87ce-c0a38af3af13",
+          "name": "get inbox integration",
+          "request": {
+            "name": "get inbox integration",
+            "description": {
+              "content": "Retrieves the current inbox integration configurations for a specific integration type in the project. Returns configuration details and status information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "410f19c5-2d6f-4652-bb15-014fc30fda7d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"images\": {\n          \"emptyInboxUrl\": \"\"\n        },\n        \"locale\": \"de\",\n        \"theme\": {\n          \"banner\": {\n            \"backgroundColor\": \"#F8F5FF\",\n            \"fontSize\": \"14px\",\n            \"textColor\": \"#3A424D\"\n          },\n          \"dialog\": {\n            \"accentColor\": \"#5225C1\",\n            \"backgroundColor\": \"#F5F5F5\",\n            \"textColor\": \"#313131\"\n          },\n          \"footer\": {\n            \"backgroundColor\": \"#FFFFFF\",\n            \"borderRadius\": \"16px\",\n            \"fontFamily\": \"inherit\",\n            \"fontSize\": \"15px\",\n            \"textColor\": \"#5225C1\"\n          },\n          \"header\": {\n            \"backgroundColor\": \"#FFFFFF\",\n            \"borderRadius\": \"16px\",\n            \"fontFamily\": \"inherit\",\n            \"fontSize\": \"15px\",\n            \"textColor\": \"#5225C1\"\n          },\n          \"icon\": {\n            \"borderColor\": \"#EDEDEF\",\n            \"width\": \"24px\"\n          },\n          \"unseenBadge\": {\n            \"backgroundColor\": \"#F80808\"\n          }\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"images\": {\n          \"emptyInboxUrl\": \"\"\n        },\n        \"locale\": \"de\",\n        \"theme\": {\n          \"banner\": {\n            \"backgroundColor\": \"#F8F5FF\",\n            \"fontSize\": \"14px\",\n            \"textColor\": \"#3A424D\"\n          },\n          \"dialog\": {\n            \"accentColor\": \"#5225C1\",\n            \"backgroundColor\": \"#F5F5F5\",\n            \"textColor\": \"#313131\"\n          },\n          \"footer\": {\n            \"backgroundColor\": \"#FFFFFF\",\n            \"borderRadius\": \"16px\",\n            \"fontFamily\": \"inherit\",\n            \"fontSize\": \"15px\",\n            \"textColor\": \"#5225C1\"\n          },\n          \"header\": {\n            \"backgroundColor\": \"#FFFFFF\",\n            \"borderRadius\": \"16px\",\n            \"fontFamily\": \"inherit\",\n            \"fontSize\": \"15px\",\n            \"textColor\": \"#5225C1\"\n          },\n          \"icon\": {\n            \"borderColor\": \"#EDEDEF\",\n            \"width\": \"24px\"\n          },\n          \"unseenBadge\": {\n            \"backgroundColor\": \"#F80808\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b024a16-fcaa-4fbf-a5d7-e97364ecee42",
+          "name": "save inbox integration",
+          "request": {
+            "name": "save inbox integration",
+            "description": {
+              "content": "Creates or updates a inbox integration for the project. Only administrators can configure integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"theme\": {\n    \"banner\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"backgroundOpacity\": \"<number>\"\n    },\n    \"dialog\": {\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"accentColor\": \"<string>\"\n    },\n    \"footer\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"header\": {\n      \"fontFamily\": \"<string>\",\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"icon\": {\n      \"borderColor\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"notification\": {\n      \"default\": {\n        \"fontFamily\": \"<string>\",\n        \"fontSize\": \"<string>\",\n        \"textColor\": \"<string>\",\n        \"borderRadius\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"margin\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unseen\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unread\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      }\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"<string>\"\n    }\n  },\n  \"locale\": \"<string>\",\n  \"images\": {\n    \"emptyInboxUrl\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32078459-e466-4ae6-b5e1-f67b775eb2b8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecd2f2ae-7cbd-4b55-94b5-2f4354640708",
+          "name": "save inbox installation",
+          "request": {
+            "name": "save inbox installation",
+            "description": {
+              "content": "Creates a new installation of a inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"theme\": {\n    \"banner\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"backgroundOpacity\": \"<number>\"\n    },\n    \"dialog\": {\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"accentColor\": \"<string>\"\n    },\n    \"footer\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"header\": {\n      \"fontFamily\": \"<string>\",\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"icon\": {\n      \"borderColor\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"notification\": {\n      \"default\": {\n        \"fontFamily\": \"<string>\",\n        \"fontSize\": \"<string>\",\n        \"textColor\": \"<string>\",\n        \"borderRadius\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"margin\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unseen\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unread\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      }\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"<string>\"\n    }\n  },\n  \"locale\": \"<string>\",\n  \"images\": {\n    \"emptyInboxUrl\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8869406a-b133-41d9-901b-6ebc1d5424ec",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e34d33dc-dbdd-44c9-90ce-40ca28479965",
+          "name": "start inbox installation",
+          "request": {
+            "name": "start inbox installation",
+            "description": {
+              "content": "Initiates the installation flow for a inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox",
+                "installations",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65f1cc12-7227-494c-b185-6ac442673fd5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox",
+                    "installations",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1e76f0a-65c0-449c-8088-9d0ca9aaffa2",
+          "name": "delete inbox integration by id",
+          "request": {
+            "name": "delete inbox integration by id",
+            "description": {
+              "content": "Removes a specific inbox integration instance by ID from the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d1de0a6-1ceb-4539-9e63-d61830aa6ded",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.magicbell.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a242509-6341-46d5-a1ff-be3f8e2613e9",
+    "name": "MagicBell apns inbox API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.0.3 Specification for MagicBell API.\n\nContact Support:\n Name: MagicBell\n Email: hello@magicbell.com",
+      "type": "text/plain"
+    }
+  }
+}

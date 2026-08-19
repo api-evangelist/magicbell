@@ -1,0 +1,310 @@
+{
+  "item": [
+    {
+      "id": "53192de5-8013-4af3-b056-a885a332adeb",
+      "name": "broadcasts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d60a4bf-4fbf-4d8f-b903-354ef124358a",
+          "name": "list broadcasts",
+          "request": {
+            "name": "list broadcasts",
+            "description": {
+              "content": "Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broadcasts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb8ba7e4-466f-43e9-b693-6a1b1fbf1e7b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broadcasts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"title\": \"string\",\n      \"recipients\": [\n        {\n          \"topic\": {\n            \"subscribers\": false\n          }\n        }\n      ],\n      \"action_url\": \"string\",\n      \"category\": \"jvOOZnl\",\n      \"content\": \"string\",\n      \"created_at\": \"1989-04-24T20:33:53.764Z\",\n      \"custom_attributes\": {},\n      \"id\": \"string\",\n      \"overrides\": {\n        \"channels\": {\n          \"email\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"in_app\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"mobile_push\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"slack\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"sms\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"web_push\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          }\n        },\n        \"providers\": {\n          \"amazon_ses\": {},\n          \"android\": {},\n          \"ios\": {},\n          \"mailgun\": {},\n          \"postmark\": {},\n          \"sendgrid\": {},\n          \"slack\": {}\n        }\n      },\n      \"status\": {\n        \"status\": \"enqueued\",\n        \"summary\": {\n          \"total\": 2524,\n          \"failures\": 2300\n        },\n        \"errors\": [\n          {\n            \"message\": \"string\"\n          },\n          {\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"topic\": \"7\"\n    },\n    {\n      \"title\": \"string\",\n      \"recipients\": [\n        {\n          \"topic\": {\n            \"subscribers\": true\n          }\n        }\n      ],\n      \"action_url\": \"string\",\n      \"category\": \"47fx8/x.\",\n      \"content\": \"string\",\n      \"created_at\": \"2011-11-18T05:47:13.364Z\",\n      \"custom_attributes\": {},\n      \"id\": \"string\",\n      \"overrides\": {\n        \"channels\": {\n          \"email\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"in_app\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"mobile_push\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"slack\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"sms\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          },\n          \"web_push\": {\n            \"action_url\": \"string\",\n            \"content\": \"string\",\n            \"title\": \"string\"\n          }\n        },\n        \"providers\": {\n          \"amazon_ses\": {},\n          \"android\": {},\n          \"ios\": {},\n          \"mailgun\": {},\n          \"postmark\": {},\n          \"sendgrid\": {},\n          \"slack\": {}\n        }\n      },\n      \"status\": {\n        \"status\": \"processed\",\n        \"summary\": {\n          \"total\": 540,\n          \"failures\": 5275\n        },\n        \"errors\": [\n          {\n            \"message\": \"string\"\n          },\n          {\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"topic\": \"5V\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69de27f0-3c38-4322-b3c4-4462575b387f",
+          "name": "create broadcast",
+          "request": {
+            "name": "create broadcast",
+            "description": {
+              "content": "Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project. Only administrators can create broadcasts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broadcasts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"recipients\": [\n    {\n      \"topic\": {\n        \"subscribers\": \"<boolean>\"\n      }\n    }\n  ],\n  \"action_url\": \"<string>\",\n  \"category\": \"<string>\",\n  \"content\": \"<string>\",\n  \"custom_attributes\": \"<object>\",\n  \"id\": \"<string>\",\n  \"overrides\": {\n    \"channels\": {\n      \"email\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"in_app\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"mobile_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"slack\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"sms\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"web_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      }\n    },\n    \"providers\": {\n      \"amazon_ses\": \"<object>\",\n      \"android\": \"<object>\",\n      \"ios\": \"<object>\",\n      \"mailgun\": \"<object>\",\n      \"postmark\": \"<object>\",\n      \"sendgrid\": \"<object>\",\n      \"slack\": \"<object>\"\n    }\n  },\n  \"status\": {\n    \"summary\": {},\n    \"errors\": [\n      {\n        \"message\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\"\n      }\n    ]\n  },\n  \"topic\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "989a1eed-c417-40a4-ad33-23aebc6df4c1",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broadcasts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"recipients\": [\n    {\n      \"topic\": {\n        \"subscribers\": \"<boolean>\"\n      }\n    }\n  ],\n  \"action_url\": \"<string>\",\n  \"category\": \"<string>\",\n  \"content\": \"<string>\",\n  \"custom_attributes\": \"<object>\",\n  \"id\": \"<string>\",\n  \"overrides\": {\n    \"channels\": {\n      \"email\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"in_app\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"mobile_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"slack\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"sms\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"web_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      }\n    },\n    \"providers\": {\n      \"amazon_ses\": \"<object>\",\n      \"android\": \"<object>\",\n      \"ios\": \"<object>\",\n      \"mailgun\": \"<object>\",\n      \"postmark\": \"<object>\",\n      \"sendgrid\": \"<object>\",\n      \"slack\": \"<object>\"\n    }\n  },\n  \"status\": {\n    \"summary\": {},\n    \"errors\": [\n      {\n        \"message\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\"\n      }\n    ]\n  },\n  \"topic\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"<string>\",\n  \"recipients\": [\n    {\n      \"topic\": {\n        \"subscribers\": \"<boolean>\"\n      }\n    }\n  ],\n  \"action_url\": \"<string>\",\n  \"category\": \"<string>\",\n  \"content\": \"<string>\",\n  \"created_at\": \"1958-11-13T07:02:03.990Z\",\n  \"custom_attributes\": \"<object>\",\n  \"id\": \"<string>\",\n  \"overrides\": {\n    \"channels\": {\n      \"email\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"in_app\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"mobile_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"slack\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"sms\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"web_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      }\n    },\n    \"providers\": {\n      \"amazon_ses\": \"<object>\",\n      \"android\": \"<object>\",\n      \"ios\": \"<object>\",\n      \"mailgun\": \"<object>\",\n      \"postmark\": \"<object>\",\n      \"sendgrid\": \"<object>\",\n      \"slack\": \"<object>\"\n    }\n  },\n  \"status\": {\n    \"summary\": {\n      \"failures\": 5055,\n      \"total\": 7823\n    },\n    \"errors\": [\n      {\n        \"message\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\"\n      }\n    ],\n    \"status\": \"enqueued\"\n  },\n  \"topic\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07c15f31-e314-4f17-846a-bcde4cbb6146",
+          "name": "fetch broadcast",
+          "request": {
+            "name": "fetch broadcast",
+            "description": {
+              "content": "Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broadcasts",
+                ":broadcast_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "broadcast_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07942168-61d9-4024-ac5f-31881cec0d9f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broadcasts",
+                    ":broadcast_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "broadcast_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"<string>\",\n  \"recipients\": [\n    {\n      \"topic\": {\n        \"subscribers\": \"<boolean>\"\n      }\n    }\n  ],\n  \"action_url\": \"<string>\",\n  \"category\": \"<string>\",\n  \"content\": \"<string>\",\n  \"created_at\": \"1958-11-13T07:02:03.990Z\",\n  \"custom_attributes\": \"<object>\",\n  \"id\": \"<string>\",\n  \"overrides\": {\n    \"channels\": {\n      \"email\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"in_app\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"mobile_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"slack\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"sms\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"web_push\": {\n        \"action_url\": \"<string>\",\n        \"content\": \"<string>\",\n        \"title\": \"<string>\"\n      }\n    },\n    \"providers\": {\n      \"amazon_ses\": \"<object>\",\n      \"android\": \"<object>\",\n      \"ios\": \"<object>\",\n      \"mailgun\": \"<object>\",\n      \"postmark\": \"<object>\",\n      \"sendgrid\": \"<object>\",\n      \"slack\": \"<object>\"\n    }\n  },\n  \"status\": {\n    \"summary\": {\n      \"failures\": 5055,\n      \"total\": 7823\n    },\n    \"errors\": [\n      {\n        \"message\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\"\n      }\n    ],\n    \"status\": \"enqueued\"\n  },\n  \"topic\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.magicbell.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "14f027a3-fbf0-4701-a07a-215558b2ef7d",
+    "name": "MagicBell apns broadcasts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.0.3 Specification for MagicBell API.\n\nContact Support:\n Name: MagicBell\n Email: hello@magicbell.com",
+      "type": "text/plain"
+    }
+  }
+}

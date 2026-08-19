@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns inbox API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "inbox",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_inbox_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/inbox"
+          },
+          "docs": "Retrieves the current inbox integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_inbox_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/inbox",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a inbox integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_inbox_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/inbox"
+          },
+          "docs": "Removes a inbox integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "save_inbox_installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/integrations/inbox/installations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new installation of a inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration."
+        },
+        {
+          "info": {
+            "name": "start_inbox_installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.magicbell.com/v2/integrations/inbox/installations/start"
+          },
+          "docs": "Initiates the installation flow for a inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required."
+        },
+        {
+          "info": {
+            "name": "delete_inbox_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/inbox/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific inbox integration instance by ID from the project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

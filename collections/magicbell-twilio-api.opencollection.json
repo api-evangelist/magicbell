@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MagicBell apns twilio API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "twilio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_twilio_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.magicbell.com/v2/integrations/twilio"
+          },
+          "docs": "Retrieves the current twilio integration configurations for a specific integration type in the project. Returns configuration details and status information."
+        },
+        {
+          "info": {
+            "name": "save_twilio_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.magicbell.com/v2/integrations/twilio",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a twilio integration for the project. Only administrators can configure integrations."
+        },
+        {
+          "info": {
+            "name": "delete_twilio_integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/twilio"
+          },
+          "docs": "Removes a twilio integration configuration from the project. This will disable the integration's functionality within the project."
+        },
+        {
+          "info": {
+            "name": "delete_twilio_integration_by_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.magicbell.com/v2/integrations/twilio/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a specific twilio integration instance by ID from the project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

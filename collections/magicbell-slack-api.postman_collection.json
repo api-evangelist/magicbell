@@ -1,0 +1,1349 @@
+{
+  "item": [
+    {
+      "id": "95d89b32-d345-441d-a128-6ac28a82e92f",
+      "name": "slack",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "44889724-e502-493a-94f3-7757b629dca3",
+          "name": "get slack tokens",
+          "request": {
+            "name": "get slack tokens",
+            "description": {
+              "content": "Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79bfcddd-8a24-4f21-a6b9-61241dd4f516",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"1956-03-07T07:36:38.023Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1999-03-02T15:26:11.294Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"1951-05-21T01:52:35.283Z\",\n      \"webhook\": {\n        \"url\": \"https://jaKFwxjvtnOPjWTqySrzjiE.ieql9QQ3Dl6OUjkz9OYVY.EctdUlFy\"\n      }\n    },\n    {\n      \"created_at\": \"2012-05-16T19:35:30.747Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"2010-11-25T07:43:51.488Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"2002-02-20T03:50:56.193Z\",\n      \"webhook\": {\n        \"url\": \"https://bHFUZsacVArYyQrpSqCeLfEwlVdxhtCk.cbuwvLGsgPW2WSZlcYfqkqG20T,Lc,fb0MN6Zi907A-reiz+t\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7ca770e-8b0d-4d0e-ba8c-503b2c214c28",
+          "name": "save slack token",
+          "request": {
+            "name": "save slack token",
+            "description": {
+              "content": "Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oauth\": {\n    \"channel_id\": \"<string>\",\n    \"installation_id\": \"<string>\",\n    \"scope\": \"<string>\"\n  },\n  \"webhook\": {\n    \"url\": \"<uri>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2fc043bc-25c3-451e-bf67-3721d8003124",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/webhook\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/webhook\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4657975-c432-4eeb-b553-fd7f5b0e3846",
+          "name": "discard slack token",
+          "request": {
+            "name": "discard slack token",
+            "description": {
+              "content": "Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e42c62b-9f70-453a-b6e4-434adf3f69df",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52592dc3-4993-4f1f-a6c3-f286c7ed6773",
+          "name": "get slack token",
+          "request": {
+            "name": "get slack token",
+            "description": {
+              "content": "Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f24a419-cece-4725-9609-01ee25ae3c7d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1993-09-10T00:57:16.469Z\",\n  \"id\": \"string\",\n  \"discarded_at\": \"1990-07-29T08:06:14.265Z\",\n  \"oauth\": {\n    \"channel_id\": \"string\",\n    \"installation_id\": \"string\",\n    \"scope\": \"string\"\n  },\n  \"updated_at\": \"1957-10-22T20:24:33.758Z\",\n  \"webhook\": {\n    \"url\": \"https://OuEnQI.whM5-xT7y-TpnKhIyLipRCFHojhnxr2O5x0kXnv6ca7o1jXWh.Gf\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c3a2fc9-c573-40ad-9ae2-5d6944dc401b",
+          "name": "delete slack integration",
+          "request": {
+            "name": "delete slack integration",
+            "description": {
+              "content": "Removes a slack integration configuration from the project. This will disable the integration's functionality within the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdb5431f-64da-422f-98b1-3dd367468960",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9175ae14-ee9c-49df-afff-ede8b2e18923",
+          "name": "get slack integration",
+          "request": {
+            "name": "get slack integration",
+            "description": {
+              "content": "Retrieves the current slack integration configurations for a specific integration type in the project. Returns configuration details and status information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bfd05eb-279b-421b-bfb5-31037996474b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"app_id\": \"12345678901\",\n        \"client_id\": \"1.0\",\n        \"client_secret\": \"12345678901234567890123456789012\",\n        \"signing_secret\": \"12345678901234567890123456789012\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"config\": {\n        \"app_id\": \"12345678901\",\n        \"client_id\": \"1.0\",\n        \"client_secret\": \"12345678901234567890123456789012\",\n        \"signing_secret\": \"12345678901234567890123456789012\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23e5d6db-cc32-4051-94cf-aac6705b409b",
+          "name": "save slack integration",
+          "request": {
+            "name": "save slack integration",
+            "description": {
+              "content": "Creates or updates a slack integration for the project. Only administrators can configure integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"signing_secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4cbe3961-059b-4326-8e1d-86e48a9f4d31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_id\": \"12345678901\",\n  \"client_id\": \"1.0\",\n  \"client_secret\": \"12345678901234567890123456789012\",\n  \"signing_secret\": \"12345678901234567890123456789012\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_id\": \"12345678901\",\n  \"client_id\": \"1.0\",\n  \"client_secret\": \"12345678901234567890123456789012\",\n  \"signing_secret\": \"12345678901234567890123456789012\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d085f82-33a7-4de2-b0a1-f100408d958d",
+          "name": "save slack installation",
+          "request": {
+            "name": "save slack installation",
+            "description": {
+              "content": "Creates a new installation of a slack integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66ff473a-0ab8-478f-8223-760c233a2cb8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05898f51-481f-419c-b67c-14404b762d1d",
+          "name": "finish slack installation",
+          "request": {
+            "name": "finish slack installation",
+            "description": {
+              "content": "Completes the installation flow for a slack integration. This endpoint is typically called after the user has completed any required authorization steps with slack.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations",
+                "finish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"<string>\",\n  \"code\": \"<string>\",\n  \"redirect_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af46775e-6cbf-4aa0-ba42-f9f42e86ec77",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations",
+                    "finish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_id\": \"12345678901\",\n  \"code\": \"string\",\n  \"redirect_url\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6ccfe9d-09d9-4b11-9c1d-b794a44ce160",
+          "name": "start slack installation",
+          "request": {
+            "name": "start slack installation",
+            "description": {
+              "content": "Initiates the installation flow for a slack integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"<string>\",\n  \"auth_url\": \"<string>\",\n  \"extra_scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e9ffd74-257e-403a-a236-7b30d65970e2",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_id\": \"12345678901\",\n  \"auth_url\": \"https://example.com/auth\",\n  \"extra_scopes\": [\n    \"scope1\",\n    \"scope2\"\n  ],\n  \"redirect_url\": \"https://example.com/redirect\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_id\": \"app-id\",\n  \"auth_url\": \"https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write\",\n  \"scopes\": [\n    \"channels:read\",\n    \"chat:write\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cc2676c-6827-497e-80ae-0f9b6e811cfc",
+          "name": "delete slack integration by id",
+          "request": {
+            "name": "delete slack integration by id",
+            "description": {
+              "content": "Removes a specific slack integration instance by ID from the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be64ac7d-3e89-4807-8572-4ceaa242fcf1",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b555a652-3d3a-439c-963a-30732eeab1f3",
+          "name": "get slack user tokens",
+          "request": {
+            "name": "get slack user tokens",
+            "description": {
+              "content": "Lists all slack tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id",
+                "channels",
+                "slack",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca672d6f-1832-45e1-87a4-d7668945d4e1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id",
+                    "channels",
+                    "slack",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2012-07-03T15:10:29.936Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1954-05-12T10:29:58.088Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"1976-04-10T06:47:23.757Z\",\n      \"webhook\": {\n        \"url\": \"http://AKvwcTMlXKWfALtDKRsxDSYIncEA.lffmaLNCyXSDRugq\"\n      }\n    },\n    {\n      \"created_at\": \"2022-12-13T05:29:46.715Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"2010-02-18T23:22:48.442Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"1977-07-20T00:57:07.975Z\",\n      \"webhook\": {\n        \"url\": \"https://cLHDkrPfbWbQAhYDhvbFHPp.xrpshu,K3ClSlcLH3cWq-6tK+eW,AC5SpsDmL\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc4f2b02-a65d-47b1-b809-561fb6c35c33",
+          "name": "discard slack user token",
+          "request": {
+            "name": "discard slack user token",
+            "description": {
+              "content": "Revokes a specific user's slack token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id",
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83111fd5-2986-40e2-83b4-7a1f84be4255",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id",
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8440ab35-fe92-4cfb-90c6-016229019f9c",
+          "name": "get slack user token",
+          "request": {
+            "name": "get slack user token",
+            "description": {
+              "content": "Retrieves a specific slack token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":user_id",
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4800cd9-ff8b-4894-ba8b-b7e85f93786c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":user_id",
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1993-09-10T00:57:16.469Z\",\n  \"id\": \"string\",\n  \"discarded_at\": \"1990-07-29T08:06:14.265Z\",\n  \"oauth\": {\n    \"channel_id\": \"string\",\n    \"installation_id\": \"string\",\n    \"scope\": \"string\"\n  },\n  \"updated_at\": \"1957-10-22T20:24:33.758Z\",\n  \"webhook\": {\n    \"url\": \"https://OuEnQI.whM5-xT7y-TpnKhIyLipRCFHojhnxr2O5x0kXnv6ca7o1jXWh.Gf\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.magicbell.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6fdc159b-24f9-4757-8948-82d01fe84589",
+    "name": "MagicBell apns slack API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.0.3 Specification for MagicBell API.\n\nContact Support:\n Name: MagicBell\n Email: hello@magicbell.com",
+      "type": "text/plain"
+    }
+  }
+}

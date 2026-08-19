@@ -1,0 +1,3074 @@
+{
+  "item": [
+    {
+      "id": "d7f0e779-fd3c-4fbc-8988-55d7f97d850c",
+      "name": "user",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d22c3f5-fcf0-414e-a4bf-a41e468286ff",
+          "name": "get mobile push apns tokens",
+          "request": {
+            "name": "get mobile push apns tokens",
+            "description": {
+              "content": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "apns",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6bb13f81-29b5-4e06-b295-7e9a9cae79f7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "apns",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2017-03-18T23:01:18.208Z\",\n      \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n      \"id\": \"string\",\n      \"app_id\": \"iutyG\",\n      \"discarded_at\": \"1974-09-04T07:40:29.320Z\",\n      \"installation_id\": \"development\",\n      \"updated_at\": \"1966-10-14T06:07:56.735Z\"\n    },\n    {\n      \"created_at\": \"1947-05-22T14:47:11.620Z\",\n      \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n      \"id\": \"string\",\n      \"app_id\": \"T/7whG73QCQB7evkfmqQbep|XCTIrzVmb03vOS9X2X9d4PkgzX1a24OLqpcdrm8writNrBhLdAERXKp\",\n      \"discarded_at\": \"1989-02-19T11:53:24.845Z\",\n      \"installation_id\": \"production\",\n      \"updated_at\": \"1955-12-15T04:30:34.788Z\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b527de91-37b7-4ffc-b799-96d53b858928",
+          "name": "save mobile push apns token",
+          "request": {
+            "name": "save mobile push apns token",
+            "description": {
+              "content": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "apns",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_token\": \"<string>\",\n  \"app_id\": \"<string>\",\n  \"installation_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "372061b3-4754-4dd7-be48-4b41e85a9ae0",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "apns",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"device_token\": \"eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt\",\n  \"installation_id\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_token\": \"eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt\",\n  \"installation_id\": \"development\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1274c69b-5965-46dc-a18b-0c3cdfffe0dd",
+          "name": "discard mobile push apns token",
+          "request": {
+            "name": "discard mobile push apns token",
+            "description": {
+              "content": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "apns",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eddeced8-f973-47b9-9ece-475fc6e02d75",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "apns",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de9140c7-6669-48f0-8406-fe69b816104a",
+          "name": "get mobile push apns token",
+          "request": {
+            "name": "get mobile push apns token",
+            "description": {
+              "content": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "apns",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "55915d47-1c89-4444-a0c7-9eb4d41970da",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "apns",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2010-05-03T08:49:30.410Z\",\n  \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n  \"id\": \"string\",\n  \"app_id\": \"hBvvE50v3bFgSo1rdmXSvwMvYiwec8JhWo1HK0e2X,ldKoYkhmr\\\"X2UOpZlXumV\",\n  \"discarded_at\": \"1993-05-25T07:21:20.980Z\",\n  \"installation_id\": \"development\",\n  \"updated_at\": \"1955-01-03T05:51:59.189Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1b6dae0-0f5e-4ea9-95b9-11c1b2e78a68",
+          "name": "get mobile push expo tokens",
+          "request": {
+            "name": "get mobile push expo tokens",
+            "description": {
+              "content": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "expo",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7117a728-e0c9-4207-8db7-95e7e9e6f4c0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "expo",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"1969-08-07T19:43:01.580Z\",\n      \"device_token\": \"string\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1963-01-16T06:37:25.168Z\",\n      \"updated_at\": \"1951-10-18T16:25:46.034Z\"\n    },\n    {\n      \"created_at\": \"1961-07-30T22:58:24.836Z\",\n      \"device_token\": \"string\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1995-05-29T18:05:17.212Z\",\n      \"updated_at\": \"1964-02-29T20:35:21.085Z\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "539c80ff-a8c9-4bc6-87dc-b9df94822db5",
+          "name": "save mobile push expo token",
+          "request": {
+            "name": "save mobile push expo token",
+            "description": {
+              "content": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "expo",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07fe63ba-a624-4c15-b1e5-2dc1468dc232",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "expo",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"device_token\": \"expo-device-id\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_token\": \"expo-device-id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38e161ce-52bf-40b3-814e-d220ab392f1f",
+          "name": "discard mobile push expo token",
+          "request": {
+            "name": "discard mobile push expo token",
+            "description": {
+              "content": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "expo",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "239362a5-178a-465e-860d-41df22109733",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "expo",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8c3c8ce-1e7d-4cda-a761-e5cb56efdf1f",
+          "name": "get mobile push expo token",
+          "request": {
+            "name": "get mobile push expo token",
+            "description": {
+              "content": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "expo",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9879f9a4-4aac-4c7f-8d90-6570cf7dfdd9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "expo",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1948-12-24T01:33:20.731Z\",\n  \"device_token\": \"string\",\n  \"id\": \"string\",\n  \"discarded_at\": \"2023-12-19T17:05:25.598Z\",\n  \"updated_at\": \"1997-06-25T18:24:24.353Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6881b0cf-a737-4726-babe-5ef0fa78d113",
+          "name": "get mobile push fcm tokens",
+          "request": {
+            "name": "get mobile push fcm tokens",
+            "description": {
+              "content": "Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "fcm",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d9f530d-4ec9-4368-b262-f7d612be1574",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "fcm",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2015-12-03T11:12:32.330Z\",\n      \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n      \"id\": \"string\",\n      \"discarded_at\": \"2008-02-25T12:30:50.354Z\",\n      \"installation_id\": \"production\",\n      \"updated_at\": \"1999-12-04T04:06:05.417Z\"\n    },\n    {\n      \"created_at\": \"1954-11-13T16:23:46.604Z\",\n      \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1950-09-10T04:12:18.121Z\",\n      \"installation_id\": \"development\",\n      \"updated_at\": \"2019-04-17T18:56:00.359Z\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "486c27db-7607-4c91-9f84-4953580a647a",
+          "name": "save mobile push fcm token",
+          "request": {
+            "name": "save mobile push fcm token",
+            "description": {
+              "content": "Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "fcm",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"device_token\": \"<string>\",\n  \"installation_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "abff5c7f-ac48-41fc-bb36-ad7df53b0d0a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "fcm",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"device_token\": \"eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt\",\n  \"installation_id\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_token\": \"eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt\",\n  \"installation_id\": \"development\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc4b7eb1-3318-4fd6-9e3e-9e728604e405",
+          "name": "discard mobile push fcm token",
+          "request": {
+            "name": "discard mobile push fcm token",
+            "description": {
+              "content": "Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "fcm",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "caeb56f9-33a7-454c-8758-00c4ea18d6ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "fcm",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69824e72-3828-463c-b490-49d530fe187b",
+          "name": "get mobile push fcm token",
+          "request": {
+            "name": "get mobile push fcm token",
+            "description": {
+              "content": "Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "mobile_push",
+                "fcm",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f22472a7-8759-4569-b88c-a79e7ab7bf94",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "mobile_push",
+                    "fcm",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1988-05-17T19:11:24.861Z\",\n  \"device_token\": \"stringstringstringstringstringstringstringstringstringstringstring\",\n  \"id\": \"string\",\n  \"discarded_at\": \"2016-05-23T20:45:51.510Z\",\n  \"installation_id\": \"development\",\n  \"updated_at\": \"1961-10-20T13:42:38.579Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b61d363-5971-47a6-87e4-c37ef07476c3",
+          "name": "get slack tokens",
+          "request": {
+            "name": "get slack tokens",
+            "description": {
+              "content": "Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdf57b96-a512-4591-9018-0c4f3256b471",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2001-05-31T06:20:10.403Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1972-06-23T00:18:04.046Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"1956-09-14T07:24:54.985Z\",\n      \"webhook\": {\n        \"url\": \"http://xeDBdFnbkLlCvxPmbjcabivlobgbVWjTd.kpnqLVXkUZ,W1PQ4txzRdo45WL5J0oEsV\"\n      }\n    },\n    {\n      \"created_at\": \"1965-03-17T08:15:30.170Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1964-08-25T05:50:51.514Z\",\n      \"oauth\": {\n        \"channel_id\": \"string\",\n        \"installation_id\": \"string\",\n        \"scope\": \"string\"\n      },\n      \"updated_at\": \"1997-07-04T14:09:49.091Z\",\n      \"webhook\": {\n        \"url\": \"https://pkLfQ.yfkNHi3DisqyJdZwIl6gimJVd.tTuMC,8Bj3s52B8ngfvt6nqxB5UpEp7R0Ii+ZQGKRxxg93E2P6HcRs8Np0AKz\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53aeff7a-3004-43c0-9f63-ec49dbd4abdf",
+          "name": "save slack token",
+          "request": {
+            "name": "save slack token",
+            "description": {
+              "content": "Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oauth\": {\n    \"channel_id\": \"<string>\",\n    \"installation_id\": \"<string>\",\n    \"scope\": \"<string>\"\n  },\n  \"webhook\": {\n    \"url\": \"<uri>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "175c2929-defb-4f67-841e-a848cc06e6e5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/webhook\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/webhook\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a05d62b0-1a58-4e90-86dc-bbdf11108a2d",
+          "name": "discard slack token",
+          "request": {
+            "name": "discard slack token",
+            "description": {
+              "content": "Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30cbed57-d749-445c-9577-5331e5bc9997",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92d1cff1-1b8e-44d5-b565-b673fa290509",
+          "name": "get slack token",
+          "request": {
+            "name": "get slack token",
+            "description": {
+              "content": "Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "slack",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d36dbf9-9585-41a9-bc77-c1503ee10f85",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "slack",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2025-11-03T13:45:21.516Z\",\n  \"id\": \"string\",\n  \"discarded_at\": \"1968-04-17T19:55:17.108Z\",\n  \"oauth\": {\n    \"channel_id\": \"string\",\n    \"installation_id\": \"string\",\n    \"scope\": \"string\"\n  },\n  \"updated_at\": \"2023-12-04T23:43:34.162Z\",\n  \"webhook\": {\n    \"url\": \"http://wIuezsYPirUwwbHoA.rouyIyrVVTX8s+MllvSVp1yk0Wi1fh3+\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d00a3ffa-df54-4f89-a035-0c698316ec3f",
+          "name": "get teams tokens",
+          "request": {
+            "name": "get teams tokens",
+            "description": {
+              "content": "Lists all teams tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "teams",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59b14b97-4511-4d0b-97d8-8341aac8fd19",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "teams",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"1977-06-28T11:24:48.366Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"1983-04-23T00:31:11.178Z\",\n      \"updated_at\": \"2017-06-10T02:44:00.990Z\",\n      \"webhook\": {\n        \"url\": \"string\"\n      }\n    },\n    {\n      \"created_at\": \"1981-05-03T02:27:31.539Z\",\n      \"id\": \"string\",\n      \"discarded_at\": \"2017-09-10T21:43:44.452Z\",\n      \"updated_at\": \"1978-05-29T04:42:26.296Z\",\n      \"webhook\": {\n        \"url\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bded46ed-940d-4a94-967e-3dad3b5ef395",
+          "name": "save teams token",
+          "request": {
+            "name": "save teams token",
+            "description": {
+              "content": "Saves a teams token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "teams",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook\": {\n    \"url\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4ef58fa-4631-4b63-9a5d-c61f34edd77f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "teams",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2d11fa8-6c51-4c59-aff2-dd69a2c3a711",
+          "name": "discard teams token",
+          "request": {
+            "name": "discard teams token",
+            "description": {
+              "content": "Revokes one of the authenticated user's teams tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "teams",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b75dfbd-a014-42ce-854a-a3f2f967fb1f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "teams",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8b515fb-aa61-4c08-81da-bb50bd7a185c",
+          "name": "get teams token",
+          "request": {
+            "name": "get teams token",
+            "description": {
+              "content": "Retrieves details of a specific teams token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "teams",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a88623c4-8b41-41ed-af4a-4442324fa372",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "teams",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2013-05-01T09:37:01.714Z\",\n  \"id\": \"string\",\n  \"discarded_at\": \"2007-07-25T00:22:10.997Z\",\n  \"updated_at\": \"1973-06-23T14:02:16.661Z\",\n  \"webhook\": {\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7a8a79b-2d20-4576-b09f-90d884e3af6c",
+          "name": "get web push tokens",
+          "request": {
+            "name": "get web push tokens",
+            "description": {
+              "content": "Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "web_push",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0f55866-cac3-464e-a1f1-e11c1c89aed8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "web_push",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"created_at\": \"2020-10-15T19:48:06.354Z\",\n      \"endpoint\": \"https://BBROOwZlJsUN.drwRKbVmUUa7h.AXhp70qFkCpPQpVoYc3,zjFcfEfAGp5XQNdOZxgrpBLaEuH\",\n      \"id\": \"string\",\n      \"keys\": {\n        \"p256dh\": \"string\",\n        \"auth\": \"string\"\n      },\n      \"discarded_at\": \"1995-11-23T18:14:15.384Z\",\n      \"updated_at\": \"2016-04-24T11:54:51.035Z\"\n    },\n    {\n      \"created_at\": \"1957-12-22T00:21:09.254Z\",\n      \"endpoint\": \"https://AUegtrTVwiG.tkfTDKU2KDBHxELhG++IN3Chfw1fg4e.20gVoPt8Ha\",\n      \"id\": \"string\",\n      \"keys\": {\n        \"p256dh\": \"string\",\n        \"auth\": \"string\"\n      },\n      \"discarded_at\": \"2008-03-08T12:28:07.871Z\",\n      \"updated_at\": \"2011-05-10T08:13:56.616Z\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "957c61c8-d60c-4a8d-a5e9-ef7db1db5989",
+          "name": "save web push token",
+          "request": {
+            "name": "save web push token",
+            "description": {
+              "content": "Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "web_push",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endpoint\": \"<uri>\",\n  \"keys\": {\n    \"p256dh\": \"<string>\",\n    \"auth\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ecc4b7dc-4880-43eb-9c13-1817462b4da7",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "web_push",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": \"https://example.com/webhook\",\n  \"keys\": {\n    \"auth\": \"<string>\",\n    \"p256dh\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": \"https://example.com/webhook\",\n  \"keys\": {\n    \"auth\": \"<string>\",\n    \"p256dh\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7e41f8b-d7ac-45ee-8b05-88bacaebeb0c",
+          "name": "discard web push token",
+          "request": {
+            "name": "discard web push token",
+            "description": {
+              "content": "Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "web_push",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51ca2ff1-1326-49f1-b46b-58b5c8d14be9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "web_push",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discarded_at\": \"2021-01-01T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c33a849-2470-41bd-9068-d51efc49c364",
+          "name": "get web push token",
+          "request": {
+            "name": "get web push token",
+            "description": {
+              "content": "Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "channels",
+                "web_push",
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd9e971f-8cba-4018-8020-85b0ff6cd218",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels",
+                    "web_push",
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1996-06-30T13:25:25.663Z\",\n  \"endpoint\": \"http://IdYyyVjUBRDzvcaYwpbpzU.pofgyBzKmCGEOMTAZ1bIDSPPuWBR9UJnjeSgbkAhF\",\n  \"id\": \"string\",\n  \"keys\": {\n    \"p256dh\": \"string\",\n    \"auth\": \"string\"\n  },\n  \"discarded_at\": \"2010-12-05T05:42:22.279Z\",\n  \"updated_at\": \"2009-01-03T02:26:58.808Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e143c11c-12bc-4dab-a327-2b372191388d",
+          "name": "save inbox installation",
+          "request": {
+            "name": "save inbox installation",
+            "description": {
+              "content": "Creates a new installation of a inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"theme\": {\n    \"banner\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"backgroundOpacity\": \"<number>\"\n    },\n    \"dialog\": {\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"accentColor\": \"<string>\"\n    },\n    \"footer\": {\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"header\": {\n      \"fontFamily\": \"<string>\",\n      \"fontSize\": \"<string>\",\n      \"backgroundColor\": \"<string>\",\n      \"textColor\": \"<string>\",\n      \"borderRadius\": \"<string>\"\n    },\n    \"icon\": {\n      \"borderColor\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"notification\": {\n      \"default\": {\n        \"fontFamily\": \"<string>\",\n        \"fontSize\": \"<string>\",\n        \"textColor\": \"<string>\",\n        \"borderRadius\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"margin\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unseen\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      },\n      \"unread\": {\n        \"textColor\": \"<string>\",\n        \"backgroundColor\": \"<string>\",\n        \"hover\": {\n          \"backgroundColor\": \"<string>\"\n        },\n        \"state\": {\n          \"color\": \"<string>\"\n        }\n      }\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"<string>\"\n    }\n  },\n  \"locale\": \"<string>\",\n  \"images\": {\n    \"emptyInboxUrl\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b0b17b0-d467-41d7-8c0d-c84255034dbd",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff0f969f-e862-4143-a7c6-394b01dba843",
+          "name": "start inbox installation",
+          "request": {
+            "name": "start inbox installation",
+            "description": {
+              "content": "Initiates the installation flow for a inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "inbox",
+                "installations",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "342b12ac-d31f-4262-975b-864472470dce",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "inbox",
+                    "installations",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": {\n    \"emptyInboxUrl\": \"\"\n  },\n  \"locale\": \"de\",\n  \"theme\": {\n    \"banner\": {\n      \"backgroundColor\": \"#F8F5FF\",\n      \"fontSize\": \"14px\",\n      \"textColor\": \"#3A424D\"\n    },\n    \"dialog\": {\n      \"accentColor\": \"#5225C1\",\n      \"backgroundColor\": \"#F5F5F5\",\n      \"textColor\": \"#313131\"\n    },\n    \"footer\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"header\": {\n      \"backgroundColor\": \"#FFFFFF\",\n      \"borderRadius\": \"16px\",\n      \"fontFamily\": \"inherit\",\n      \"fontSize\": \"15px\",\n      \"textColor\": \"#5225C1\"\n    },\n    \"icon\": {\n      \"borderColor\": \"#EDEDEF\",\n      \"width\": \"24px\"\n    },\n    \"unseenBadge\": {\n      \"backgroundColor\": \"#F80808\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e22bc7f-23f7-492f-a1c7-37966c375efb",
+          "name": "save slack installation",
+          "request": {
+            "name": "save slack installation",
+            "description": {
+              "content": "Creates a new installation of a slack integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b0ae62b-800b-40e2-b37d-4f7bc54e6eab",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "805fdf1a-fea0-41d0-be9d-c82da9a18132",
+          "name": "finish slack installation",
+          "request": {
+            "name": "finish slack installation",
+            "description": {
+              "content": "Completes the installation flow for a slack integration. This endpoint is typically called after the user has completed any required authorization steps with slack.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations",
+                "finish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"<string>\",\n  \"code\": \"<string>\",\n  \"redirect_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ac36a95-3b33-473a-9038-1f8ba3ad8c73",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations",
+                    "finish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_id\": \"12345678901\",\n  \"code\": \"string\",\n  \"redirect_url\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"<string>\",\n  \"authed_user\": {\n    \"id\": \"<string>\",\n    \"access_token\": \"<string>\",\n    \"expires_in\": \"<integer>\",\n    \"refresh_token\": \"<string>\",\n    \"scope\": \"<string>\",\n    \"token_type\": \"<string>\"\n  },\n  \"team\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"app_id\": \"<string>\",\n  \"bot_user_id\": \"<string>\",\n  \"enterprise\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\"\n  },\n  \"expires_in\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"incoming_webhook\": {\n    \"channel\": \"<string>\",\n    \"configuration_url\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"is_enterprise_install\": \"<boolean>\",\n  \"refresh_token\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cecd12e4-3a2a-4d76-9ed4-a86b75cf1c83",
+          "name": "start slack installation",
+          "request": {
+            "name": "start slack installation",
+            "description": {
+              "content": "Initiates the installation flow for a slack integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "slack",
+                "installations",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"<string>\",\n  \"auth_url\": \"<string>\",\n  \"extra_scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"redirect_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd9ba861-4b41-4aa4-be79-df14922bfbc5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "slack",
+                    "installations",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_id\": \"12345678901\",\n  \"auth_url\": \"https://example.com/auth\",\n  \"extra_scopes\": [\n    \"scope1\",\n    \"scope2\"\n  ],\n  \"redirect_url\": \"https://example.com/redirect\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_id\": \"app-id\",\n  \"auth_url\": \"https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write\",\n  \"scopes\": [\n    \"channels:read\",\n    \"chat:write\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "017499e7-188b-48ca-aa9d-7fae3c7e49af",
+          "name": "save templates installation",
+          "request": {
+            "name": "save templates installation",
+            "description": {
+              "content": "Creates a new installation of a templates integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "templates",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"channel\": \"<string>\",\n  \"category\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7f1d859-b845-413b-9f2a-558a82421f97",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "templates",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"channel\": \"email\",\n  \"text\": \"Installation\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"email\",\n  \"text\": \"Installation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "616b51b3-3cf7-43ea-af66-243ca1d02e03",
+          "name": "save web push installation",
+          "request": {
+            "name": "save web push installation",
+            "description": {
+              "content": "Creates a new installation of a web_push integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "web_push",
+                "installations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endpoint\": \"<uri>\",\n  \"keys\": {\n    \"p256dh\": \"<string>\",\n    \"auth\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "110ae7d9-d323-4919-a658-3a4d97b06664",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "web_push",
+                    "installations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": \"https://example.com/webhook\",\n  \"keys\": {\n    \"auth\": \"<string>\",\n    \"p256dh\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": \"https://example.com/webhook\",\n  \"keys\": {\n    \"auth\": \"<string>\",\n    \"p256dh\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53a92c7e-cc65-4945-aebf-39f6fc9f2805",
+          "name": "start web push installation",
+          "request": {
+            "name": "start web push installation",
+            "description": {
+              "content": "Initiates the installation flow for a web_push integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "web_push",
+                "installations",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4883fea5-9961-4381-ad4a-ffab904d648c",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "web_push",
+                    "installations",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"auth_token\": \"eyGhb...GA2Bw\",\n  \"public_key\": \"BHaJd...gRHDk\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.magicbell.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0f6d1cc1-93ce-4702-80a8-267bee784962",
+    "name": "MagicBell apns user API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI 3.0.3 Specification for MagicBell API.\n\nContact Support:\n Name: MagicBell\n Email: hello@magicbell.com",
+      "type": "text/plain"
+    }
+  }
+}
