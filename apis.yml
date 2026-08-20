@@ -24,6 +24,19 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/magicbell.png
 tags:
+  - Notification
+  - Push Notifications
+  - In-App Notifications
+  - Email
+  - SMS
+  - Slack
+  - Microsoft Teams
+  - Webhook
+  - notification inbox
+  - Multi-Channel
+  - Mobile Push
+  - Web Push
+tags_raw:
   - notifications
   - push notifications
   - in-app notifications
@@ -51,6 +64,11 @@ apis:
   humanURL: https://www.magicbell.com/docs/v1
   baseURL: https://api.magicbell.com
   tags:
+  - Notification
+  - User
+  - Legacy
+  - REST
+  tags_raw:
   - notifications
   - users
   - legacy
@@ -66,6 +84,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - APNs
+  tags_raw:
   - apns
   properties:
   - type: OpenAPI
@@ -98,6 +118,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Broadcasts
+  tags_raw:
   - broadcasts
   properties:
   - type: OpenAPI
@@ -194,6 +216,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Channels
+  tags_raw:
   - channels
   properties:
   - type: OpenAPI
@@ -210,6 +234,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Expo
+  tags_raw:
   - expo
   properties:
   - type: OpenAPI
@@ -242,6 +268,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - GitHub
+  tags_raw:
   - github
   properties:
   - type: OpenAPI
@@ -258,6 +286,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Inbox
+  tags_raw:
   - inbox
   properties:
   - type: OpenAPI
@@ -274,6 +304,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Integration
+  tags_raw:
   - integrations
   properties:
   - type: OpenAPI
@@ -306,6 +338,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Mobile Push
+  tags_raw:
   - mobile_push
   properties:
   - type: OpenAPI
@@ -321,7 +355,8 @@ apis:
   description: The ping_email API from MagicBell — 2 operation(s) for ping_email.
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
-  tags:
+  tags: []
+  tags_raw:
   - ping_email
   properties:
   - type: OpenAPI
@@ -338,6 +373,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Project
+  tags_raw:
   - project
   properties:
   - type: OpenAPI
@@ -370,6 +407,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - SES
+  tags_raw:
   - ses
   properties:
   - type: OpenAPI
@@ -386,6 +425,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Slack
+  tags_raw:
   - slack
   properties:
   - type: OpenAPI
@@ -402,6 +443,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Stripe
+  tags_raw:
   - stripe
   properties:
   - type: OpenAPI
@@ -418,6 +461,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Team
+  tags_raw:
   - teams
   properties:
   - type: OpenAPI
@@ -434,6 +479,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Templates
+  tags_raw:
   - templates
   properties:
   - type: OpenAPI
@@ -450,6 +497,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Twilio
+  tags_raw:
   - twilio
   properties:
   - type: OpenAPI
@@ -466,6 +515,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -482,6 +533,8 @@ apis:
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
   tags:
+  - Web Push
+  tags_raw:
   - web_push
   properties:
   - type: OpenAPI
