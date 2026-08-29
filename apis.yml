@@ -10,6 +10,18 @@ description: >
   notification infrastructure. It is a Y Combinator (W21) company offering SDKs for JavaScript,
   React, Go, Swift, Java, and Android along with a CLI for project management.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: unknown
