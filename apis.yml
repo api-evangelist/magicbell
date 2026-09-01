@@ -37,17 +37,17 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/magicbell.png
 tags:
   - Notification
-  - push notifications
-  - in-app notifications
+  - Push Notifications
+  - In-App Notifications
   - Email
   - SMS
   - Slack
   - Microsoft Teams
   - Webhook
   - notification inbox
-  - multichannel
-  - mobile push
-  - web push
+  - Multi-Channel
+  - Mobile Push
+  - Web Push
 tags_raw:
   - notifications
   - push notifications
