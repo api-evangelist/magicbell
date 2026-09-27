@@ -91,7 +91,7 @@ apis:
   - type: PostmanCollection
     url: https://documenter.getpostman.com/view/2269098/2sAYdhLAjv
 - aid: magicbell:magicbell-integrations-api
-  name: MagicBell integrations API
+  name: MagicBell Integrations API
   description: The integrations API from MagicBell — 42 operation(s) for integrations.
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
@@ -109,7 +109,7 @@ apis:
   - type: Authentication
     url: https://www.magicbell.com/docs/api/authentication
 - aid: magicbell:magicbell-project-api
-  name: MagicBell project API
+  name: MagicBell Project API
   description: The project API from MagicBell — 52 operation(s) for project.
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
@@ -127,7 +127,7 @@ apis:
   - type: Authentication
     url: https://www.magicbell.com/docs/api/authentication
 - aid: magicbell:magicbell-user-api
-  name: MagicBell user API
+  name: MagicBell User API
   description: The user API from MagicBell — 20 operation(s) for user.
   humanURL: https://www.magicbell.com/docs/api
   baseURL: https://api.magicbell.com/v2
