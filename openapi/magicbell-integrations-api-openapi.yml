@@ -93,6 +93,35 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AWSSNSWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        type:
+          type: string
+      example:
+        payload: {}
+        type: ping
+    GithubWebhookEvent:
+      type: object
+      properties:
+        description:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+        type:
+          type: string
+      example:
+        description: example event
+        payload: {}
+        type: ping
     StripeWebhookEvent:
       required:
       - id
@@ -109,32 +138,3 @@ components:
         description: example event
         id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
         type: invoice.created
-    GithubWebhookEvent:
-      type: object
-      properties:
-        description:
-          type: string
-        payload:
-          type: object
-          additionalProperties: true
-        type:
-          type: string
-      example:
-        description: example event
-        payload: {}
-        type: ping
-    AWSSNSWebhookEvent:
-      type: object
-      properties:
-        description:
-          type: string
-        payload:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-        type:
-          type: string
-      example:
-        payload: {}
-        type: ping

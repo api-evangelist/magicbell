@@ -1949,150 +1949,80 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    APNSConfigObject:
+    WebpushConfig:
       required:
-      - name
-      - id
-      - config
+      - public_key
+      - private_key
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/APNSConfig'
-        id:
+        private_key:
+          maxLength: 128
+          minLength: 8
           type: string
-        name:
+        public_key:
+          maxLength: 128
+          minLength: 8
           type: string
-    SlackConfig:
-      required:
-      - app_id
-      - client_id
-      - client_secret
-      - signing_secret
-      type: object
-      properties:
-        app_id:
-          pattern: ^[0-9A-Z]+$
-          type: string
-          description: The Slack app ID that can be found in the app's settings page of the Slack API dashboard.
-        client_id:
-          pattern: ^[0-9]+\.[0-9]+$
-          type: string
-          description: The Slack client ID that can be found in the app's settings page of the Slack API dashboard.
-        client_secret:
-          maxLength: 32
-          minLength: 32
-          type: string
-          description: The Slack client secret that can be found in the app's settings page of the Slack API dashboard.
-        signing_secret:
-          maxLength: 32
-          minLength: 32
-          type: string
-          description: The Slack signing secret that can be found in the app's settings page of the Slack API dashboard.
       example:
-        app_id: '12345678901'
-        client_id: '1.0'
-        client_secret: '12345678901234567890123456789012'
-        signing_secret: '12345678901234567890123456789012'
-    AWSSNSConfigObject:
+        private_key: <string>
+        public_key: <string>
+    SendgridConfig:
       required:
-      - name
-      - id
-      - config
+      - api_key
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/AWSSNSConfig'
-        id:
+        api_key:
           type: string
-        name:
-          type: string
-    ArrayOfEvents:
+          description: The API key for Sendgrid
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type:
+              - string
+              - 'null'
+              description: The name to send from
+        reply_to:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to reply to
+              format: email
+            name:
+              type:
+              - string
+              - 'null'
+              description: The name to reply to
+      example:
+        api_key: SG.1234567890
+        from:
+          email: matt@magicbell.com
+          name: Matt
+        reply_to:
+          email: hana@magicbell.com
+          name: Hana
+    ArrayOfExpoTokenResponses:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/Event'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - id: '123'
-          timestamp: '2021-01-01T00:00:00Z'
-          type: example_type
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfSendgridConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SendgridConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            api_key: SG.1234567890
-            from:
-              email: matt@magicbell.com
-              name: Matt
-            reply_to:
-              email: hana@magicbell.com
-              name: Hana
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfGithubConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GithubConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    InboxConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/InboxConfig'
-        id:
-          type: string
-        name:
-          type: string
-    ArrayOfTeamsTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamsTokenResponse'
+            $ref: '#/components/schemas/ExpoTokenResponse'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - created_at: '2021-01-01T00:00:00Z'
+          device_token: expo-device-id
           discarded_at: '2021-01-01T00:00:00Z'
           id: '123'
           updated_at: '2021-01-01T00:00:00Z'
@@ -2100,61 +2030,6 @@ components:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    TwilioConfig:
-      required:
-      - account_sid
-      - api_key
-      - api_secret
-      - from
-      type: object
-      properties:
-        account_sid:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: The SID for your Twilio account
-        api_key:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: The API key for Twilio
-        api_secret:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: The API Secret for Twilio
-        from:
-          maxLength: 100
-          minLength: 1
-          pattern: ^\+[0-9]{1,14}$
-          type: string
-          description: The phone number to send from, in E.164 format
-        region:
-          enum:
-          - us1
-          - ie1
-          - au1
-          type: string
-          description: The region to use for Twilio, defaults to 'us1'
-      example:
-        account_sid: ACXXXXXXXX
-        api_key: SKXXXXXXXX
-        api_secret: your_api_secret
-        from: '+15017122661'
-        region: us1
-    SESConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/SESConfig'
-        id:
-          type: string
-        name:
-          type: string
     FCMConfig:
       required:
       - type
@@ -2265,612 +2140,91 @@ components:
         token_uri: https://oauth2.googleapis.com/token
         type: service_account
         universe_domain: googleapis.com
-    FCMConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/FCMConfig'
-        id:
-          type: string
-        name:
-          type: string
-    ArrayOfIntegrationObjects:
+    ArrayOfFCMConfigObjects:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/IntegrationObject'
+            $ref: '#/components/schemas/FCMConfigObject'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - config:
-            webhook_url: https://example.com/webhook
+            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+            auth_uri: https://accounts.google.com/o/oauth2/auth
+            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+            client_id: '117893100789081023083'
+            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+            private_key: '-----BEGIN PRIVATE KEY-----
+
+              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
+
+              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
+
+              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
+
+              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
+
+              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
+
+              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
+
+              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
+
+              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
+
+              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
+
+              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
+
+              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
+
+              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
+
+              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
+
+              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
+
+              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
+
+              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
+
+              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
+
+              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
+
+              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
+
+              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
+
+              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
+
+              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
+
+              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
+
+              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
+
+              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
+
+              ps+wuWO8MN5yQTBZvAEIfQs=
+
+              -----END PRIVATE KEY-----
+
+              '
+            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+            project_id: platform-development
+            token_uri: https://oauth2.googleapis.com/token
+            type: service_account
+            universe_domain: googleapis.com
           id: '123'
           name: slack
         links:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    IntegrationObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/Integration'
-        id:
-          type: string
-        name:
-          type: string
-    ArrayOfSlackTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlackTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          updated_at: '2021-01-01T00:00:00Z'
-          webhook:
-            url: https://example.com/webhook
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ExpoConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/ExpoConfig'
-        id:
-          type: string
-        name:
-          type: string
-    Links:
-      type: object
-      properties:
-        first:
-          type: string
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-    ArrayOfSlackConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlackConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            app_id: '12345678901'
-            client_id: '1.0'
-            client_secret: '12345678901234567890123456789012'
-            signing_secret: '12345678901234567890123456789012'
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    APNSConfig:
-      required:
-      - app_id
-      - certificate
-      - key_id
-      - team_id
-      - badge
-      type: object
-      properties:
-        app_id:
-          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
-          type: string
-          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
-        badge:
-          enum:
-          - unread
-          - unseen
-          type: string
-        certificate:
-          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
-          type: string
-          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
-          x-ui:
-            tagName: textarea
-        key_id:
-          maxLength: 10
-          minLength: 10
-          type: string
-        payload_version:
-          enum:
-          - '1'
-          - '2'
-          type: string
-          default: '2'
-          x-ui:
-            type: hidden
-        team_id:
-          maxLength: 10
-          minLength: 10
-          type: string
-      example:
-        app_id: com.example.myapp
-        badge: unread
-        certificate: '-----BEGIN PRIVATE KEY-----
-
-          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
-
-          -----END PRIVATE KEY-----'
-        key_id: ABCD1234EF
-        team_id: ABCD1234EF
-    Broadcast:
-      required:
-      - title
-      - recipients
-      type: object
-      properties:
-        action_url:
-          maxLength: 2048
-          type:
-          - string
-          - 'null'
-        category:
-          maxLength: 255
-          pattern: ^[A-Za-z0-9_\.\-/:]+$
-          type:
-          - string
-          - 'null'
-        content:
-          maxLength: 10485760
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          description: The timestamp when the broadcast was created.
-          format: date-time
-          readOnly: true
-        custom_attributes:
-          type:
-          - object
-          - 'null'
-        id:
-          type: string
-          description: The unique id for this broadcast.
-        overrides:
-          type:
-          - object
-          - 'null'
-          properties:
-            channels:
-              type: object
-              properties:
-                email:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-                in_app:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-                mobile_push:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-                slack:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-                sms:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-                web_push:
-                  type: object
-                  properties:
-                    action_url:
-                      maxLength: 2048
-                      type:
-                      - string
-                      - 'null'
-                    content:
-                      maxLength: 1048576
-                      type: string
-                    title:
-                      maxLength: 255
-                      minLength: 1
-                      type: string
-            providers:
-              type: object
-              properties:
-                amazon_ses:
-                  type: object
-                android:
-                  type: object
-                ios:
-                  type: object
-                mailgun:
-                  type: object
-                postmark:
-                  type: object
-                sendgrid:
-                  type: object
-                slack:
-                  type: object
-          additionalProperties: false
-        recipients:
-          maxItems: 1000
-          minItems: 1
-          type: array
-          items:
-            type: object
-            oneOf:
-            - $ref: '#/components/schemas/topic'
-            - $ref: '#/components/schemas/user'
-        status:
-          required:
-          - status
-          - summary
-          - errors
-          type: object
-          properties:
-            errors:
-              type:
-              - array
-              - 'null'
-              items:
-                type: object
-                properties:
-                  message:
-                    type: string
-            status:
-              enum:
-              - enqueued
-              - processing
-              - processed
-              type: string
-              readOnly: true
-            summary:
-              required:
-              - total
-              - failures
-              type: object
-              properties:
-                failures:
-                  type: integer
-                  description: The number of failures while processing the broadcast.
-                  readOnly: true
-                total:
-                  type: integer
-                  description: The number of recipients that the broadcast was sent to.
-                  readOnly: true
-        title:
-          maxLength: 255
-          minLength: 1
-          type: string
-        topic:
-          maxLength: 255
-          pattern: ^[A-Za-z0-9_\.\-/:]+$
-          type:
-          - string
-          - 'null'
-      example:
-        action_url: https://example.com
-        category: example
-        content: Hello, World!
-        custom_attributes: {}
-        id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
-        overrides: {}
-        recipients:
-        - custom_attributes:
-            plan: enterprise
-            preferred_pronoun: They
-            pricing_version: v10
-          email: test@example.com
-          external_id: 83d987a-83fd034
-          first_name: Person
-          last_name: Doe
-          phone_numbers:
-          - +1 5005550001
-        title: Hello, World!
-        topic: example
-    ExpoConfig:
-      required:
-      - access_token
-      type: object
-      properties:
-        access_token:
-          minLength: 1
-          type: string
-      example:
-        access_token: expo_access_token
-    MailgunConfig:
-      required:
-      - api_key
-      - region
-      - domain
-      type: object
-      properties:
-        api_key:
-          minLength: 1
-          type: string
-        domain:
-          minLength: 1
-          type: string
-        region:
-          enum:
-          - us
-          - eu
-          type: string
-      example:
-        api_key: mailgun_api_key
-        domain: mailgun_domain
-        region: us
-    TeamsTokenResponse:
-      required:
-      - created_at
-      - id
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        webhook:
-          type: object
-          properties:
-            url:
-              type: string
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        updated_at: '2021-01-01T00:00:00Z'
-    CreateUserTokenRequest:
-      type: object
-      properties:
-        email:
-          maxLength: 255
-          type: string
-          description: The user's email.
-        expiry:
-          minimum: 1
-          type: integer
-          description: The duration for which the token is valid (in seconds)
-        external_id:
-          maxLength: 255
-          type: string
-          description: A unique string that MagicBell can utilize to identify the user uniquely. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.
-        name:
-          maxLength: 255
-          type: string
-          description: The name of the token.
-      example:
-        email: hana@magicbell.io
-        expiry: 3600
-        name: Hana's token
-    DiscardTokenResponse:
-      required:
-      - token_id
-      - discarded_at
-      type: object
-      properties:
-        discarded_at:
-          type: string
-          format: date-time
-        token_id:
-          type: string
-          format: uuid
-      example:
-        discarded_at: '2021-01-01T00:00:00Z'
-        token_id: 550e8400-e29b-41d4-a716-446655440000
-    FetchTokensResponseToken:
-      required:
-      - created_at
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        discarded_at:
-          type: string
-          format: date-time
-        expires_at:
-          type: string
-          format: date-time
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    AWSSNSConfig:
-      required:
-      - webhook_signing_secret
-      type: object
-      properties:
-        webhook_signing_secret:
-          minLength: 1
-          type: string
-          description: The signing certificate from AWS SNS
-      additionalProperties: false
-      example:
-        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
-    StripeConfig:
-      required:
-      - webhook_signing_secret
-      type: object
-      properties:
-        webhook_signing_secret:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: The signing secret to verify incoming requests from Stripe
-      additionalProperties: false
-      example:
-        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
-    ArrayOfBroadcasts:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Broadcast'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - action_url: https://example.com
-          category: example
-          content: Hello, World!
-          custom_attributes: {}
-          id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
-          overrides: {}
-          recipients:
-          - custom_attributes:
-              plan: enterprise
-              preferred_pronoun: They
-              pricing_version: v10
-            email: test@example.com
-            external_id: 83d987a-83fd034
-            first_name: Person
-            last_name: Doe
-            phone_numbers:
-            - +1 5005550001
-          title: Hello, World!
-          topic: example
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    TemplatesConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/TemplatesConfig'
-        id:
-          type: string
-        name:
-          type: string
-    TemplatesConfig:
-      type: object
-      example:
-        apns:
-          app_id: com.example.myapp
-          badge: unread
-          certificate: MIICXQIBAAKBgQC3J2
-          key_id: ABCD1234EF
-          team_id: ABCD1234EF
-      x-ui:
-        type: hidden
-    MailgunConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/MailgunConfig'
-        id:
-          type: string
-        name:
-          type: string
     ArrayOfAPNSConfigObjects:
       type: object
       properties:
@@ -2898,6 +2252,186 @@ components:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
+    ArrayOfGithubConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GithubConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    FCMConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/FCMConfig'
+        id:
+          type: string
+        name:
+          type: string
+    Integration:
+      type: object
+    ArrayOfTemplatesConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatesConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            apns:
+              app_id: com.example.myapp
+              badge: unread
+              certificate: MIICXQIBAAKBgQC3J2
+              key_id: ABCD1234EF
+              team_id: ABCD1234EF
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    CategoryDeliveryConfig:
+      required:
+      - channels
+      - key
+      type: object
+      properties:
+        channels:
+          type: array
+          items:
+            required:
+            - channel
+            type: object
+            properties:
+              channel:
+                enum:
+                - in_app
+                - slack
+                - web_push
+                - mobile_push
+                - teams
+                - email
+                type: string
+              delay:
+                minimum: 0
+                type: integer
+              disabled:
+                type: boolean
+                default: false
+              if:
+                type: string
+              priority:
+                minimum: 0
+                type: integer
+        disabled:
+          type: boolean
+          default: false
+        key:
+          minLength: 3
+          pattern: ^[A-Za-z0-9_\.\-:]+$
+          type: string
+      example:
+        channels:
+        - channel: in_app
+        - channel: email
+          if: '{{notification.unseen}} == false'
+        disabled: false
+        key: project
+    TwilioConfig:
+      required:
+      - account_sid
+      - api_key
+      - api_secret
+      - from
+      type: object
+      properties:
+        account_sid:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The SID for your Twilio account
+        api_key:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API key for Twilio
+        api_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The API Secret for Twilio
+        from:
+          maxLength: 100
+          minLength: 1
+          pattern: ^\+[0-9]{1,14}$
+          type: string
+          description: The phone number to send from, in E.164 format
+        region:
+          enum:
+          - us1
+          - ie1
+          - au1
+          type: string
+          description: The region to use for Twilio, defaults to 'us1'
+      example:
+        account_sid: ACXXXXXXXX
+        api_key: SKXXXXXXXX
+        api_secret: your_api_secret
+        from: '+15017122661'
+        region: us1
+    ArrayOfFetchTokensResponseTokens:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FetchTokensResponseToken'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          expires_at: '2021-01-01T00:00:00Z'
+          id: 00000000-0000-0000-0000-000000000000
+          name: My Token
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
     WebPushTokenResponse:
       required:
       - created_at
@@ -2943,316 +2477,16 @@ components:
           auth: <string>
           p256dh: <string>
         updated_at: '2021-01-01T00:00:00Z'
-    ArrayOfMailgunConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MailgunConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            api_key: mailgun_api_key
-            domain: mailgun_domain
-            region: us
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfWebPushTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebPushTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          discarded_at: '2021-01-01T00:00:00Z'
-          endpoint: https://example.com/webhook
-          id: '123'
-          keys:
-            auth: <string>
-            p256dh: <string>
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    user:
-      type: object
-      allOf:
-      - anyOf:
-        - required:
-          - email
-          type: object
-          properties:
-            email:
-              type: string
-              format: email
-            external_id:
-              pattern: \s*
-              type: string
-        - required:
-          - email
-          type: object
-          properties:
-            email:
-              type: string
-              format: email
-            external_id:
-              pattern: ^[^\s]+
-              type: string
-        - required:
-          - external_id
-          type: object
-          properties:
-            email:
-              type: string
-              format: email
-            external_id:
-              pattern: ^[^\s]+
-              type: string
-        - required:
-          - external_id
-          type: object
-          properties:
-            email:
-              type: string
-              format: \s+
-            external_id:
-              minLength: 1
-              pattern: ^[^\s]+
-              type: string
-      - minProperties: 1
-        type: object
-        properties:
-          custom_attributes:
-            type: object
-          email:
-            maxLength: 255
-            type: string
-          external_id:
-            maxLength: 255
-            type: string
-          first_name:
-            maxLength: 255
-            type: string
-          last_name:
-            maxLength: 255
-            type: string
-          phone_numbers:
-            type: array
-            items:
-              pattern: ^\+\d{1,3}\s?\d{1,14}$
-              type: string
-        additionalProperties: false
-    SESConfig:
+    ExpoConfig:
       required:
-      - key_id
-      - secret_key
-      - region
+      - access_token
       type: object
       properties:
-        from:
-          required:
-          - email
-          type: object
-          properties:
-            email:
-              type: string
-              description: The email address to send from
-              format: email
-            name:
-              type:
-              - string
-              - 'null'
-              description: The name to send from
-        key_id:
+        access_token:
           minLength: 1
           type: string
-          description: AWS Access Key ID
-        region:
-          minLength: 1
-          type: string
-          description: AWS Region
-        secret_key:
-          minLength: 1
-          type: string
-          description: AWS Secret Key
       example:
-        from:
-          email: person@example.com
-          name: Person Name
-        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
-        region: eu-west-1
-        secret_key: MY_FAKE_AWS_SECRET_KEY
-    ArrayOfFCMTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FCMTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          installation_id: development
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    AccessToken:
-      required:
-      - token
-      - token_id
-      - created_at
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        expires_at:
-          type: string
-          format: date-time
-        token:
-          type: string
-        token_id:
-          type: string
-          format: uuid
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        token: eY.......
-        token_id: 019b1b1e-7b1b-4b1b-8b1b-1b1b1b1b1b1b
-    Event:
-      required:
-      - id
-      - type
-      - timestamp
-      type: object
-      properties:
-        code:
-          type: integer
-        context:
-          type:
-          - object
-          - 'null'
-        id:
-          type: string
-        level:
-          type: string
-        log:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-          format: date-time
-        type:
-          type: string
-    ArrayOfWebpushConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebpushConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            private_key: <string>
-            public_key: <string>
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    FCMTokenResponse:
-      required:
-      - created_at
-      - device_token
-      - id
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        device_token:
-          minLength: 64
-          type: string
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        installation_id:
-          enum:
-          - development
-          - production
-          type: string
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        installation_id: development
-        updated_at: '2021-01-01T00:00:00Z'
-    GithubConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/GithubConfig'
-        id:
-          type: string
-        name:
-          type: string
-    ArrayOfPingConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PingConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            url: https://example.com/webhook
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
+        access_token: expo_access_token
     InboxConfig:
       required:
       - theme
@@ -3482,167 +2716,255 @@ components:
             width: 24px
           unseenBadge:
             backgroundColor: '#F80808'
-    ArrayOfExpoTokenResponses:
+    user:
       type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpoTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          device_token: expo-device-id
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfAPNSTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/APNSTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          installation_id: development
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    PingConfigObject:
+      allOf:
+      - anyOf:
+        - required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: \s*
+              type: string
+        - required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: ^[^\s]+
+              type: string
+        - required:
+          - external_id
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            external_id:
+              pattern: ^[^\s]+
+              type: string
+        - required:
+          - external_id
+          type: object
+          properties:
+            email:
+              type: string
+              format: \s+
+            external_id:
+              minLength: 1
+              pattern: ^[^\s]+
+              type: string
+      - minProperties: 1
+        type: object
+        properties:
+          custom_attributes:
+            type: object
+          email:
+            maxLength: 255
+            type: string
+          external_id:
+            maxLength: 255
+            type: string
+          first_name:
+            maxLength: 255
+            type: string
+          last_name:
+            maxLength: 255
+            type: string
+          phone_numbers:
+            type: array
+            items:
+              pattern: ^\+\d{1,3}\s?\d{1,14}$
+              type: string
+        additionalProperties: false
+    AccessToken:
       required:
-      - name
-      - id
-      - config
+      - token
+      - token_id
+      - created_at
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/PingConfig'
-        id:
+        created_at:
           type: string
-        name:
+          format: date-time
+        expires_at:
           type: string
-    ArrayOfStripeConfigObjects:
+          format: date-time
+        token:
+          type: string
+        token_id:
+          type: string
+          format: uuid
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        token: eY.......
+        token_id: 019b1b1e-7b1b-4b1b-8b1b-1b1b1b1b1b1b
+    ArrayOfSlackConfigObjects:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/StripeConfigObject'
+            $ref: '#/components/schemas/SlackConfigObject'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - config:
-            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+            app_id: '12345678901'
+            client_id: '1.0'
+            client_secret: '12345678901234567890123456789012'
+            signing_secret: '12345678901234567890123456789012'
           id: '123'
           name: slack
         links:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    WebpushConfig:
+    FCMTokenResponse:
       required:
-      - public_key
-      - private_key
-      type: object
-      properties:
-        private_key:
-          maxLength: 128
-          minLength: 8
-          type: string
-        public_key:
-          maxLength: 128
-          minLength: 8
-          type: string
-      example:
-        private_key: <string>
-        public_key: <string>
-    SendgridConfig:
-      required:
-      - api_key
-      type: object
-      properties:
-        api_key:
-          type: string
-          description: The API key for Sendgrid
-        from:
-          required:
-          - email
-          type: object
-          properties:
-            email:
-              type: string
-              description: The email address to send from
-              format: email
-            name:
-              type:
-              - string
-              - 'null'
-              description: The name to send from
-        reply_to:
-          required:
-          - email
-          type: object
-          properties:
-            email:
-              type: string
-              description: The email address to reply to
-              format: email
-            name:
-              type:
-              - string
-              - 'null'
-              description: The name to reply to
-      example:
-        api_key: SG.1234567890
-        from:
-          email: matt@magicbell.com
-          name: Matt
-        reply_to:
-          email: hana@magicbell.com
-          name: Hana
-    topic:
-      required:
-      - topic
-      type: object
-      properties:
-        topic:
-          required:
-          - subscribers
-          type: object
-          properties:
-            subscribers:
-              type: boolean
-          additionalProperties: false
-      additionalProperties: false
-    StripeConfigObject:
-      required:
-      - name
+      - created_at
+      - device_token
       - id
-      - config
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/StripeConfig'
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
         id:
           type: string
-        name:
+        installation_id:
+          enum:
+          - development
+          - production
           type: string
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfInboxConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboxConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            images:
+              emptyInboxUrl: ''
+            locale: de
+            theme:
+              banner:
+                backgroundColor: '#F8F5FF'
+                fontSize: 14px
+                textColor: '#3A424D'
+              dialog:
+                accentColor: '#5225C1'
+                backgroundColor: '#F5F5F5'
+                textColor: '#313131'
+              footer:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              header:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              icon:
+                borderColor: '#EDEDEF'
+                width: 24px
+              unseenBadge:
+                backgroundColor: '#F80808'
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfExpoConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            access_token: expo_access_token
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfBroadcasts:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Broadcast'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - action_url: https://example.com
+          category: example
+          content: Hello, World!
+          custom_attributes: {}
+          id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+          overrides: {}
+          recipients:
+          - custom_attributes:
+              plan: enterprise
+              preferred_pronoun: They
+              pricing_version: v10
+            email: test@example.com
+            external_id: 83d987a-83fd034
+            first_name: Person
+            last_name: Doe
+            phone_numbers:
+            - +1 5005550001
+          title: Hello, World!
+          topic: example
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
     PingConfig:
       required:
       - url
@@ -3656,183 +2978,6 @@ components:
           format: uri
       example:
         url: https://example.com/webhook
-    ArrayOfTemplatesConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplatesConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            apns:
-              app_id: com.example.myapp
-              badge: unread
-              certificate: MIICXQIBAAKBgQC3J2
-              key_id: ABCD1234EF
-              team_id: ABCD1234EF
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfAWSSNSConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AWSSNSConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    WebpushConfigObject:
-      required:
-      - name
-      - id
-      - config
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/WebpushConfig'
-        id:
-          type: string
-        name:
-          type: string
-    GithubConfig:
-      required:
-      - webhook_signing_secret
-      type: object
-      properties:
-        webhook_signing_secret:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: The signing secret to verify incoming requests from Github
-      additionalProperties: false
-      example:
-        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
-    ArrayOfFCMConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FCMConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
-            auth_uri: https://accounts.google.com/o/oauth2/auth
-            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
-            client_id: '117893100789081023083'
-            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
-            private_key: '-----BEGIN PRIVATE KEY-----
-
-              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
-
-              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
-
-              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
-
-              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
-
-              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
-
-              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
-
-              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
-
-              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
-
-              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
-
-              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
-
-              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
-
-              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
-
-              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
-
-              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
-
-              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
-
-              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
-
-              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
-
-              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
-
-              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
-
-              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
-
-              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
-
-              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
-
-              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
-
-              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
-
-              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
-
-              ps+wuWO8MN5yQTBZvAEIfQs=
-
-              -----END PRIVATE KEY-----
-
-              '
-            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
-            project_id: platform-development
-            token_uri: https://oauth2.googleapis.com/token
-            type: service_account
-            universe_domain: googleapis.com
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    ArrayOfTwilioConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TwilioConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            account_sid: ACXXXXXXXX
-            api_key: SKXXXXXXXX
-            api_secret: your_api_secret
-            from: '+15017122661'
-            region: us1
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
     SlackTokenResponse:
       required:
       - created_at
@@ -3882,6 +3027,428 @@ components:
         updated_at: '2021-01-01T00:00:00Z'
         webhook:
           url: https://example.com/webhook
+    StripeConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Stripe
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    ArrayOfSESConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SESConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            from:
+              email: person@example.com
+              name: Person Name
+            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+            region: eu-west-1
+            secret_key: MY_FAKE_AWS_SECRET_KEY
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TwilioConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TwilioConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfWebPushTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebPushTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          endpoint: https://example.com/webhook
+          id: '123'
+          keys:
+            auth: <string>
+            p256dh: <string>
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    AWSSNSConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          minLength: 1
+          type: string
+          description: The signing certificate from AWS SNS
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+    AWSSNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/AWSSNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfEvents:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - id: '123'
+          timestamp: '2021-01-01T00:00:00Z'
+          type: example_type
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    MailgunConfig:
+      required:
+      - api_key
+      - region
+      - domain
+      type: object
+      properties:
+        api_key:
+          minLength: 1
+          type: string
+        domain:
+          minLength: 1
+          type: string
+        region:
+          enum:
+          - us
+          - eu
+          type: string
+      example:
+        api_key: mailgun_api_key
+        domain: mailgun_domain
+        region: us
+    ArrayOfTeamsTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamsTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    InboxConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/InboxConfig'
+        id:
+          type: string
+        name:
+          type: string
+    SESConfig:
+      required:
+      - key_id
+      - secret_key
+      - region
+      type: object
+      properties:
+        from:
+          required:
+          - email
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email address to send from
+              format: email
+            name:
+              type:
+              - string
+              - 'null'
+              description: The name to send from
+        key_id:
+          minLength: 1
+          type: string
+          description: AWS Access Key ID
+        region:
+          minLength: 1
+          type: string
+          description: AWS Region
+        secret_key:
+          minLength: 1
+          type: string
+          description: AWS Secret Key
+      example:
+        from:
+          email: person@example.com
+          name: Person Name
+        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+        region: eu-west-1
+        secret_key: MY_FAKE_AWS_SECRET_KEY
+    FetchTokensResponseToken:
+      required:
+      - created_at
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    PingConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/PingConfig'
+        id:
+          type: string
+        name:
+          type: string
+    TeamsTokenResponse:
+      required:
+      - created_at
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        discarded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type: string
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    ExpoConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/ExpoConfig'
+        id:
+          type: string
+        name:
+          type: string
+    IntegrationObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/Integration'
+        id:
+          type: string
+        name:
+          type: string
+    CreateProjectTokenRequest:
+      required:
+      - name
+      type: object
+      properties:
+        expiry:
+          minimum: 1
+          type: integer
+          description: The duration for which the token is valid (in seconds)
+        name:
+          maxLength: 255
+          type: string
+          description: The name of the token.
+      example:
+        expiry: 3600
+        name: My project token
+    ArrayOfSlackTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlackTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+          webhook:
+            url: https://example.com/webhook
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    MailgunConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/MailgunConfig'
+        id:
+          type: string
+        name:
+          type: string
+    ArrayOfAWSSNSConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AWSSNSConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackConfig:
+      required:
+      - app_id
+      - client_id
+      - client_secret
+      - signing_secret
+      type: object
+      properties:
+        app_id:
+          pattern: ^[0-9A-Z]+$
+          type: string
+          description: The Slack app ID that can be found in the app's settings page of the Slack API dashboard.
+        client_id:
+          pattern: ^[0-9]+\.[0-9]+$
+          type: string
+          description: The Slack client ID that can be found in the app's settings page of the Slack API dashboard.
+        client_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack client secret that can be found in the app's settings page of the Slack API dashboard.
+        signing_secret:
+          maxLength: 32
+          minLength: 32
+          type: string
+          description: The Slack signing secret that can be found in the app's settings page of the Slack API dashboard.
+      example:
+        app_id: '12345678901'
+        client_id: '1.0'
+        client_secret: '12345678901234567890123456789012'
+        signing_secret: '12345678901234567890123456789012'
+    CreateUserTokenRequest:
+      type: object
+      properties:
+        email:
+          maxLength: 255
+          type: string
+          description: The user's email.
+        expiry:
+          minimum: 1
+          type: integer
+          description: The duration for which the token is valid (in seconds)
+        external_id:
+          maxLength: 255
+          type: string
+          description: A unique string that MagicBell can utilize to identify the user uniquely. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.
+        name:
+          maxLength: 255
+          type: string
+          description: The name of the token.
+      example:
+        email: hana@magicbell.io
+        expiry: 3600
+        name: Hana's token
     APNSTokenResponse:
       required:
       - created_at
@@ -3924,6 +3491,151 @@ components:
         id: '123'
         installation_id: development
         updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfPingConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PingConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            url: https://example.com/webhook
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfWebpushConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebpushConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            private_key: <string>
+            public_key: <string>
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    TemplatesConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/TemplatesConfig'
+        id:
+          type: string
+        name:
+          type: string
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    ArrayOfTwilioConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TwilioConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            account_sid: ACXXXXXXXX
+            api_key: SKXXXXXXXX
+            api_secret: your_api_secret
+            from: '+15017122661'
+            region: us1
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfAPNSTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    Event:
+      required:
+      - id
+      - type
+      - timestamp
+      type: object
+      properties:
+        code:
+          type: integer
+        context:
+          type:
+          - object
+          - 'null'
+        id:
+          type: string
+        level:
+          type: string
+        log:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+          format: date-time
+        type:
+          type: string
+    SESConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/SESConfig'
+        id:
+          type: string
+        name:
+          type: string
     ExpoTokenResponse:
       required:
       - created_at
@@ -3955,58 +3667,30 @@ components:
         discarded_at: '2021-01-01T00:00:00Z'
         id: '123'
         updated_at: '2021-01-01T00:00:00Z'
-    ArrayOfSESConfigObjects:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SESConfigObject'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - config:
-            from:
-              email: person@example.com
-              name: Person Name
-            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
-            region: eu-west-1
-            secret_key: MY_FAKE_AWS_SECRET_KEY
-          id: '123'
-          name: slack
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    CreateProjectTokenRequest:
+    WebpushConfigObject:
       required:
       - name
+      - id
+      - config
       type: object
       properties:
-        expiry:
-          minimum: 1
-          type: integer
-          description: The duration for which the token is valid (in seconds)
-        name:
-          maxLength: 255
-          type: string
-          description: The name of the token.
-      example:
-        expiry: 3600
-        name: My project token
-    DiscardResult:
-      type: object
-      properties:
-        discarded_at:
-          type: string
+        config:
+          $ref: '#/components/schemas/WebpushConfig'
         id:
           type: string
-      example:
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-    Integration:
+        name:
+          type: string
+    TemplatesConfig:
       type: object
+      example:
+        apns:
+          app_id: com.example.myapp
+          badge: unread
+          certificate: MIICXQIBAAKBgQC3J2
+          key_id: ABCD1234EF
+          team_id: ABCD1234EF
+      x-ui:
+        type: hidden
     SendgridConfigObject:
       required:
       - name
@@ -4020,152 +3704,310 @@ components:
           type: string
         name:
           type: string
-    ArrayOfExpoConfigObjects:
+    ArrayOfIntegrationObjects:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ExpoConfigObject'
+            $ref: '#/components/schemas/IntegrationObject'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - config:
-            access_token: expo_access_token
+            webhook_url: https://example.com/webhook
           id: '123'
           name: slack
         links:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    ArrayOfInboxConfigObjects:
+    ArrayOfStripeConfigObjects:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/InboxConfigObject'
+            $ref: '#/components/schemas/StripeConfigObject'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - config:
-            images:
-              emptyInboxUrl: ''
-            locale: de
-            theme:
-              banner:
-                backgroundColor: '#F8F5FF'
-                fontSize: 14px
-                textColor: '#3A424D'
-              dialog:
-                accentColor: '#5225C1'
-                backgroundColor: '#F5F5F5'
-                textColor: '#313131'
-              footer:
-                backgroundColor: '#FFFFFF'
-                borderRadius: 16px
-                fontFamily: inherit
-                fontSize: 15px
-                textColor: '#5225C1'
-              header:
-                backgroundColor: '#FFFFFF'
-                borderRadius: 16px
-                fontFamily: inherit
-                fontSize: 15px
-                textColor: '#5225C1'
-              icon:
-                borderColor: '#EDEDEF'
-                width: 24px
-              unseenBadge:
-                backgroundColor: '#F80808'
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
           id: '123'
           name: slack
         links:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    CategoryDeliveryConfig:
+    ArrayOfSendgridConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendgridConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: SG.1234567890
+            from:
+              email: matt@magicbell.com
+              name: Matt
+            reply_to:
+              email: hana@magicbell.com
+              name: Hana
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    DiscardTokenResponse:
       required:
-      - channels
-      - key
+      - token_id
+      - discarded_at
       type: object
       properties:
-        channels:
-          type: array
-          items:
-            required:
-            - channel
-            type: object
-            properties:
-              channel:
-                enum:
-                - in_app
-                - slack
-                - web_push
-                - mobile_push
-                - teams
-                - email
-                type: string
-              delay:
-                minimum: 0
-                type: integer
-              disabled:
-                type: boolean
-                default: false
-              if:
-                type: string
-              priority:
-                minimum: 0
-                type: integer
-        disabled:
-          type: boolean
-          default: false
-        key:
-          minLength: 3
-          pattern: ^[A-Za-z0-9_\.\-:]+$
+        discarded_at:
           type: string
+          format: date-time
+        token_id:
+          type: string
+          format: uuid
       example:
-        channels:
-        - channel: in_app
-        - channel: email
-          if: '{{notification.unseen}} == false'
-        disabled: false
-        key: project
-    ArrayOfFetchTokensResponseTokens:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FetchTokensResponseToken'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          discarded_at: '2021-01-01T00:00:00Z'
-          expires_at: '2021-01-01T00:00:00Z'
-          id: 00000000-0000-0000-0000-000000000000
-          name: My Token
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    TwilioConfigObject:
+        discarded_at: '2021-01-01T00:00:00Z'
+        token_id: 550e8400-e29b-41d4-a716-446655440000
+    Broadcast:
       required:
-      - name
-      - id
-      - config
+      - title
+      - recipients
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/TwilioConfig'
+        action_url:
+          maxLength: 2048
+          type:
+          - string
+          - 'null'
+        category:
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type:
+          - string
+          - 'null'
+        content:
+          maxLength: 10485760
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          description: The timestamp when the broadcast was created.
+          format: date-time
+          readOnly: true
+        custom_attributes:
+          type:
+          - object
+          - 'null'
         id:
           type: string
-        name:
+          description: The unique id for this broadcast.
+        overrides:
+          type:
+          - object
+          - 'null'
+          properties:
+            channels:
+              type: object
+              properties:
+                email:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                in_app:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                mobile_push:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                slack:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                sms:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                web_push:
+                  type: object
+                  properties:
+                    action_url:
+                      maxLength: 2048
+                      type:
+                      - string
+                      - 'null'
+                    content:
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+            providers:
+              type: object
+              properties:
+                amazon_ses:
+                  type: object
+                android:
+                  type: object
+                ios:
+                  type: object
+                mailgun:
+                  type: object
+                postmark:
+                  type: object
+                sendgrid:
+                  type: object
+                slack:
+                  type: object
+          additionalProperties: false
+        recipients:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            type: object
+            oneOf:
+            - $ref: '#/components/schemas/topic'
+            - $ref: '#/components/schemas/user'
+        status:
+          required:
+          - status
+          - summary
+          - errors
+          type: object
+          properties:
+            errors:
+              type:
+              - array
+              - 'null'
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+            status:
+              enum:
+              - enqueued
+              - processing
+              - processed
+              type: string
+              readOnly: true
+            summary:
+              required:
+              - total
+              - failures
+              type: object
+              properties:
+                failures:
+                  type: integer
+                  description: The number of failures while processing the broadcast.
+                  readOnly: true
+                total:
+                  type: integer
+                  description: The number of recipients that the broadcast was sent to.
+                  readOnly: true
+        title:
+          maxLength: 255
+          minLength: 1
           type: string
+        topic:
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type:
+          - string
+          - 'null'
+      example:
+        action_url: https://example.com
+        category: example
+        content: Hello, World!
+        custom_attributes: {}
+        id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+        overrides: {}
+        recipients:
+        - custom_attributes:
+            plan: enterprise
+            preferred_pronoun: They
+            pricing_version: v10
+          email: test@example.com
+          external_id: 83d987a-83fd034
+          first_name: Person
+          last_name: Doe
+          phone_numbers:
+          - +1 5005550001
+        title: Hello, World!
+        topic: example
     SlackConfigObject:
       required:
       - name
@@ -4179,3 +4021,161 @@ components:
           type: string
         name:
           type: string
+    ArrayOfMailgunConfigObjects:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailgunConfigObject'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - config:
+            api_key: mailgun_api_key
+            domain: mailgun_domain
+            region: us
+          id: '123'
+          name: slack
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    topic:
+      required:
+      - topic
+      type: object
+      properties:
+        topic:
+          required:
+          - subscribers
+          type: object
+          properties:
+            subscribers:
+              type: boolean
+          additionalProperties: false
+      additionalProperties: false
+    APNSConfig:
+      required:
+      - app_id
+      - certificate
+      - key_id
+      - team_id
+      - badge
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
+        badge:
+          enum:
+          - unread
+          - unseen
+          type: string
+        certificate:
+          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
+          type: string
+          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
+          x-ui:
+            tagName: textarea
+        key_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+        payload_version:
+          enum:
+          - '1'
+          - '2'
+          type: string
+          default: '2'
+          x-ui:
+            type: hidden
+        team_id:
+          maxLength: 10
+          minLength: 10
+          type: string
+      example:
+        app_id: com.example.myapp
+        badge: unread
+        certificate: '-----BEGIN PRIVATE KEY-----
+
+          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
+
+          -----END PRIVATE KEY-----'
+        key_id: ABCD1234EF
+        team_id: ABCD1234EF
+    ArrayOfFCMTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    GithubConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/GithubConfig'
+        id:
+          type: string
+        name:
+          type: string
+    APNSConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/APNSConfig'
+        id:
+          type: string
+        name:
+          type: string
+    StripeConfigObject:
+      required:
+      - name
+      - id
+      - config
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/StripeConfig'
+        id:
+          type: string
+        name:
+          type: string
+    GithubConfig:
+      required:
+      - webhook_signing_secret
+      type: object
+      properties:
+        webhook_signing_secret:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: The signing secret to verify incoming requests from Github
+      additionalProperties: false
+      example:
+        webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
