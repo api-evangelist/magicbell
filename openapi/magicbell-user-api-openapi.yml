@@ -719,56 +719,267 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ArrayOfExpoTokenResponses:
+    ArrayOfWebPushTokenResponses:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ExpoTokenResponse'
+            $ref: '#/components/schemas/WebPushTokenResponse'
         links:
           $ref: '#/components/schemas/Links'
       example:
         data:
         - created_at: '2021-01-01T00:00:00Z'
-          device_token: expo-device-id
           discarded_at: '2021-01-01T00:00:00Z'
+          endpoint: https://example.com/webhook
           id: '123'
+          keys:
+            auth: <string>
+            p256dh: <string>
           updated_at: '2021-01-01T00:00:00Z'
         links:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    SlackStartInstallResponseContent:
+    ExpoTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
       type: object
       properties:
-        app_id:
+        created_at:
           type: string
-        auth_url:
+          format: date-time
+        device_token:
+          minLength: 1
           type: string
-        scopes:
+        discarded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type: string
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: expo-device-id
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+    ArrayOfSlackTokenResponses:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/SlackTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
       example:
-        app_id: app-id
-        auth_url: https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write
-        scopes:
-        - channels:read
-        - chat:write
-    Links:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+          webhook:
+            url: https://example.com/webhook
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    SlackTokenResponse:
+      required:
+      - created_at
+      - id
       type: object
       properties:
-        first:
+        created_at:
           type: string
-        next:
+          format: date-time
+        discarded_at:
           type:
           - string
           - 'null'
-        prev:
+          format: date-time
+        id:
+          type: string
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        updated_at:
           type:
           - string
           - 'null'
+          format: date-time
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+        webhook:
+          url: https://example.com/webhook
+    ArrayOfFCMTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FCMTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    FCMTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    FCMToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    SlackToken:
+      minProperties: 1
+      type: object
+      properties:
+        oauth:
+          required:
+          - channel_id
+          - installation_id
+          type: object
+          properties:
+            channel_id:
+              type: string
+            installation_id:
+              type: string
+            scope:
+              type: string
+        webhook:
+          required:
+          - url
+          type: object
+          properties:
+            url:
+              minLength: 1
+              type: string
+              format: uri
+      additionalProperties: false
+      example:
+        webhook:
+          url: https://example.com/webhook
+    ExpoToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        device_token:
+          minLength: 1
+          type: string
+      example:
+        device_token: expo-device-id
+    WebPushToken:
+      required:
+      - endpoint
+      - keys
+      type: object
+      properties:
+        endpoint:
+          type: string
+          format: uri
+        keys:
+          required:
+          - p256dh
+          - auth
+          type: object
+          properties:
+            auth:
+              type: string
+            p256dh:
+              type: string
+      example:
+        endpoint: https://example.com/webhook
+        keys:
+          auth: <string>
+          p256dh: <string>
     WebPushTokenResponse:
       required:
       - created_at
@@ -814,6 +1025,135 @@ components:
           auth: <string>
           p256dh: <string>
         updated_at: '2021-01-01T00:00:00Z'
+    TeamsToken:
+      type: object
+      properties:
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+      example: {}
+    APNSTokenResponse:
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        created_at:
+          type: string
+          format: date-time
+        device_token:
+          minLength: 64
+          type: string
+        discarded_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        id:
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      example:
+        created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+    APNSToken:
+      required:
+      - device_token
+      type: object
+      properties:
+        app_id:
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
+        device_token:
+          minLength: 64
+          type: string
+        installation_id:
+          enum:
+          - development
+          - production
+          type: string
+          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
+      example:
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+    SlackFinishInstallResponse:
+      required:
+      - app_id
+      - code
+      type: object
+      properties:
+        app_id:
+          type: string
+        code:
+          type: string
+        redirect_url:
+          type: string
+      example:
+        app_id: '12345678901'
+        code: string
+        redirect_url: string
+    ArrayOfAPNSTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/APNSTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
+    ArrayOfExpoTokenResponses:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpoTokenResponse'
+        links:
+          $ref: '#/components/schemas/Links'
+      example:
+        data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: expo-device-id
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page[next]=abc
+          prev: null
     InboxConfig:
       required:
       - theme
@@ -1043,176 +1383,6 @@ components:
             width: 24px
           unseenBadge:
             backgroundColor: '#F80808'
-    FCMTokenResponse:
-      required:
-      - created_at
-      - device_token
-      - id
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        device_token:
-          minLength: 64
-          type: string
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        installation_id:
-          enum:
-          - development
-          - production
-          type: string
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        installation_id: development
-        updated_at: '2021-01-01T00:00:00Z'
-    SlackStartInstall:
-      required:
-      - app_id
-      type: object
-      properties:
-        app_id:
-          type: string
-        auth_url:
-          type: string
-        extra_scopes:
-          type: array
-          items:
-            type: string
-        redirect_url:
-          type: string
-      additionalProperties: false
-      example:
-        app_id: '12345678901'
-        auth_url: https://example.com/auth
-        extra_scopes:
-        - scope1
-        - scope2
-        redirect_url: https://example.com/redirect
-    TeamsToken:
-      type: object
-      properties:
-        webhook:
-          type: object
-          properties:
-            url:
-              type: string
-      example: {}
-    SlackTokenResponse:
-      required:
-      - created_at
-      - id
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        oauth:
-          required:
-          - channel_id
-          - installation_id
-          type: object
-          properties:
-            channel_id:
-              type: string
-            installation_id:
-              type: string
-            scope:
-              type: string
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        webhook:
-          required:
-          - url
-          type: object
-          properties:
-            url:
-              minLength: 1
-              type: string
-              format: uri
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        updated_at: '2021-01-01T00:00:00Z'
-        webhook:
-          url: https://example.com/webhook
-    SlackToken:
-      minProperties: 1
-      type: object
-      properties:
-        oauth:
-          required:
-          - channel_id
-          - installation_id
-          type: object
-          properties:
-            channel_id:
-              type: string
-            installation_id:
-              type: string
-            scope:
-              type: string
-        webhook:
-          required:
-          - url
-          type: object
-          properties:
-            url:
-              minLength: 1
-              type: string
-              format: uri
-      additionalProperties: false
-      example:
-        webhook:
-          url: https://example.com/webhook
-    ArrayOfWebPushTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebPushTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          discarded_at: '2021-01-01T00:00:00Z'
-          endpoint: https://example.com/webhook
-          id: '123'
-          keys:
-            auth: <string>
-            p256dh: <string>
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
     ArrayOfTeamsTokenResponses:
       type: object
       properties:
@@ -1232,43 +1402,23 @@ components:
           first: https://api.magicbell.com/v1/example
           next: https://api.magicbell.com/v1/example?page[next]=abc
           prev: null
-    APNSToken:
+    TemplatesInstallation:
       required:
-      - device_token
+      - text
+      - channel
       type: object
       properties:
-        app_id:
-          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+        category:
+          type:
+          - string
+          - 'null'
+        channel:
           type: string
-          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
-        device_token:
-          minLength: 64
-          type: string
-        installation_id:
-          enum:
-          - development
-          - production
-          type: string
-          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
-      example:
-        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-        installation_id: development
-    SlackFinishInstallResponse:
-      required:
-      - app_id
-      - code
-      type: object
-      properties:
-        app_id:
-          type: string
-        code:
-          type: string
-        redirect_url:
+        text:
           type: string
       example:
-        app_id: '12345678901'
-        code: string
-        redirect_url: string
+        channel: email
+        text: Installation
     TeamsTokenResponse:
       required:
       - created_at
@@ -1300,6 +1450,69 @@ components:
         discarded_at: '2021-01-01T00:00:00Z'
         id: '123'
         updated_at: '2021-01-01T00:00:00Z'
+    DiscardResult:
+      type: object
+      properties:
+        discarded_at:
+          type: string
+        id:
+          type: string
+      example:
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+    SlackStartInstall:
+      required:
+      - app_id
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        extra_scopes:
+          type: array
+          items:
+            type: string
+        redirect_url:
+          type: string
+      additionalProperties: false
+      example:
+        app_id: '12345678901'
+        auth_url: https://example.com/auth
+        extra_scopes:
+        - scope1
+        - scope2
+        redirect_url: https://example.com/redirect
+    SlackStartInstallResponseContent:
+      type: object
+      properties:
+        app_id:
+          type: string
+        auth_url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+      example:
+        app_id: app-id
+        auth_url: https://slack.com/oauth/v2/authorize?client_id=app-id&scope=channels:read,chat:write
+        scopes:
+        - channels:read
+        - chat:write
+    Links:
+      type: object
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
     SlackInstallation:
       required:
       - access_token
@@ -1397,110 +1610,6 @@ components:
           name: Team Installing Your App
         team_id: T12345678
         team_name: Team Installing Your App
-    ArrayOfSlackTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlackTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          updated_at: '2021-01-01T00:00:00Z'
-          webhook:
-            url: https://example.com/webhook
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    APNSTokenResponse:
-      required:
-      - created_at
-      - device_token
-      - id
-      type: object
-      properties:
-        app_id:
-          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
-          type: string
-          description: (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
-        created_at:
-          type: string
-          format: date-time
-        device_token:
-          minLength: 64
-          type: string
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        installation_id:
-          enum:
-          - development
-          - production
-          type: string
-          description: (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        installation_id: development
-        updated_at: '2021-01-01T00:00:00Z'
-    DiscardResult:
-      type: object
-      properties:
-        discarded_at:
-          type: string
-        id:
-          type: string
-      example:
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-    ExpoToken:
-      required:
-      - device_token
-      type: object
-      properties:
-        device_token:
-          minLength: 1
-          type: string
-      example:
-        device_token: expo-device-id
-    ArrayOfAPNSTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/APNSTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          installation_id: development
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
     WebPushStartInstallationResponse:
       required:
       - public_key
@@ -1517,112 +1626,3 @@ components:
       example:
         auth_token: eyGhb...GA2Bw
         public_key: BHaJd...gRHDk
-    ExpoTokenResponse:
-      required:
-      - created_at
-      - device_token
-      - id
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        device_token:
-          minLength: 1
-          type: string
-        discarded_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        id:
-          type: string
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      example:
-        created_at: '2021-01-01T00:00:00Z'
-        device_token: expo-device-id
-        discarded_at: '2021-01-01T00:00:00Z'
-        id: '123'
-        updated_at: '2021-01-01T00:00:00Z'
-    FCMToken:
-      required:
-      - device_token
-      type: object
-      properties:
-        device_token:
-          minLength: 64
-          type: string
-        installation_id:
-          enum:
-          - development
-          - production
-          type: string
-      example:
-        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-        installation_id: development
-    TemplatesInstallation:
-      required:
-      - text
-      - channel
-      type: object
-      properties:
-        category:
-          type:
-          - string
-          - 'null'
-        channel:
-          type: string
-        text:
-          type: string
-      example:
-        channel: email
-        text: Installation
-    ArrayOfFCMTokenResponses:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FCMTokenResponse'
-        links:
-          $ref: '#/components/schemas/Links'
-      example:
-        data:
-        - created_at: '2021-01-01T00:00:00Z'
-          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
-          discarded_at: '2021-01-01T00:00:00Z'
-          id: '123'
-          installation_id: development
-          updated_at: '2021-01-01T00:00:00Z'
-        links:
-          first: https://api.magicbell.com/v1/example
-          next: https://api.magicbell.com/v1/example?page[next]=abc
-          prev: null
-    WebPushToken:
-      required:
-      - endpoint
-      - keys
-      type: object
-      properties:
-        endpoint:
-          type: string
-          format: uri
-        keys:
-          required:
-          - p256dh
-          - auth
-          type: object
-          properties:
-            auth:
-              type: string
-            p256dh:
-              type: string
-      example:
-        endpoint: https://example.com/webhook
-        keys:
-          auth: <string>
-          p256dh: <string>
