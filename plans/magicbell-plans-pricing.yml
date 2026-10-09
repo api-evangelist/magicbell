@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-06-12 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-06-12'
 specification: API Commons Plans
 specificationVersion: '0.1'
 provider: MagicBell
@@ -94,3 +99,28 @@ notes: >
   A "delivery" is counted per channel per user. For example, sending a notification to
   100 users where all receive in-app and 50 receive email counts as 150 deliveries.
   Pricing sourced from https://www.magicbell.com/pricing on 2026-06-12.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Builder
+    access: free
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Startup
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
