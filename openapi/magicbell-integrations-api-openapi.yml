@@ -93,6 +93,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    StripeWebhookEvent:
+      required:
+      - id
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the webhook event
+        id:
+          type: string
+          description: Unique identifier for the webhook event
+      example:
+        description: example event
+        id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
+        type: invoice.created
     GithubWebhookEvent:
       type: object
       properties:
@@ -122,19 +138,3 @@ components:
       example:
         payload: {}
         type: ping
-    StripeWebhookEvent:
-      required:
-      - id
-      - description
-      type: object
-      properties:
-        description:
-          type: string
-          description: Description of the webhook event
-        id:
-          type: string
-          description: Unique identifier for the webhook event
-      example:
-        description: example event
-        id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
-        type: invoice.created
