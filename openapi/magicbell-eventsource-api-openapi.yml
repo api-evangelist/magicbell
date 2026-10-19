@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Eventsource API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: eventsource
+paths:
+  /integrations/eventsource:
+    summary: Event Source
+    description: Generic integration for piping arbitrary event feeds into MagicBell when no dedicated provider exists.
+    get:
+      tags:
+      - eventsource
+      summary: List all EventSource integrations
+      description: Retrieves the current EventSource integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_eventsource_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: EventSource
+        name: eventsource
+    put:
+      tags:
+      - eventsource
+      summary: Save an EventSource integration
+      description: Updates or creates the EventSource integration for the project.
+      operationId: save_eventsource_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSourceConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceConfigPayload'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: EventSource
+        name: eventsource
+    delete:
+      tags:
+      - eventsource
+      summary: Delete an EventSource integration
+      description: Deletes the EventSource integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_eventsource_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: EventSource
+        name: eventsource
+components:
+  schemas:
+    EventSourceConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      additionalProperties: false
+      examples:
+      - source: backend
+      properties:
+        source:
+          type: string
+      required:
+      - source
+      type: object
+    EventSourceConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/EventSourceConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    EventSourceConfigCollection:
+      examples:
+      - data:
+        - config:
+            source: backend
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/EventSourceConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object

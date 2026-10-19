@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Ses API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: ses
+paths:
+  /integrations/ses:
+    summary: Amazon SES
+    description: Integrate Amazon SES to reuse verified identities, bounce handling, and CloudWatch metrics.
+    get:
+      tags:
+      - ses
+      summary: List all Amazon SES integrations
+      description: Retrieves the current Amazon SES integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_ses_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SESConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+    put:
+      tags:
+      - ses
+      summary: Save an Amazon SES integration
+      description: Updates or creates the Amazon SES integration for the project.
+      operationId: save_ses_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SESConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SESConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+    delete:
+      tags:
+      - ses
+      summary: Delete an Amazon SES integration
+      description: Deletes the Amazon SES integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ses_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Amazon SES
+        name: ses
+components:
+  schemas:
+    SESConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - from:
+          email: company@example.com
+          name: Company Name
+        key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+        region: eu-west-1
+        secret_key: MY_FAKE_AWS_SECRET_KEY
+      properties:
+        from:
+          properties:
+            email:
+              description: The email address to send from
+              format: email
+              type: string
+            name:
+              description: The name to send from
+              type:
+              - string
+              - 'null'
+          required:
+          - email
+          type: object
+        key_id:
+          description: AWS Access Key ID
+          minLength: 1
+          type: string
+        region:
+          description: AWS Region
+          minLength: 1
+          type: string
+        secret_key:
+          description: AWS Secret Key
+          minLength: 1
+          type: string
+      required:
+      - key_id
+      - secret_key
+      - region
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    SESConfigCollection:
+      examples:
+      - data:
+        - config:
+            from:
+              email: company@example.com
+              name: Company Name
+            key_id: MY_FAKE_AWS_ACCESS_KEY_ID
+            region: eu-west-1
+            secret_key: MY_FAKE_AWS_SECRET_KEY
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SESConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    SESConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/SESConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object

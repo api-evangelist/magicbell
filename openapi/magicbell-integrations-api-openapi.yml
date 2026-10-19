@@ -1,140 +1,102 @@
 openapi: 3.2.0
 info:
   title: MagicBell Integrations API
-  description: OpenAPI 3.0.3 Specification for MagicBell API.
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
   contact:
     name: MagicBell
-    url: https://magicbell.com
-    email: hello@magicbell.com
+    url: https://wwww.magicbell.com
   version: 2.0.0
 servers:
 - url: https://api.magicbell.com/v2
-  description: MagicBell REST API Base URL
+  description: MagicBell API (v2) Base URL
 tags:
 - name: Integrations
 paths:
-  /integrations/awssns/webhooks/incoming/{id}:
-    post:
-      tags:
-      - Integrations
-      description: Receives and processes incoming webhook events from the awssns integration. Each integration can define its own webhook payload format and handling logic.
-      operationId: handle_awssns_webhook
+  /integrations:
+    summary: Integration catalog
+    description: 'Integrations connect MagicBell to external providers for delivery, data ingestion, and automation. Use these grouped APIs to configure providers, run installation flows, and receive incoming events.
+
+
+      Related guides: [Integration Primitive](https://www.magicbell.com/docs/primitive/integration)'
+    get:
+      summary: List all integrations
+      description: Lists all available and configured integrations for the project. Returns a summary of each integration including its type, status, and basic configuration information.
+      operationId: list_integrations
       parameters:
-      - name: id
-        in: path
-        required: true
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AWSSNSWebhookEvent'
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
       responses:
-        '201':
-          description: Created
+        '200':
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AWSSNSWebhookEvent'
-      summary: Handle awssns webhook
-      x-summary-source: derived
-  /integrations/github/webhooks/incoming/{id}:
-    post:
+                $ref: '#/components/schemas/IntegrationConfigCollection'
+      x-magicbell-auth-jwt-type: project
       tags:
       - Integrations
-      description: Receives and processes incoming webhook events from the github integration. Each integration can define its own webhook payload format and handling logic.
-      operationId: handle_github_webhook
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GithubWebhookEvent'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GithubWebhookEvent'
-      summary: Handle github webhook
-      x-summary-source: derived
-  /integrations/stripe/webhooks/incoming/{id}:
-    post:
-      tags:
-      - Integrations
-      description: Receives and processes incoming webhook events from the stripe integration. Each integration can define its own webhook payload format and handling logic.
-      operationId: handle_stripe_webhook
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StripeWebhookEvent'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StripeWebhookEvent'
-      summary: Handle stripe webhook
-      x-summary-source: derived
 components:
   schemas:
-    StripeWebhookEvent:
-      required:
-      - id
-      - description
+    IntegrationConfigPayload:
       type: object
+    IntegrationConfig:
       properties:
-        description:
-          type: string
-          description: Description of the webhook event
+        config:
+          $ref: '#/components/schemas/IntegrationConfigPayload'
         id:
           type: string
-          description: Unique identifier for the webhook event
-      example:
-        description: example event
-        id: evt_1J4J9v2eZvKYlo2C1J4J9v2e
-        type: invoice.created
-    GithubWebhookEvent:
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
       type: object
+    Links:
       properties:
-        description:
+        first:
           type: string
-        payload:
-          type: object
-          additionalProperties: true
-        type:
-          type: string
-      example:
-        description: example event
-        payload: {}
-        type: ping
-    AWSSNSWebhookEvent:
-      type: object
-      properties:
-        description:
-          type: string
-        payload:
+        next:
           type:
-          - object
+          - string
           - 'null'
-          additionalProperties: true
-        type:
-          type: string
-      example:
-        payload: {}
-        type: ping
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    IntegrationConfigCollection:
+      examples:
+      - data:
+        - config:
+            webhook_url: https://example.com/webhook
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/IntegrationConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object

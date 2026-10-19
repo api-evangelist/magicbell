@@ -1,0 +1,164 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Twilio API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Twilio
+paths:
+  /integrations/twilio:
+    summary: Twilio SMS
+    description: Wire Twilio to deliver SMS, WhatsApp, or voice notifications as part of your delivery planner.
+    get:
+      tags:
+      - Twilio
+      summary: List all Twilio integrations
+      description: Retrieves the current Twilio integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_twilio_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwilioConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+    put:
+      tags:
+      - Twilio
+      summary: Save a Twilio integration
+      description: Updates or creates the Twilio integration for the project.
+      operationId: save_twilio_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwilioConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwilioConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+    delete:
+      tags:
+      - Twilio
+      summary: Delete a Twilio integration
+      description: Deletes the Twilio integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_twilio_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: sms
+        displayName: Twilio
+        name: twilio
+components:
+  schemas:
+    TwilioConfigCollection:
+      examples:
+      - data:
+        - config:
+            account_sid: ACXXXXXXXX
+            api_key: SKXXXXXXXX
+            api_secret: your_api_secret
+            from: '+15017122661'
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TwilioConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    TwilioConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - account_sid: ACXXXXXXXX
+        api_key: SKXXXXXXXX
+        api_secret: your_api_secret
+        from: '+15017122661'
+      properties:
+        account_sid:
+          description: The SID for your Twilio account
+          maxLength: 100
+          minLength: 1
+          type: string
+        api_key:
+          description: A US1 API key for Twilio-  - https://www.twilio.com/docs/iam/api-keys
+          maxLength: 100
+          minLength: 1
+          type: string
+        api_secret:
+          description: The API Secret for Twilio
+          maxLength: 100
+          minLength: 1
+          type: string
+        from:
+          description: The phone number to send from, in E.164 format
+          maxLength: 100
+          minLength: 1
+          pattern: ^\+[0-9]{1,14}$
+          type: string
+      required:
+      - account_sid
+      - api_key
+      - api_secret
+      - from
+      type: object
+    TwilioConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/TwilioConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object

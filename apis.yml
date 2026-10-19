@@ -111,36 +111,400 @@ apis:
     url: https://www.magicbell.com/docs/api/reference
   - type: Authentication
     url: https://www.magicbell.com/docs/api/authentication
-- aid: magicbell:magicbell-project-api
-  name: MagicBell Project API
-  description: The project API from MagicBell — 52 operation(s) for project.
-  humanURL: https://www.magicbell.com/docs/api
-  baseURL: https://api.magicbell.com/v2
+- aid: magicbell:magicbell-apns-api
+  name: MagicBell Apns API
+  description: The apns API from MagicBell — 1 operation(s) for apns.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
   tags:
-  - Project
-  tags_raw:
-  - project
+  - apns
   properties:
   - type: OpenAPI
-    url: openapi/magicbell-project-api-openapi.yml
+    url: openapi/magicbell-apns-api-openapi.yml
   - type: Documentation
     url: https://www.magicbell.com/docs/api
   - type: ReferenceDocumentation
     url: https://www.magicbell.com/docs/api/reference
   - type: Authentication
     url: https://www.magicbell.com/docs/api/authentication
-- aid: magicbell:magicbell-user-api
-  name: MagicBell User API
-  description: The user API from MagicBell — 20 operation(s) for user.
-  humanURL: https://www.magicbell.com/docs/api
-  baseURL: https://api.magicbell.com/v2
+- aid: magicbell:magicbell-broadcasts-api
+  name: MagicBell Broadcasts API
+  description: The Broadcasts API from MagicBell — 2 operation(s) for broadcasts.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
   tags:
-  - User
-  tags_raw:
-  - user
+  - Broadcasts
   properties:
   - type: OpenAPI
-    url: openapi/magicbell-user-api-openapi.yml
+    url: openapi/magicbell-broadcasts-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-channels-api
+  name: MagicBell Channels API
+  description: The Channels API from MagicBell — 3 operation(s) for channels.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-channels-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-events-api
+  name: MagicBell Events API
+  description: The Events API from MagicBell — 2 operation(s) for events.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-events-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-eventsource-api
+  name: MagicBell Eventsource API
+  description: The eventsource API from MagicBell — 1 operation(s) for eventsource.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - eventsource
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-eventsource-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-expo-api
+  name: MagicBell Expo API
+  description: The expo API from MagicBell — 1 operation(s) for expo.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - expo
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-expo-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-fcm-api
+  name: MagicBell Fcm API
+  description: The fcm API from MagicBell — 1 operation(s) for fcm.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - fcm
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-fcm-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-github-api
+  name: MagicBell GitHub API
+  description: The github API from MagicBell — 1 operation(s) for github.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - github
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-github-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-in-app-api
+  name: MagicBell In App API
+  description: The in_app API from MagicBell — 4 operation(s) for in_app.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - in_app
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-in-app-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-inbox-api
+  name: MagicBell Inbox API
+  description: The inbox API from MagicBell — 3 operation(s) for inbox.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - inbox
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-inbox-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-magicbell-slackbot-api
+  name: MagicBell Magicbell Slackbot API
+  description: The magicbell_slackbot API from MagicBell — 4 operation(s) for magicbell_slackbot.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - magicbell_slackbot
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-magicbell-slackbot-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-mailgun-api
+  name: MagicBell Mailgun API
+  description: The mailgun API from MagicBell — 1 operation(s) for mailgun.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - mailgun
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-mailgun-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-mobile-push-api
+  name: MagicBell Mobile Push API
+  description: The mobile_push API from MagicBell — 12 operation(s) for mobile_push.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - mobile_push
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-mobile-push-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-notifications-api
+  name: MagicBell Notifications API
+  description: The Notifications API from MagicBell — 11 operation(s) for notifications.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-ping-email-api
+  name: MagicBell Ping Email API
+  description: The ping_email API from MagicBell — 1 operation(s) for ping_email.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - ping_email
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-ping-email-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-sendgrid-api
+  name: MagicBell Sendgrid API
+  description: The sendgrid API from MagicBell — 1 operation(s) for sendgrid.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - sendgrid
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-sendgrid-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-ses-api
+  name: MagicBell Ses API
+  description: The ses API from MagicBell — 1 operation(s) for ses.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - ses
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-ses-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-slack-api
+  name: MagicBell Slack API
+  description: The slack API from MagicBell — 12 operation(s) for slack.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - slack
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-slack-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-smtp-api
+  name: MagicBell Smtp API
+  description: The smtp API from MagicBell — 1 operation(s) for smtp.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - smtp
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-smtp-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-stripe-api
+  name: MagicBell Stripe API
+  description: The stripe API from MagicBell — 1 operation(s) for stripe.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - stripe
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-stripe-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-teams-api
+  name: MagicBell Teams API
+  description: The teams API from MagicBell — 4 operation(s) for teams.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - teams
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-teams-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-twilio-api
+  name: MagicBell Twilio API
+  description: The twilio API from MagicBell — 1 operation(s) for twilio.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - twilio
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-twilio-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-users-api
+  name: MagicBell Users API
+  description: The Users API from MagicBell — 2 operation(s) for users.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-web-push-api
+  name: MagicBell Web Push API
+  description: The web_push API from MagicBell — 7 operation(s) for web_push.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - web_push
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-web-push-api-openapi.yml
+  - type: Documentation
+    url: https://www.magicbell.com/docs/api
+  - type: ReferenceDocumentation
+    url: https://www.magicbell.com/docs/api/reference
+  - type: Authentication
+    url: https://www.magicbell.com/docs/api/authentication
+- aid: magicbell:magicbell-workflows-api
+  name: MagicBell Workflows API
+  description: The Workflows API from MagicBell — 5 operation(s) for workflows.
+  humanURL: https://www.magicbell.com/docs/v1
+  baseURL: https://api.magicbell.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/magicbell-workflows-api-openapi.yml
   - type: Documentation
     url: https://www.magicbell.com/docs/api
   - type: ReferenceDocumentation

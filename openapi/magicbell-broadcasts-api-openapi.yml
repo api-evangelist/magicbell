@@ -1,0 +1,461 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Broadcasts API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Broadcasts
+paths:
+  /broadcasts:
+    summary: Broadcast lifecycle
+    description: 'Broadcasts let you fan out an announcement to every relevant user or topic. Use these APIs to create announcements, inspect their status, and audit how they generated notifications and deliveries across your project.
+
+
+      Related guides: [Broadcast Primitive](https://www.magicbell.com/docs/primitive/broadcast) '
+    get:
+      summary: List all broadcasts
+      description: Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.
+      operationId: list_broadcasts
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BroadcastCollection'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Broadcasts
+    post:
+      summary: Create a broadcast
+      description: Creates a new broadcast. When a broadcast is created, it generates individual notifications for relevant users within the project.
+      operationId: create_broadcast
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Broadcast'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Broadcast'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Broadcasts
+  /broadcasts/{broadcast_id}:
+    summary: Single broadcast detail
+    description: Endpoints scoped to one broadcast instance. Use them to inspect configuration, track execution timestamps, and debug why a send behaved a certain way.
+    get:
+      summary: Fetch a broadcast
+      description: Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.
+      operationId: fetch_broadcast
+      parameters:
+      - name: broadcast_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Broadcast'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Broadcasts
+components:
+  schemas:
+    User:
+      examples:
+      - custom_attributes:
+          key: value
+        email: dan@example.com
+        external_id: external-id
+        first_name: Dan
+        id: 8a038704-acc1-47f9-81b0-7523886cbeae
+        last_name: Example
+      properties:
+        created_at:
+          description: The timestamp when the user was created.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        custom_attributes:
+          description: Arbitrary custom values stored on the user.
+          type:
+          - object
+          - 'null'
+        email:
+          description: The primary email address of the user.
+          type:
+          - string
+          - 'null'
+        external_id:
+          description: The user identifier from an external system.
+          type:
+          - string
+          - 'null'
+        first_name:
+          description: The first name of the user.
+          type:
+          - string
+          - 'null'
+        id:
+          description: The unique identifier for the user.
+          format: uuid
+          type: string
+        last_name:
+          description: The last name of the user.
+          type:
+          - string
+          - 'null'
+        last_notified_at:
+          description: The timestamp when the user last received a notification.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        last_seen_at:
+          description: The timestamp when the user last opened the inbox.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        updated_at:
+          description: The timestamp when the user was last updated.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      type: object
+    Broadcast:
+      $schema: http://json-schema.org/draft-07/schema#
+      additionalProperties: false
+      examples:
+      - action_url: https://example.com
+        category: example
+        content: I come from broadcast
+        custom_attributes: {}
+        id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+        overrides: {}
+        recipients:
+        - custom_attributes:
+            plan: enterprise
+            preferred_pronoun: They
+            pricing_version: v10
+          email: test@example.com
+          external_id: 83d987a-83fd034
+          first_name: Person
+          last_name: Doe
+          phone_numbers:
+          - +1 5005550001
+        title: Hello, World!
+        topic: example
+      properties:
+        action_url:
+          description: The URL recipients will be directed to when interacting with the broadcast.
+          maxLength: 2048
+          type:
+          - 'null'
+          - string
+        category:
+          description: The label used to group broadcasts.
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type:
+          - string
+          - 'null'
+        content:
+          description: The body content delivered with the broadcast.
+          maxLength: 10485760
+          type:
+          - 'null'
+          - string
+        created_at:
+          description: The timestamp when the broadcast was created.
+          format: date-time
+          readOnly: true
+          type: string
+        custom_attributes:
+          description: Arbitrary custom data associated with the broadcast.
+          type:
+          - 'null'
+          - object
+        id:
+          description: The unique id for this broadcast.
+          format: uuid
+          type: string
+        overrides:
+          additionalProperties: false
+          description: Channel- or provider-specific values that override the defaults.
+          properties:
+            channels:
+              additionalProperties: false
+              description: Overrides that are scoped to individual delivery channels.
+              properties:
+                email:
+                  description: Overrides for email notifications.
+                  properties:
+                    action_url:
+                      description: The link associated with the channel-specific notification.
+                      maxLength: 2048
+                      type:
+                      - 'null'
+                      - string
+                    content:
+                      description: The channel-specific content.
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      description: The channel-specific title.
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                  type: object
+                in_app:
+                  description: Overrides for in-app notifications.
+                  properties:
+                    action_url:
+                      description: The link associated with the channel-specific notification.
+                      maxLength: 2048
+                      type:
+                      - 'null'
+                      - string
+                    content:
+                      description: The channel-specific content.
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      description: The channel-specific title.
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                  type: object
+                mobile_push:
+                  description: Overrides for mobile push notifications.
+                  properties:
+                    action_url:
+                      description: The link associated with the channel-specific notification.
+                      maxLength: 2048
+                      type:
+                      - 'null'
+                      - string
+                    content:
+                      description: The channel-specific content.
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      description: The channel-specific title.
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                  type: object
+                sms:
+                  description: Overrides for SMS notifications.
+                  properties:
+                    action_url:
+                      description: The link associated with the channel-specific notification.
+                      maxLength: 2048
+                      type:
+                      - 'null'
+                      - string
+                    content:
+                      description: The channel-specific content.
+                      maxLength: 1048576
+                      type: string
+                    title:
+                      description: The channel-specific title.
+                      maxLength: 255
+                      minLength: 1
+                      type: string
+                  type: object
+              type: object
+            providers:
+              additionalProperties: false
+              description: Overrides that are scoped to specific providers for a channel.
+              properties:
+                apns:
+                  description: Provider-specific overrides for Apple Push Notification service.
+                  type: object
+                expo:
+                  description: Provider-specific overrides for Expo push notifications.
+                  type: object
+                fcm:
+                  description: Provider-specific overrides for Firebase Cloud Messaging.
+                  type: object
+                mailgun:
+                  description: Provider-specific overrides for Mailgun.
+                  type: object
+                sendgrid:
+                  description: Provider-specific overrides for Sendgrid.
+                  type: object
+                ses:
+                  description: Provider-specific overrides for AWS SES.
+                  type: object
+                slack:
+                  description: Provider-specific overrides for Slack.
+                  type: object
+                teams:
+                  description: Provider-specific overrides for Microsoft Teams.
+                  type: object
+                twilio:
+                  description: Provider-specific overrides for Twilio.
+                  type: object
+                web_push:
+                  description: Provider-specific overrides for the web push provider.
+                  type: object
+              type: object
+          type:
+          - object
+          - 'null'
+        recipients:
+          description: A collection of users or filters that determine who receives the broadcast.
+          items:
+            description: The recipient specification for the broadcast.
+            oneOf:
+            - $ref: '#/components/schemas/User'
+          maxItems: 1000
+          minItems: 1
+          type:
+          - 'null'
+          - array
+        status:
+          description: The runtime state of the broadcast execution.
+          properties:
+            errors:
+              description: A list of errors encountered while processing the broadcast.
+              items:
+                properties:
+                  message:
+                    description: The details about the processing error.
+                    type: string
+                type: object
+              type:
+              - array
+              - 'null'
+            status:
+              description: The overall processing status of the broadcast.
+              enum:
+              - enqueued
+              - processing
+              - processed
+              readOnly: true
+              type: string
+            summary:
+              description: The summary counts for total recipients and failures.
+              properties:
+                failures:
+                  description: The number of failures while processing the broadcast.
+                  readOnly: true
+                  type: integer
+                total:
+                  description: The number of recipients that the broadcast was sent to.
+                  readOnly: true
+                  type: integer
+              required:
+              - total
+              - failures
+              type: object
+          required:
+          - status
+          - summary
+          - errors
+          type: object
+        title:
+          description: The subject or headline that will be shown to recipients.
+          maxLength: 255
+          minLength: 1
+          type: string
+        topic:
+          description: The topic that further classifies the broadcast.
+          maxLength: 255
+          pattern: ^[A-Za-z0-9_\.\-/:]+$
+          type:
+          - string
+          - 'null'
+      required:
+      - title
+      - recipients
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    BroadcastCollection:
+      examples:
+      - data:
+        - action_url: https://example.com
+          category: example
+          content: I come from broadcast
+          custom_attributes: {}
+          id: d1b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b
+          overrides: {}
+          recipients:
+          - custom_attributes:
+              plan: enterprise
+              preferred_pronoun: They
+              pricing_version: v10
+            email: test@example.com
+            external_id: 83d987a-83fd034
+            first_name: Person
+            last_name: Doe
+            phone_numbers:
+            - +1 5005550001
+          title: Hello, World!
+          topic: example
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Broadcast'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object

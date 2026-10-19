@@ -1,0 +1,185 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Channels API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Channels
+paths:
+  /channels:
+    summary: Channel configurations
+    description: 'Channels represent the mediums such as Email, Push, SMS, Slack, through which deliveries happen. These routes configure how each channel behaves inside a project, ensuring every notification honors user preferences and branding.
+
+
+      Related guides: [Channel Primitive](https://www.magicbell.com/docs/primitive/channel)'
+    put:
+      summary: Save a channels config
+      description: Save the channels configuration for a given key.
+      operationId: save_channels_config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDeliveryConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDeliveryConfig'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Channels
+  /channels/user_preferences:
+    summary: Channel preferences
+    description: Manages each user's opt-outs and per-channel overrides so every notification respects personal choices across devices and mediums.
+    get:
+      summary: Fetch channel preferences
+      description: Fetch a user's channel delivery preferences.
+      operationId: fetch_user_preferences
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPreferences'
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Channels
+    put:
+      summary: Save channel preferences
+      description: Save a user's channel preferences.
+      operationId: save_user_preferences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPreferences'
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Channels
+  /channels/{key}:
+    summary: Channel configurations
+    description: 'Channels represent the mediums such as Email, Push, SMS, Slack, through which deliveries happen. These routes configure how each channel behaves inside a project, ensuring every notification honors user preferences and branding.
+
+
+      Related guides: [Channel Primitive](https://www.magicbell.com/docs/primitive/channel)'
+    get:
+      summary: Fetch a channels config
+      description: Fetches the channels config for a given key.
+      operationId: fetch_channels_config
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDeliveryConfig'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Channels
+components:
+  schemas:
+    UserPreferences:
+      $id: https://magicbell.com/schemas/delivery.json
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - categories:
+        - channels:
+          - enabled: true
+            label: Email
+            name: email
+          key: category_1
+          label: Category 1
+      properties:
+        categories:
+          items:
+            properties:
+              channels:
+                items:
+                  properties:
+                    enabled:
+                      type: boolean
+                    name:
+                      type: string
+                  type: object
+                type: array
+              key:
+                maxLength: 255
+                pattern: ^[A-Za-z0-9_\.\-/:]+$
+                type: string
+              label:
+                maxLength: 255
+                type:
+                - string
+                - 'null'
+            type: object
+          type: array
+      type: object
+    CategoryDeliveryConfig:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - channels:
+        - channel: in_app
+        - channel: email
+          if: '{{notification.unseen}} == false'
+        key: project
+      properties:
+        channels:
+          description: Ordered channel steps the delivery planner should execute.
+          items:
+            properties:
+              channel:
+                description: Name of the channel used for this step.
+                enum:
+                - in_app
+                - slack
+                - web_push
+                - mobile_push
+                - teams
+                - email
+                - sms
+                type: string
+              delay:
+                description: Delay in seconds to wait after the previous step.
+                minimum: 0
+                type: integer
+              if:
+                description: Conditional expression evaluated before running the step.
+                type:
+                - string
+                - 'null'
+            required:
+            - channel
+            type: object
+          type: array
+        disabled:
+          default: false
+          description: Disables the plan so it cannot be executed.
+          type: boolean
+        key:
+          description: Unique identifier for this delivery plan.
+          minLength: 3
+          pattern: ^[A-Za-z0-9_.\-:/]+$
+          type: string
+      required:
+      - channels
+      - key
+      type: object

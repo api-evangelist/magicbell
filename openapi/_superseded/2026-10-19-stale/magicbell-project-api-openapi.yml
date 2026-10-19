@@ -1997,64 +1997,10 @@ components:
         client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
         client_id: '117893100789081023083'
         client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
-        private_key: '-----BEGIN PRIVATE KEY-----
-
-          MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
-
-          ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
-
-          QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
-
-          iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
-
-          t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
-
-          y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
-
-          yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
-
-          qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
-
-          rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
-
-          C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
-
-          pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
-
-          9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
-
-          FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
-
-          9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
-
-          YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
-
-          yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
-
-          O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
-
-          espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
-
-          FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
-
-          wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
-
-          vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
-
-          H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
-
-          hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
-
-          N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
-
-          0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
-
-          ps+wuWO8MN5yQTBZvAEIfQs=
-
-          -----END PRIVATE KEY-----
+        private_key: 'REDACTED_PRIVATE_KEY_EXAMPLE
 
           '
-        private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+        private_key_id: REDACTED_PRIVATE_KEY_ID
         project_id: platform-development
         token_uri: https://oauth2.googleapis.com/token
         type: service_account
@@ -2560,11 +2506,7 @@ components:
       example:
         app_id: com.example.myapp
         badge: unread
-        certificate: '-----BEGIN PRIVATE KEY-----
-
-          MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
-
-          -----END PRIVATE KEY-----'
+        certificate: 'REDACTED_PRIVATE_KEY_EXAMPLE'
         key_id: ABCD1234EF
         team_id: ABCD1234EF
     IntegrationObject:
@@ -3510,64 +3452,10 @@ components:
             client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
             client_id: '117893100789081023083'
             client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
-            private_key: '-----BEGIN PRIVATE KEY-----
-
-              MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7/GBHM4AK4/8c
-
-              ZyvJfdzjBzfA48tV9T3N4hBCb4E66jIz+oztH9oSngEfIVO/L1dWjK1OlN0cqJ0f
-
-              QaKq1eycSjmwfTR3HGNjQQyoGQ4BFBdyqT5rRDDZLPI2LoR0dtQXcBtiFpJF2t8e
-
-              iDmpl3d/ipuKMtBRzjYPqzP0qv3YkPmw2v5FqKK9EIaHRtOhd2R28F5FE+kF1dvB
-
-              t7fEeVtKcQJcSwDUQ8HEshlWSx6azGd4jxf9jHRXWumXYfTA6NMA7EUTDJVus3vU
-
-              y9MCv2KwZO/dzlQygY0BM9FHPSzZRIiHUx+DH6gYl2uWJatluHz58lj3r5mo/Ssc
-
-              yP3TrqOnAgMBAAECggEAWAnDe0UCt9b8QGyPBK/V1VspgMQOE+UlOzkenUaEUreg
-
-              qFg0TM8ofaSS6OXeR0DgGdALUCyGeyf6YcuG55QFWlKmvuF8QzY/05mA2G7XcKjc
-
-              rF3Xtju61tLmYnqZnMOT46AkquTgPyfYa3+n5aVimRAsdOYESvOUvPTUgcbc2GGK
-
-              C2h2MUCoRKuhzbGx847XJmINRE+xaht4hDMhzhMBVrgGGyQ3sIdbCxpbiQR6QH2H
-
-              pITrSnd4hlKRPREWS/D4FUKP/ucXdORP9SUi0R64NRZ3GvT1HvpVZ9fOXwIACdAG
-
-              9fpIQbsmIgxhgZ5ZjuGz/nFi2KQ2Y8rEycQmnHd4QQKBgQD4LVFL93E4qwr7Eruj
-
-              FjyxGYYi2PhVxvrpiSD6ziK3HUjAxat6OcoElJx7WEFWHmi7KRgehqcl40A8Coav
-
-              9DGBwnSM2AYKgzOqMqzjK71TFOQsJdGEYThnhiL2FoQeptgskVS7J9MMBPTnyl7D
-
-              YObINwGbg9auVp66rj5W+dymZwKBgQDB6VdpxJpU9hXBW+8nJESduhzpYiHoe1kN
-
-              yka90dQDOe2b/R7bnF1Ggte6Ll1dMs3xLhN1Mm2XTcX2zmzM15C0E4+1t1LXXzAo
-
-              O2P+riEmCIUc1i0yNMVgEKXiOBBYgKauE3fT88c4dw2JAT0QlifJ0h8kRPNhUaq9
-
-              espjleNQwQKBgHUzwZ7knn2qmSb1M9PTHppseWJfoPexXrGHZyHK064ykDcpos+4
-
-              FuWO4U+G4GQxPDiXMaLI6IsGBUHVnsHdyruC/9O7+S5hw7Zu9CLcdy6TQSZwPcAM
-
-              wbxyJnSdMYvgM1roz2ELb6nPdXE5qwMN8i8/euzcmDgBBDkZLKuamE+lAoGBAKb7
-
-              vd7DAvPvBkUAWi2mub/pqUQA0ZpVvhZ1/f0wWBZ/J/KQQqZzPI+f1Q3rJ1M+kMIE
-
-              H5Vo257TxooGsQKlD2NDBRpCx//XZK0Al9eVM86Av8BZX4pAj0dujqsEBG9yOhbl
-
-              hObsor4pJ2q3ulIyPAk7/L1K8xr3LMUGnIqtZJcBAoGAEQffqGbnaOG8Ue3++bLP
-
-              N6XlAyt5UajAd1CycIHgDvbW0CkWoI70Bg7QNqMYJe6DareH4vRpdB3tw6zNP7qN
-
-              0Bd04L8+zUYN+VqNJ70d7Xn+k2rY7STlgU3vwOzHFwu4wK2A7e+aAZ8AjC+Sr0ZM
-
-              ps+wuWO8MN5yQTBZvAEIfQs=
-
-              -----END PRIVATE KEY-----
+            private_key: 'REDACTED_PRIVATE_KEY_EXAMPLE
 
               '
-            private_key_id: 1935e74178f6ef0bbc23fb3538255f8281093bf2
+            private_key_id: REDACTED_PRIVATE_KEY_ID
             project_id: platform-development
             token_uri: https://oauth2.googleapis.com/token
             type: service_account
@@ -3941,11 +3829,7 @@ components:
         - config:
             app_id: com.example.myapp
             badge: unread
-            certificate: '-----BEGIN PRIVATE KEY-----
-
-              MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHnr4B2P+by++FGu/th0a44E8chJl5v5Vo4gq0YHw6e6gCgYIKoZIzj0DAQehRANCAARCg1MRibnfyeX5mx6+Rtfzzn7UhJP/oaqL4RzSmDuTsd3BTX33cuQ0gWHe20R2m1bLAkI1wrp+zbWOlAOAD7KX
-
-              -----END PRIVATE KEY-----'
+            certificate: 'REDACTED_PRIVATE_KEY_EXAMPLE'
             key_id: ABCD1234EF
             team_id: ABCD1234EF
           id: '123'

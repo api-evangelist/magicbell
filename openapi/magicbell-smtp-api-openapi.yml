@@ -1,0 +1,216 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Smtp API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: SMTP
+paths:
+  /integrations/smtp:
+    summary: Custom SMTP
+    description: Bring any SMTP server for outbound email, ideal for on-prem or region-specific compliance.
+    get:
+      tags:
+      - SMTP
+      summary: List all SMTP integrations
+      description: Retrieves the current SMTP integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_smtp_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPConfigObjectCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: SMTP
+        name: smtp
+    put:
+      tags:
+      - SMTP
+      summary: Save a SMTP integration
+      description: Updates or creates the SMTP integration for the project.
+      operationId: save_smtp_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMTPConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPConfig'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: SMTP
+        name: smtp
+    delete:
+      tags:
+      - SMTP
+      summary: Delete a SMTP integration
+      description: Deletes the SMTP integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_smtp_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: SMTP
+        name: smtp
+components:
+  schemas:
+    SMTPConfig:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - from:
+          email: notifications@example.com
+          name: Example Notifications
+        host: smtp.gmail.com
+        password: your-app-password
+        port: 587
+        reply_to:
+          email: support@example.com
+          name: Example Support
+        security: starttls
+        username: user@example.com
+      properties:
+        from:
+          description: Default sender email address
+          properties:
+            email:
+              description: Sender email address
+              format: email
+              type: string
+            name:
+              description: Sender name
+              type: string
+          required:
+          - email
+          type: object
+        host:
+          description: SMTP server hostname
+          examples:
+          - smtp.gmail.com
+          - smtp.example.com
+          type: string
+        password:
+          description: SMTP authentication password
+          type: string
+        port:
+          description: SMTP server port
+          examples:
+          - 25
+          - 465
+          - 587
+          maximum: 65535
+          minimum: 1
+          type: integer
+        reply_to:
+          description: Reply-to email address
+          properties:
+            email:
+              description: Reply-to email address
+              format: email
+              type: string
+            name:
+              description: Reply-to name
+              type: string
+          required:
+          - email
+          type: object
+        security:
+          default: starttls
+          description: SMTP security/encryption method
+          enum:
+          - none
+          - ssl
+          - starttls
+          examples:
+          - starttls
+          type: string
+        username:
+          description: SMTP authentication username
+          type: string
+      required:
+      - host
+      - port
+      - username
+      - password
+      - from
+      title: SMTPConfig
+      type: object
+    SMTPConfigObject:
+      properties:
+        config:
+          $ref: '#/components/schemas/SMTPConfig'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    SMTPConfigObjectCollection:
+      examples:
+      - data:
+        - config:
+            from:
+              email: notifications@example.com
+              name: Example Notifications
+            host: smtp.gmail.com
+            password: your-app-password
+            port: 587
+            reply_to:
+              email: support@example.com
+              name: Example Support
+            security: starttls
+            username: user@example.com
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SMTPConfigObject'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object

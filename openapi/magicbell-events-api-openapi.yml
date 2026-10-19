@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Events API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Events
+paths:
+  /events:
+    summary: Notification event log
+    description: 'Events capture everything that happens across deliveries. Query this stream to audit what occurred, troubleshoot delivery issues, and power observability dashboards.
+
+
+      Related guides: [Delivery Primitive](https://www.magicbell.com/docs/primitive/delivery)'
+    get:
+      summary: List all events
+      description: Retrieves a paginated list of events for the project.
+      operationId: list_events
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventCollection'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Events
+  /events/{event_id}:
+    summary: Notification event log
+    description: 'Events capture everything that happens across deliveries. Query this stream to audit what occurred, troubleshoot delivery issues, and power observability dashboards.
+
+
+      Related guides: [Delivery Primitive](https://www.magicbell.com/docs/primitive/delivery)'
+    get:
+      summary: Fetch an event
+      description: Fetches a project event by its ID.
+      operationId: fetch_event
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Events
+components:
+  schemas:
+    Event:
+      examples:
+      - id: '123'
+        timestamp: '2021-01-01T00:00:00Z'
+        type: example_type
+      properties:
+        code:
+          description: The numeric code that categorizes the event.
+          type: integer
+        context:
+          description: Additional contextual attributes for the event.
+          type:
+          - object
+          - 'null'
+        id:
+          description: The unique identifier for the event.
+          type: string
+        level:
+          description: The severity level assigned to the event.
+          type: string
+        log:
+          description: A human-readable log message.
+          type:
+          - string
+          - 'null'
+        payload:
+          description: The raw payload delivered by the event source.
+          type:
+          - object
+          - 'null'
+        timestamp:
+          description: The time at which the event was recorded.
+          format: date-time
+          type: string
+        type:
+          description: The type of event that occurred.
+          type: string
+      required:
+      - id
+      - type
+      - timestamp
+      type: object
+    EventCollection:
+      examples:
+      - data:
+        - id: '123'
+          timestamp: '2021-01-01T00:00:00Z'
+          type: example_type
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object

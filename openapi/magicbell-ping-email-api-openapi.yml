@@ -1,0 +1,140 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Ping Email API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: ping_email
+paths:
+  /integrations/ping_email:
+    summary: Ping email diagnostics
+    description: Synthetic email integration that helps you validate deliverability SLAs by periodically sending canary messages.
+    get:
+      tags:
+      - ping_email
+      summary: List all Ping Email integrations
+      description: Retrieves the current Ping Email integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_ping_email_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+    put:
+      tags:
+      - ping_email
+      summary: Save a Ping Email integration
+      description: Updates or creates the Ping Email integration for the project.
+      operationId: save_ping_email_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PingConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+    delete:
+      tags:
+      - ping_email
+      summary: Delete a Ping Email integration
+      description: Deletes the Ping Email integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_ping_email_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: email
+        displayName: Ping Email
+        name: ping_email
+components:
+  schemas:
+    PingConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - url: https://example.com/webhook
+      properties:
+        url:
+          description: URL to ping
+          format: uri
+          maxLength: 100
+          minLength: 1
+          type: string
+      required:
+      - url
+      type: object
+    PingConfigCollection:
+      examples:
+      - data:
+        - config:
+            url: https://example.com/webhook
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PingConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    PingConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/PingConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object

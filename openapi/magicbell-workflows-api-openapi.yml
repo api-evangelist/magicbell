@@ -1,0 +1,365 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Workflows API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Workflows
+paths:
+  /workflows:
+    summary: Workflow automation
+    description: Workflows let you orchestrate multi-step reactions to events, fan out to broadcasts, enrich data, or call external services. These routes manage definitions and runs so you can iterate on automation safely.
+    get:
+      summary: List workflow definitions
+      description: Retrieves all workflow definitions for the project
+      operationId: fetch_workflows
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowList'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+    put:
+      summary: Save workflow definition
+      description: Creates or updates a workflow definition for the project
+      operationId: save_workflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowDefinition'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowDefinition'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+  /workflows/*:
+    summary: Workflow automation
+    description: Workflows let you orchestrate multi-step reactions to events, fan out to broadcasts, enrich data, or call external services. These routes manage definitions and runs so you can iterate on automation safely.
+    get:
+      summary: Fetch workflow definition
+      description: Retrieves a workflow definition by key
+      operationId: fetch_workflow
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowDefinition'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+  /workflows/runs:
+    summary: Workflow automation
+    description: Workflows let you orchestrate multi-step reactions to events, fan out to broadcasts, enrich data, or call external services. These routes manage definitions and runs so you can iterate on automation safely.
+    post:
+      summary: Execute workflow
+      description: Executes a workflow with the provided input parameters
+      operationId: create_workflow_run
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteWorkflowRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRunResponse'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+  /workflows/runs/{run_id}:
+    summary: Workflow automation
+    description: Workflows let you orchestrate multi-step reactions to events, fan out to broadcasts, enrich data, or call external services. These routes manage definitions and runs so you can iterate on automation safely.
+    get:
+      summary: Get workflow run status
+      description: Retrieves the status and details of a workflow run
+      operationId: fetch_workflow_run
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunResponse'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+  /workflows/{workflow_key}/runs:
+    summary: Workflow automation
+    description: Workflows let you orchestrate multi-step reactions to events, fan out to broadcasts, enrich data, or call external services. These routes manage definitions and runs so you can iterate on automation safely.
+    get:
+      summary: List workflow runs
+      description: Retrieves all runs for a specific workflow
+      operationId: list_workflow_runs
+      parameters:
+      - name: workflow_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRunCollection'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Workflows
+components:
+  schemas:
+    WorkflowRunCollection:
+      examples:
+      - data:
+        - created_at: '2024-01-01T00:00:00Z'
+          id: 01234567-89ab-cdef-0123-456789abcdef
+          status:
+            next_step: 1
+            started_at: '2024-01-01T00:00:00Z'
+            state: 2
+          workflow_key: integration.stripe.charge.succeeded
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/WorkflowRun'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    WorkflowDefinition:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - key: project
+        steps:
+        - command: broadcast
+          input:
+            channel: in_app
+        - command: broadcast
+          if: '{{data.paying}} == true'
+          input:
+            channel: email
+      properties:
+        disabled:
+          default: false
+          description: When true, prevents the workflow from being triggered.
+          type: boolean
+        key:
+          description: Unique identifier for this workflow definition.
+          minLength: 3
+          pattern: ^[A-Za-z0-9\_\.\-\:]+$
+          type: string
+        steps:
+          description: Ordered list describing each action that will run inside the workflow.
+          items:
+            properties:
+              command:
+                description: Command to execute (e.g., broadcast, pause, wait, abort)
+                pattern: ^[a-z_]+$
+                type: string
+              if:
+                description: JMESPath condition that must evaluate truthy for the step to run.
+                type:
+                - string
+                - 'null'
+              input:
+                description: Optional payload passed to the command when it executes.
+                type:
+                - object
+                - 'null'
+            required:
+            - command
+            type: object
+          type: array
+      required:
+      - steps
+      - key
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    CreateRunResponse:
+      examples:
+      - id: 123e4567-e89b-12d3-a456-426614174000
+      properties:
+        id:
+          description: Identifier of the workflow run that was created.
+          format: uuid
+          type: string
+      required:
+      - id
+      type: object
+    ExecuteWorkflowRequest:
+      examples:
+      - input:
+          user:
+            id: '123'
+            name: John Doe
+        key: magicbell:signup
+      properties:
+        input:
+          description: Optional JSON payload that will be passed as the workflow input context.
+          type:
+          - object
+          - 'null'
+        key:
+          description: The unique workflow key to execute (e.g. integration.stripe.charge.succeeded).
+          pattern: ^[A-Za-z0-9\_\.\-\:]+$
+          type: string
+      required:
+      - key
+      type: object
+    GetRunResponse:
+      examples:
+      - created_at: '2024-01-01T00:00:00Z'
+        id: 01234567-89ab-cdef-0123-456789abcdef
+        input:
+          description: ''
+          payload:
+            action: in_progress
+          type: workflow_job
+        status:
+          next_step: 1
+          started_at: '2024-01-01T00:00:00Z'
+          state: 2
+        workflow_key: integration.stripe.charge.succeeded
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          format: uuid
+          type: string
+        input:
+          type: object
+        status:
+          properties:
+            completed_at:
+              format: date-time
+              type: string
+            error:
+              type: string
+            next_step:
+              type: integer
+            started_at:
+              format: date-time
+              type: string
+            state:
+              type: integer
+          type: object
+        workflow_key:
+          type: string
+      type: object
+    WorkflowRun:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          format: uuid
+          type: string
+        status:
+          properties:
+            completed_at:
+              format: date-time
+              type: string
+            error:
+              type: string
+            next_step:
+              type: integer
+            started_at:
+              format: date-time
+              type: string
+            state:
+              type: integer
+          type: object
+        workflow_key:
+          type: string
+      type: object
+    WorkflowList:
+      examples:
+      - items:
+        - disabled: false
+          key: integration.stripe.charge.succeeded
+          steps:
+          - command: broadcast
+            if: event.amount > 1000
+            input:
+              category: billing
+              template: payment_received
+      properties:
+        items:
+          items:
+            properties:
+              disabled:
+                default: false
+                type: boolean
+              key:
+                minLength: 3
+                pattern: ^[A-Za-z0-9\_\.\-\:]+$
+                type: string
+              steps:
+                items:
+                  properties:
+                    command:
+                      description: Command to execute (e.g., broadcast, pause, wait, abort)
+                      pattern: ^[a-z_]+$
+                      type: string
+                    if:
+                      type:
+                      - string
+                      - 'null'
+                    input:
+                      type:
+                      - object
+                      - 'null'
+                  required:
+                  - command
+                  type: object
+                type: array
+            required:
+            - steps
+            - key
+            type: object
+          type: array
+      type: object

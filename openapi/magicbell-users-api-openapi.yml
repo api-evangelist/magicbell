@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Users API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Users
+paths:
+  /users:
+    summary: User primitive
+    description: 'Users are the recipients of every notification. These endpoints let you list users, upsert profiles, and remove users while keeping identifiers aligned with your product database.
+
+
+      Related guides: [User Primitive](https://www.magicbell.com/docs/primitive/user)'
+    get:
+      summary: List all users
+      description: Lists all users in the project.
+      operationId: list_users
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      - name: query
+        in: query
+        description: filter users by their email address or external ID
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCollection'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Users
+    put:
+      summary: Save a user
+      description: Creates or updates a user with the provided details. The user will be associated with the project specified in the request context.
+      operationId: save_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Users
+  /users/{user_id}:
+    summary: User primitive
+    description: 'Users are the recipients of every notification. These endpoints let you list users, upsert profiles, and remove users while keeping identifiers aligned with your product database.
+
+
+      Related guides: [User Primitive](https://www.magicbell.com/docs/primitive/user)'
+    delete:
+      summary: Delete a user
+      description: Removes a user and all associated data from the project.
+      operationId: delete_user
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      tags:
+      - Users
+components:
+  schemas:
+    UserCollection:
+      examples:
+      - data:
+        - custom_attributes:
+            key: value
+          email: dan@example.com
+          external_id: external-id
+          first_name: Dan
+          id: 8a038704-acc1-47f9-81b0-7523886cbeae
+          last_name: Example
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    User:
+      examples:
+      - custom_attributes:
+          key: value
+        email: dan@example.com
+        external_id: external-id
+        first_name: Dan
+        id: 8a038704-acc1-47f9-81b0-7523886cbeae
+        last_name: Example
+      properties:
+        created_at:
+          description: The timestamp when the user was created.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        custom_attributes:
+          description: Arbitrary custom values stored on the user.
+          type:
+          - object
+          - 'null'
+        email:
+          description: The primary email address of the user.
+          type:
+          - string
+          - 'null'
+        external_id:
+          description: The user identifier from an external system.
+          type:
+          - string
+          - 'null'
+        first_name:
+          description: The first name of the user.
+          type:
+          - string
+          - 'null'
+        id:
+          description: The unique identifier for the user.
+          format: uuid
+          type: string
+        last_name:
+          description: The last name of the user.
+          type:
+          - string
+          - 'null'
+        last_notified_at:
+          description: The timestamp when the user last received a notification.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        last_seen_at:
+          description: The timestamp when the user last opened the inbox.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        updated_at:
+          description: The timestamp when the user was last updated.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object

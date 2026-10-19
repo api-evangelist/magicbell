@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Expo API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: expo
+paths:
+  /integrations/expo:
+    summary: Expo push
+    description: Send Expo push notifications to React Native apps with zero extra plumbing.
+    get:
+      tags:
+      - expo
+      summary: List all Expo integrations
+      description: Retrieves the current Expo integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_expo_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+    put:
+      tags:
+      - expo
+      summary: Save an Expo integration
+      description: Updates or creates the Expo integration for the project.
+      operationId: save_expo_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+    delete:
+      tags:
+      - expo
+      summary: Delete an Expo integration
+      description: Deletes the Expo integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_expo_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: Expo
+        name: expo
+components:
+  schemas:
+    ExpoConfigCollection:
+      examples:
+      - data:
+        - config:
+            access_token: expo_access_token
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExpoConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    ExpoConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - access_token: expo_access_token
+      properties:
+        access_token:
+          description: The Expo access token used to authenticate push notifications.
+          minLength: 1
+          type: string
+      required:
+      - access_token
+      type: object
+    ExpoConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/ExpoConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object

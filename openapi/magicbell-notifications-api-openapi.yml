@@ -1,0 +1,511 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Notifications API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Notifications
+paths:
+  /notifications:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    get:
+      summary: List all notifications
+      description: Lists all notifications for a user.
+      operationId: list_notifications
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: filter notifications by their status, one of 'unseen' | 'unread' | 'read' | 'archived'
+        required: false
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: filter notifications by their category
+        required: false
+        schema:
+          type: string
+      - name: topic
+        in: query
+        description: filter notifications by their topic
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationCollection'
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/archive:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Archive all notifications
+      description: Archive all notifications.
+      operationId: archive_all_notifications
+      parameters:
+      - name: category
+        in: query
+        description: filter notifications by their category
+        required: false
+        schema:
+          type: string
+      - name: topic
+        in: query
+        description: filter notifications by their topic
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/read:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Mark all notifications read
+      description: Marks all notifications as read.
+      operationId: mark_all_notifications_read
+      parameters:
+      - name: category
+        in: query
+        description: filter notifications by their category
+        required: false
+        schema:
+          type: string
+      - name: topic
+        in: query
+        description: filter notifications by their topic
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/seen:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Mark all notifications seen
+      description: Marks all unseen notifications as seen.
+      operationId: mark_all_notifications_seen
+      parameters:
+      - name: category
+        in: query
+        description: filter notifications by their category
+        required: false
+        schema:
+          type: string
+      - name: topic
+        in: query
+        description: filter notifications by their topic
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/unread/count:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    get:
+      summary: Count unread notifications
+      description: Returns the count of unread notifications for a user. Supports filtering by category and topic.
+      operationId: fetch_unread_notifications_count
+      parameters:
+      - name: category
+        in: query
+        description: filter notifications by their category
+        required: false
+        schema:
+          type: string
+      - name: topic
+        in: query
+        description: filter notifications by their topic
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountResponse'
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    get:
+      summary: Fetch a notification
+      description: Gets a notification by ID.
+      operationId: fetch_notification
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}/archive:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Archive a notification
+      description: Archive a notification.
+      operationId: archive_notification
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}/read:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Mark a notification read
+      description: Marks a notification as read.
+      operationId: mark_notification_read
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}/seen:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Mark a notification seen
+      description: Marks a notification as seen.
+      operationId: mark_notification_seen
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}/unarchive:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Unarchive a notification
+      description: Unarchives a notification.
+      operationId: unarchive_notification
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+  /notifications/{notification_id}/unread:
+    summary: User notifications
+    description: 'Notifications are the per-recipient records created from broadcasts. These endpoints let a user list, fetch, and manage the notifications that drive their inbox experience.
+
+
+      Related guides: [Notification Primitive](https://www.magicbell.com/docs/primitive/notification)'
+    post:
+      summary: Mark a notification unread
+      description: Marks a notification as unread.
+      operationId: mark_notification_unread
+      parameters:
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: user
+      tags:
+      - Notifications
+components:
+  schemas:
+    CountResponse:
+      examples:
+      - count: 5
+      properties:
+        count:
+          description: The count of notifications matching the query.
+          type: integer
+      required:
+      - count
+      type: object
+    NotificationCollection:
+      examples:
+      - data:
+        - action_url: null
+          archived_at: null
+          category_id: null
+          created_at: '2024-09-11T11:14:42.165Z'
+          custom_attributes:
+            key: value
+            obj_key:
+              one: two
+          discarded_at: null
+          id: 4b6efd21-f0f6-4051-8922-cc8c90a3dc5d
+          in_app: true
+          metadata: {}
+          notification_broadcast_id: 6a8b1e23-f54b-4c65-95b2-78f288d7f247
+          overrides: {}
+          project_id: 7
+          read_at: null
+          seen_at: null
+          status: unseen
+          title: Example Notification
+          topic_id: null
+          updated_at: '2024-09-11T11:14:42.165Z'
+          user_id: d4121424-097e-40b0-9cc8-357060d004b2
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Notification:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - action_url: null
+        archived_at: null
+        category_id: null
+        created_at: '2024-09-11T11:14:42.165Z'
+        custom_attributes:
+          key: value
+          obj_key:
+            one: two
+        discarded_at: null
+        id: 4b6efd21-f0f6-4051-8922-cc8c90a3dc5d
+        in_app: true
+        metadata: {}
+        notification_broadcast_id: 6a8b1e23-f54b-4c65-95b2-78f288d7f247
+        overrides: {}
+        project_id: 7
+        read_at: null
+        seen_at: null
+        status: unseen
+        title: Example Notification
+        topic_id: null
+        updated_at: '2024-09-11T11:14:42.165Z'
+        user_id: d4121424-097e-40b0-9cc8-357060d004b2
+      properties:
+        action_url:
+          description: The link associated with the notification.
+          maxLength: 2048
+          type:
+          - 'null'
+          - string
+        archived_at:
+          description: The timestamp when the notification was archived.
+          format: date-time
+          type:
+          - 'null'
+          - string
+        category:
+          description: The category grouping for the notification.
+          maxLength: 100
+          type:
+          - 'null'
+          - string
+        content:
+          description: The body content of the notification.
+          maxLength: 10485760
+          type:
+          - 'null'
+          - string
+        created_at:
+          description: The timestamp when the notification was created.
+          format: date-time
+          type:
+          - string
+        custom_attributes:
+          description: The custom data stored with the notification.
+          type:
+          - 'null'
+          - object
+        discarded_at:
+          description: The timestamp when the notification was discarded.
+          format: date-time
+          type:
+          - 'null'
+          - string
+        id:
+          description: The unique identifier for the notification.
+          format: uuid
+          type: string
+        read_at:
+          description: The timestamp when the notification was marked as read.
+          format: date-time
+          type:
+          - 'null'
+          - string
+        seen_at:
+          description: The timestamp when the notification was seen.
+          format: date-time
+          type:
+          - 'null'
+          - string
+        sent_at:
+          description: The timestamp when the notification was sent.
+          format: date-time
+          type:
+          - 'null'
+          - string
+        status:
+          description: The current status of the notification.
+          enum:
+          - unseen
+          - unread
+          - read
+          - archived
+          type: string
+        title:
+          description: The title that is displayed to recipients.
+          type: string
+        topic:
+          description: The topic for additional classification.
+          maxLength: 100
+          type:
+          - 'null'
+          - string
+        updated_at:
+          description: The timestamp when the notification was last updated.
+          format: date-time
+          type:
+          - string
+        user_id:
+          description: The user that should receive the notification.
+          format: uuid
+          type: string
+      required:
+      - id
+      - title
+      - created_at
+      - updated_at
+      - user_id
+      - status
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object

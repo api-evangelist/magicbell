@@ -1,0 +1,478 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Inbox API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: inbox
+paths:
+  /integrations/inbox:
+    summary: Inbox surfaces
+    description: Manage integrations that sync data into the MagicBell Inbox surfaces, including hosted widgets and embeddable inboxes.
+    get:
+      tags:
+      - inbox
+      summary: List all Inbox integrations
+      description: Retrieves the current Inbox integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_inbox_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: in_app
+        displayName: Inbox
+        name: inbox
+    put:
+      tags:
+      - inbox
+      summary: Save an Inbox integration
+      description: Updates or creates the Inbox integration for the project.
+      operationId: save_inbox_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: in_app
+        displayName: Inbox
+        name: inbox
+    delete:
+      tags:
+      - inbox
+      summary: Delete an Inbox integration
+      description: Deletes the Inbox integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_inbox_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: in_app
+        displayName: Inbox
+        name: inbox
+  /integrations/inbox/installations:
+    summary: Installation flow
+    description: High-level entry point for integrations that require multi-step authorization.
+    put:
+      tags:
+      - inbox
+      summary: Save an Inbox installation
+      description: Creates a new installation of a Inbox integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_inbox_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboxConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfigPayload'
+      x-magicbell-auth-jwt-type: user
+  /integrations/inbox/installations/start:
+    summary: Start installation
+    description: Begins the OAuth or credentials handshake for an integration, returning URLs or payloads needed to obtain user consent.
+    post:
+      tags:
+      - inbox
+      summary: Start an Inbox installation
+      description: Initiates the installation flow for an Inbox integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_inbox_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxConfigPayload'
+      x-magicbell-auth-jwt-type: user
+components:
+  schemas:
+    InboxConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/InboxConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    InboxConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - images:
+          emptyInboxUrl: ''
+        locale: de
+        theme:
+          banner:
+            backgroundColor: '#F8F5FF'
+            fontSize: 14px
+            textColor: '#3A424D'
+          dialog:
+            accentColor: '#5225C1'
+            backgroundColor: '#F5F5F5'
+            textColor: '#313131'
+          footer:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          header:
+            backgroundColor: '#FFFFFF'
+            borderRadius: 16px
+            fontFamily: inherit
+            fontSize: 15px
+            textColor: '#5225C1'
+          icon:
+            borderColor: '#EDEDEF'
+            width: 24px
+          unseenBadge:
+            backgroundColor: '#F80808'
+      properties:
+        images:
+          description: Image overrides for assets used in the inbox UI.
+          minProperties: 1
+          properties:
+            emptyInboxUrl:
+              description: URL for the illustration shown when the inbox is empty.
+              type: string
+          required:
+          - emptyInboxUrl
+          type:
+          - object
+          - 'null'
+        locale:
+          description: Locale code (ISO language tag) used to localize built-in strings.
+          minLength: 2
+          type:
+          - string
+          - 'null'
+        theme:
+          description: Visual customization options for the hosted inbox widget.
+          minProperties: 1
+          properties:
+            banner:
+              description: Top banner styling options.
+              properties:
+                backgroundColor:
+                  description: Banner background color.
+                  type: string
+                backgroundOpacity:
+                  description: Opacity applied to the banner background.
+                  type: number
+                fontSize:
+                  description: Font size for banner text.
+                  type: string
+                textColor:
+                  description: Banner text color.
+                  type: string
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              type: object
+            dialog:
+              description: Styling for confirmation and action dialogs.
+              properties:
+                accentColor:
+                  description: Accent color for dialog buttons and highlights.
+                  type: string
+                backgroundColor:
+                  description: Dialog background color.
+                  type: string
+                textColor:
+                  description: Dialog text color.
+                  type: string
+              required:
+              - backgroundColor
+              - textColor
+              - accentColor
+              type: object
+            footer:
+              description: Footer styling for the inbox modal.
+              properties:
+                backgroundColor:
+                  description: Footer background color.
+                  type: string
+                borderRadius:
+                  description: Border radius applied to the footer container.
+                  type: string
+                fontSize:
+                  description: Font size used in the footer.
+                  type: string
+                textColor:
+                  description: Footer text color.
+                  type: string
+              required:
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+            header:
+              description: Header styling for the inbox modal.
+              properties:
+                backgroundColor:
+                  description: Header background color.
+                  type: string
+                borderRadius:
+                  description: Border radius applied to the header container.
+                  type: string
+                fontFamily:
+                  description: CSS font family for the header title.
+                  type: string
+                fontSize:
+                  description: Font size used in the header.
+                  type: string
+                textColor:
+                  description: Header text color.
+                  type: string
+              required:
+              - fontFamily
+              - fontSize
+              - backgroundColor
+              - textColor
+              - borderRadius
+              type: object
+            icon:
+              description: Launcher icon styling overrides.
+              properties:
+                borderColor:
+                  description: CSS color used for the icon border.
+                  type: string
+                width:
+                  description: Width of the launcher icon (any CSS length).
+                  type: string
+              required:
+              - borderColor
+              - width
+              type: object
+            notification:
+              description: Styling overrides for notification list items.
+              properties:
+                default:
+                  description: Base styles applied to every notification item.
+                  properties:
+                    backgroundColor:
+                      description: Background color for notifications in their default state.
+                      type: string
+                    borderRadius:
+                      description: Border radius applied to each notification card.
+                      type: string
+                    fontFamily:
+                      description: Font family for notification text.
+                      type: string
+                    fontSize:
+                      description: Font size for notification text.
+                      type: string
+                    hover:
+                      description: Styles applied when a notification is hovered.
+                      properties:
+                        backgroundColor:
+                          description: Background color on hover.
+                          type: string
+                      required:
+                      - backgroundColor
+                      type: object
+                    margin:
+                      description: CSS margin applied around each notification card.
+                      type: string
+                    state:
+                      description: Accent colors for notification state indicators.
+                      properties:
+                        color:
+                          description: Color used for the state indicator.
+                          type: string
+                      required:
+                      - color
+                      type: object
+                    textColor:
+                      description: Default text color for notifications.
+                      type: string
+                  required:
+                  - fontFamily
+                  - fontSize
+                  - textColor
+                  - borderRadius
+                  - backgroundColor
+                  - margin
+                  type: object
+                unread:
+                  description: Overrides for unread notifications.
+                  properties:
+                    backgroundColor:
+                      description: Background color applied to unread notifications.
+                      type: string
+                    hover:
+                      description: Hover styles for unread notifications.
+                      properties:
+                        backgroundColor:
+                          description: Background color on hover for unread notifications.
+                          type: string
+                      required:
+                      - backgroundColor
+                      type: object
+                    state:
+                      description: State indicator styling for unread notifications.
+                      properties:
+                        color:
+                          description: Color for the unread state indicator.
+                          type: string
+                      required:
+                      - color
+                      type: object
+                    textColor:
+                      description: Text color used when a notification is unread.
+                      type: string
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+                unseen:
+                  description: Overrides for unseen notifications.
+                  properties:
+                    backgroundColor:
+                      description: Background color applied to unseen notifications.
+                      type: string
+                    hover:
+                      description: Hover styles for unseen notifications.
+                      properties:
+                        backgroundColor:
+                          description: Background color on hover for unseen notifications.
+                          type: string
+                      required:
+                      - backgroundColor
+                      type: object
+                    state:
+                      description: State indicator styling for unseen notifications.
+                      properties:
+                        color:
+                          description: Color for the unseen state indicator.
+                          type: string
+                      required:
+                      - color
+                      type: object
+                    textColor:
+                      description: Text color used when a notification is unseen.
+                      type: string
+                  required:
+                  - textColor
+                  - backgroundColor
+                  type: object
+              required:
+              - default
+              - unseen
+              - unread
+              type: object
+            unseenBadge:
+              description: Badge styling for unseen notification counts.
+              properties:
+                backgroundColor:
+                  description: Badge background color.
+                  type: string
+              required:
+              - backgroundColor
+              type: object
+          type:
+          - object
+          - 'null'
+      required:
+      - theme
+      - locale
+      - images
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    InboxConfigCollection:
+      examples:
+      - data:
+        - config:
+            images:
+              emptyInboxUrl: ''
+            locale: de
+            theme:
+              banner:
+                backgroundColor: '#F8F5FF'
+                fontSize: 14px
+                textColor: '#3A424D'
+              dialog:
+                accentColor: '#5225C1'
+                backgroundColor: '#F5F5F5'
+                textColor: '#313131'
+              footer:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              header:
+                backgroundColor: '#FFFFFF'
+                borderRadius: 16px
+                fontFamily: inherit
+                fontSize: 15px
+                textColor: '#5225C1'
+              icon:
+                borderColor: '#EDEDEF'
+                width: 24px
+              unseenBadge:
+                backgroundColor: '#F80808'
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InboxConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object

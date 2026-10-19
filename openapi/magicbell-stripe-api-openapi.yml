@@ -1,0 +1,145 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Stripe API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Stripe
+paths:
+  /integrations/stripe:
+    summary: Stripe events
+    description: Listen to Stripe's billing, dispute, and subscription events to trigger broadcasts or workflows.
+    get:
+      tags:
+      - Stripe
+      summary: List all Stripe integrations
+      description: Retrieves the current Stripe integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_stripe_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: Stripe
+        name: stripe
+    put:
+      tags:
+      - Stripe
+      summary: Save a Stripe integration
+      description: Updates or creates the Stripe integration for the project.
+      operationId: save_stripe_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeConfigPayload'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: Stripe
+        name: stripe
+    delete:
+      tags:
+      - Stripe
+      summary: Delete a Stripe integration
+      description: Deletes the Stripe integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_stripe_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: Stripe
+        name: stripe
+components:
+  schemas:
+    StripeConfigCollection:
+      examples:
+      - data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/StripeConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    StripeConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      additionalProperties: false
+      examples:
+      - webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+      properties:
+        id:
+          description: The unique identifier for this configuration
+          format: uuid
+          type: string
+        webhook_signing_secret:
+          description: The signing secret to verify incoming requests from Stripe
+          maxLength: 100
+          minLength: 1
+          type: string
+      required:
+      - webhook_signing_secret
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    StripeConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/StripeConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object

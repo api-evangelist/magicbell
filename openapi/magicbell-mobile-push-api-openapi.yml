@@ -1,0 +1,847 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Mobile Push API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: mobile_push
+paths:
+  /channels/mobile_push/apns/tokens:
+    summary: APNs token
+    description: Scoped APIs for APNs (`apns`).
+    get:
+      tags:
+      - mobile_push
+      summary: List all APNs tokens
+      description: Lists all APNs tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: list_apns_tokens
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenCollection'
+      x-magicbell-auth-jwt-type: user
+    put:
+      tags:
+      - mobile_push
+      summary: Save an APNs token
+      description: Saves the APNs token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_apns_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSTokenPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenPayload'
+      x-magicbell-auth-jwt-type: user
+  /channels/mobile_push/apns/tokens/{token_id}:
+    summary: APNs token
+    description: Scoped APIs for APNs (`apns`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch an APNs token
+      description: Fetches details of a specific APNs token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: fetch_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSToken'
+      x-magicbell-auth-jwt-type: user
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete an APNs token
+      description: Deletes one of the authenticated user's APNs tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: delete_apns_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: user
+  /channels/mobile_push/expo/tokens:
+    summary: Expo token
+    description: Scoped APIs for Expo (`expo`).
+    get:
+      tags:
+      - mobile_push
+      summary: List all Expo tokens
+      description: Lists all Expo tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: list_expo_tokens
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenCollection'
+      x-magicbell-auth-jwt-type: user
+    put:
+      tags:
+      - mobile_push
+      summary: Save an Expo token
+      description: Saves the Expo token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_expo_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpoTokenPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenPayload'
+      x-magicbell-auth-jwt-type: user
+  /channels/mobile_push/expo/tokens/{token_id}:
+    summary: Expo token
+    description: Scoped APIs for Expo (`expo`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch an Expo token
+      description: Fetches details of a specific Expo token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: fetch_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoToken'
+      x-magicbell-auth-jwt-type: user
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete an Expo token
+      description: Deletes one of the authenticated user's Expo tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: delete_expo_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: user
+  /channels/mobile_push/fcm/tokens:
+    summary: FCM token
+    description: Scoped APIs for FCM (`fcm`).
+    get:
+      tags:
+      - mobile_push
+      summary: List all FCM tokens
+      description: Lists all FCM tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: list_fcm_tokens
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenCollection'
+      x-magicbell-auth-jwt-type: user
+    put:
+      tags:
+      - mobile_push
+      summary: Save a FCM token
+      description: Saves the FCM token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_fcm_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMTokenPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenPayload'
+      x-magicbell-auth-jwt-type: user
+  /channels/mobile_push/fcm/tokens/{token_id}:
+    summary: FCM token
+    description: Scoped APIs for FCM (`fcm`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch a FCM token
+      description: Fetches details of a specific FCM token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: fetch_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+      x-magicbell-auth-jwt-type: user
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete a FCM token
+      description: Deletes one of the authenticated user's FCM tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: delete_fcm_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: user
+  /users/{user_id}/channels/mobile_push/apns/tokens:
+    summary: APNs token
+    description: Scoped APIs for APNs (`apns`).
+    get:
+      tags:
+      - mobile_push
+      summary: List an user's APNs tokens
+      description: Lists all APNs tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: list_user_apns_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSTokenCollection'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/mobile_push/apns/tokens/{token_id}:
+    summary: APNs token
+    description: Scoped APIs for APNs (`apns`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch a user's APNs token
+      description: Fetches a specific APNs token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: fetch_user_apns_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSToken'
+      x-magicbell-auth-jwt-type: project
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete an user's APNs token
+      description: Deletes a specific user's APNs token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: delete_user_apns_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/mobile_push/expo/tokens:
+    summary: Expo token
+    description: Scoped APIs for Expo (`expo`).
+    get:
+      tags:
+      - mobile_push
+      summary: List an user's Expo tokens
+      description: Lists all Expo tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: list_user_expo_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoTokenCollection'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/mobile_push/expo/tokens/{token_id}:
+    summary: Expo token
+    description: Scoped APIs for Expo (`expo`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch a user's Expo token
+      description: Fetches a specific Expo token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: fetch_user_expo_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpoToken'
+      x-magicbell-auth-jwt-type: project
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete an user's Expo token
+      description: Deletes a specific user's Expo token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: delete_user_expo_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/mobile_push/fcm/tokens:
+    summary: FCM token
+    description: Scoped APIs for FCM (`fcm`).
+    get:
+      tags:
+      - mobile_push
+      summary: List an user's FCM tokens
+      description: Lists all FCM tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: list_user_fcm_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMTokenCollection'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/mobile_push/fcm/tokens/{token_id}:
+    summary: FCM token
+    description: Scoped APIs for FCM (`fcm`).
+    get:
+      tags:
+      - mobile_push
+      summary: Fetch a user's FCM token
+      description: Fetches a specific FCM token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: fetch_user_fcm_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+      x-magicbell-auth-jwt-type: project
+    delete:
+      tags:
+      - mobile_push
+      summary: Delete an user's FCM token
+      description: Deletes a specific user's FCM token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: delete_user_fcm_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: project
+components:
+  schemas:
+    APNSTokenCollection:
+      examples:
+      - data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/APNSToken'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    FCMTokenCollection:
+      examples:
+      - data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          installation_id: development
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/FCMToken'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    ExpoTokenCollection:
+      examples:
+      - data:
+        - created_at: '2021-01-01T00:00:00Z'
+          device_token: ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+          discarded_at: '2021-01-01T00:00:00Z'
+          id: '123'
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExpoToken'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    DiscardResult:
+      examples:
+      - discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+      properties:
+        discarded_at:
+          description: The timestamp when the token was discarded.
+          type: string
+        id:
+          description: The unique identifier for the discarded token.
+          type: string
+      type: object
+    FCMTokenPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+      properties:
+        device_token:
+          description: The Firebase Cloud Messaging device registration token to associate with the user.
+          minLength: 64
+          type: string
+      required:
+      - device_token
+      type: object
+    ExpoToken:
+      examples:
+      - created_at: '2021-01-01T00:00:00Z'
+        device_token: ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        updated_at: '2021-01-01T00:00:00Z'
+      properties:
+        created_at:
+          description: The timestamp when the token was created.
+          format: date-time
+          type: string
+        device_token:
+          description: The Expo push token returned by the Expo client.
+          minLength: 1
+          type: string
+        discarded_at:
+          description: The timestamp when the token was discarded, if applicable.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        id:
+          description: The unique identifier for the token.
+          type: string
+        updated_at:
+          description: The timestamp when the token metadata last changed.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+    ExpoTokenPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - device_token: ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
+      properties:
+        device_token:
+          description: The Expo push token returned by the Expo client.
+          minLength: 1
+          type: string
+      required:
+      - device_token
+      type: object
+    APNSToken:
+      examples:
+      - created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+      properties:
+        app_id:
+          description: The bundle identifier of the application registering this token. Use this to override the default identifier configured on the APNs integration.
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+        created_at:
+          description: The timestamp when the token was created.
+          format: date-time
+          type: string
+        device_token:
+          description: The APNs device token to register with MagicBell.
+          minLength: 64
+          type: string
+        discarded_at:
+          description: The timestamp when the token was discarded, if applicable.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        id:
+          description: The unique identifier for the token.
+          type: string
+        installation_id:
+          description: The APNs environment this token belongs to. If omitted we assume it targets `production`.
+          enum:
+          - development
+          - production
+          type: string
+        updated_at:
+          description: The timestamp when the token metadata last changed.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object
+    APNSTokenPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        installation_id: development
+      properties:
+        app_id:
+          description: The bundle identifier of the application registering this token. Use this to override the default identifier configured on the APNs integration.
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+        device_token:
+          description: The APNs device token to register with MagicBell.
+          minLength: 64
+          type: string
+        installation_id:
+          description: The APNs environment this token belongs to. If omitted we assume it targets `production`.
+          enum:
+          - development
+          - production
+          type: string
+      required:
+      - device_token
+      type: object
+    FCMToken:
+      examples:
+      - created_at: '2021-01-01T00:00:00Z'
+        device_token: eH0fLhuiRj2Np7UQ-opXAm:APA91bGtC-wH4sgW1jWkMKIZf7FYkm_RTQb7Jid7DfSJnCgivGYoRzhLrGxpcIF6yPjmbzAr6CKF-6phZkBasFUUfZmfdgcqfA_ZlZdVk6pSnon3LGzMumCzEJE0zgWoo_RUmVUVJUAt
+        discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+        installation_id: development
+        updated_at: '2021-01-01T00:00:00Z'
+      properties:
+        created_at:
+          description: The timestamp when the token was created.
+          format: date-time
+          type: string
+        device_token:
+          description: The Firebase Cloud Messaging device registration token to associate with the user.
+          minLength: 64
+          type: string
+        discarded_at:
+          description: The timestamp when the token was discarded, if applicable.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        id:
+          description: The unique identifier for the token.
+          type: string
+        updated_at:
+          description: The timestamp when the token metadata last changed.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - created_at
+      - device_token
+      - id
+      type: object

@@ -1,0 +1,206 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Fcm API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: fcm
+paths:
+  /integrations/fcm:
+    summary: Firebase Cloud Messaging
+    description: Connect FCM to reach Android devices and browsers that rely on Google's messaging infrastructure.
+    get:
+      tags:
+      - fcm
+      summary: List all FCM integrations
+      description: Retrieves the current FCM integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_fcm_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+    put:
+      tags:
+      - fcm
+      summary: Save a FCM integration
+      description: Updates or creates the FCM integration for the project.
+      operationId: save_fcm_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+    delete:
+      tags:
+      - fcm
+      summary: Delete a FCM integration
+      description: Deletes the FCM integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_fcm_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: FCM
+        name: fcm
+components:
+  schemas:
+    FCMConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/FCMConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    FCMConfigCollection:
+      examples:
+      - data:
+        - config:
+            auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+            auth_uri: https://accounts.google.com/o/oauth2/auth
+            client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+            client_id: '117893100789081023083'
+            client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+            private_key: 'REDACTED_PRIVATE_KEY_EXAMPLE
+
+              '
+            private_key_id: REDACTED_PRIVATE_KEY_ID
+            project_id: platform-development
+            token_uri: https://oauth2.googleapis.com/token
+            type: service_account
+            universe_domain: googleapis.com
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/FCMConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    FCMConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        client_email: firebase-adminsdk-qwhtp@platform-development.iam.gserviceaccount.com
+        client_id: '117893100789081023083'
+        client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qwhtp%40magicbell-development.iam.gserviceaccount.com
+        private_key: 'REDACTED_PRIVATE_KEY_EXAMPLE
+
+          '
+        private_key_id: REDACTED_PRIVATE_KEY_ID
+        project_id: platform-development
+        token_uri: https://oauth2.googleapis.com/token
+        type: service_account
+        universe_domain: googleapis.com
+      properties:
+        auth_provider_x509_cert_url:
+          description: URL for Google's OAuth provider x509 certificates used to validate tokens.
+          type: string
+        auth_uri:
+          description: OAuth authorization endpoint used when exchanging Firebase credentials.
+          type: string
+        client_email:
+          description: The client email address from the Firebase service account.
+          type: string
+        client_id:
+          description: The numeric client identifier for the Firebase service account.
+          type: string
+        client_x509_cert_url:
+          description: URL to the public x509 certificate for this service account.
+          type: string
+        private_key:
+          description: The PEM encoded service account private key used to sign Firebase credentials.
+          pattern: ^-+?\s?BEGIN[A-Z ]+-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END[A-Z ]+-+\n?$
+          type: string
+          x-ui:
+            tagName: textarea
+        private_key_id:
+          description: Identifier of the private key inside the downloaded service account JSON.
+          type: string
+        project_id:
+          description: The Firebase project ID associated with this service account.
+          type: string
+        token_uri:
+          description: OAuth token endpoint used to mint access tokens for FCM.
+          type: string
+        type:
+          description: Indicates the kind of Google credential. Service accounts always use the `service_account` type.
+          enum:
+          - service_account
+          type: string
+        universe_domain:
+          description: The Google Cloud universe domain hosting the Firebase APIs.
+          type: string
+      required:
+      - type
+      - project_id
+      - private_key_id
+      - private_key
+      - client_email
+      - client_id
+      - auth_uri
+      - token_uri
+      - auth_provider_x509_cert_url
+      - client_x509_cert_url
+      - universe_domain
+      type: object

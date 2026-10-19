@@ -1363,7 +1363,7 @@ components:
         token_type:
           type: string
       example:
-        access_token: xoxb-REDACTED-EXAMPLE-TOKEN
+        access_token: REDACTED_SLACK_TOKEN
         app_id: A12345678
         authed_user:
           id: U12345678

@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: MagicBell GitHub API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: Github
+paths:
+  /integrations/github:
+    summary: GitHub events
+    description: Subscribe to issues, pull requests, and deployments to keep teams informed inside MagicBell.
+    get:
+      tags:
+      - Github
+      summary: List all GitHub integrations
+      description: Retrieves the current GitHub integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_github_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: GitHub
+        name: github
+    put:
+      tags:
+      - Github
+      summary: Save a GitHub integration
+      description: Updates or creates the GitHub integration for the project.
+      operationId: save_github_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GithubConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubConfigPayload'
+      x-forbid-unknown-cookie: true
+      x-forbid-unknown-header: true
+      x-forbid-unknown-path: true
+      x-forbid-unknown-query: true
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: GitHub
+        name: github
+    delete:
+      tags:
+      - Github
+      summary: Delete a GitHub integration
+      description: Deletes the GitHub integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_github_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        displayName: GitHub
+        name: github
+components:
+  schemas:
+    GithubConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/GithubConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    GithubConfigCollection:
+      examples:
+      - data:
+        - config:
+            webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/GithubConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    GithubConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      additionalProperties: false
+      examples:
+      - webhook_signing_secret: whsec_e5cf4458caae49ae72d8f275deb9b63bdd41dd5c932c27c9346d428fb9e1d0a0
+      properties:
+        webhook_signing_secret:
+          description: The signing secret to verify incoming requests from Github
+          maxLength: 100
+          minLength: 1
+          type: string
+      required:
+      - webhook_signing_secret
+      type: object

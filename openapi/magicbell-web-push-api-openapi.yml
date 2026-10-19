@@ -1,0 +1,518 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Web Push API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: web_push
+paths:
+  /channels/web_push/tokens:
+    summary: Web Push tokens
+    description: Tokens tie a user to their Web Push destination—devices, inboxes, or workspaces. Register them at login, list them for debugging, and revoke stale entries to keep delivery healthy.
+    get:
+      tags:
+      - web_push
+      summary: List all Web Push tokens
+      description: Lists all Web Push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
+      operationId: list_web_push_tokens
+      parameters:
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenCollection'
+      x-magicbell-auth-jwt-type: user
+    put:
+      tags:
+      - web_push
+      summary: Save a Web Push token
+      description: Saves the Web Push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
+      operationId: save_web_push_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushTokenPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenPayload'
+      x-magicbell-auth-jwt-type: user
+  /channels/web_push/tokens/{token_id}:
+    summary: Web Push tokens
+    description: Tokens tie a user to their Web Push destination—devices, inboxes, or workspaces. Register them at login, list them for debugging, and revoke stale entries to keep delivery healthy.
+    get:
+      tags:
+      - web_push
+      summary: Fetch a Web Push token
+      description: Fetches details of a specific Web Push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
+      operationId: fetch_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+      x-magicbell-auth-jwt-type: user
+    delete:
+      tags:
+      - web_push
+      summary: Delete a Web Push token
+      description: Deletes one of the authenticated user's Web Push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
+      operationId: delete_web_push_token
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: user
+  /integrations/web_push:
+    summary: Web Push integration
+    description: Connect browser push providers so you can reach users on the open web. Handles VAPID keys, service-worker registration, and token lifecycles.
+    get:
+      tags:
+      - web_push
+      summary: List all Web Push integrations
+      description: Retrieves the current Web Push integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_web_push_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebpushConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+    put:
+      tags:
+      - web_push
+      summary: Save a Web Push integration
+      description: Updates or creates the Web Push integration for the project.
+      operationId: save_web_push_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebpushConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebpushConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+    delete:
+      tags:
+      - web_push
+      summary: Delete a Web Push integration
+      description: Deletes the Web Push integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_web_push_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: web_push
+        displayName: Web Push
+        name: web_push
+  /integrations/web_push/installations:
+    summary: Installation flow
+    description: High-level entry point for integrations that require multi-step authorization.
+    put:
+      tags:
+      - web_push
+      summary: Save a Web Push installation
+      description: Creates a new installation of a Web Push integration for a user. This endpoint is used when an integration needs to be set up with user-specific credentials or configuration.
+      operationId: save_web_push_installation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushTokenPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenPayload'
+      x-magicbell-auth-jwt-type: user
+  /integrations/web_push/installations/start:
+    summary: Start installation
+    description: Begins the OAuth or credentials handshake for an integration, returning URLs or payloads needed to obtain user consent.
+    post:
+      tags:
+      - web_push
+      summary: Start a Web Push installation
+      description: Initiates the installation flow for a Web Push integration. This is the first step in a multi-step installation process where user authorization or external service configuration may be required.
+      operationId: start_web_push_installation
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushStartInstallationResponse'
+      x-magicbell-auth-jwt-type: user
+  /users/{user_id}/channels/web_push/tokens:
+    summary: Web Push tokens
+    description: Tokens tie a user to their Web Push destination—devices, inboxes, or workspaces. Register them at login, list them for debugging, and revoke stale entries to keep delivery healthy.
+    get:
+      tags:
+      - web_push
+      summary: List an user's Web Push tokens
+      description: Lists all Web Push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
+      operationId: list_user_web_push_tokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'defines the maximum number of items to return per page (default: 50)'
+        required: false
+        schema:
+          type: integer
+      - name: starting_after
+        in: query
+        description: a cursor for use in pagination, points to the last ID in previous page
+        required: false
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        description: a cursor for use in pagination, points to the first ID in next page
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushTokenCollection'
+      x-magicbell-auth-jwt-type: project
+  /users/{user_id}/channels/web_push/tokens/{token_id}:
+    summary: Web Push tokens
+    description: Tokens tie a user to their Web Push destination—devices, inboxes, or workspaces. Register them at login, list them for debugging, and revoke stale entries to keep delivery healthy.
+    get:
+      tags:
+      - web_push
+      summary: Fetch a user's Web Push token
+      description: Fetches a specific Web Push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
+      operationId: fetch_user_web_push_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPushToken'
+      x-magicbell-auth-jwt-type: project
+    delete:
+      tags:
+      - web_push
+      summary: Delete an user's Web Push token
+      description: Deletes a specific user's Web Push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
+      operationId: delete_user_web_push_token
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardResult'
+      x-magicbell-auth-jwt-type: project
+components:
+  schemas:
+    WebPushTokenCollection:
+      examples:
+      - data:
+        - created_at: '2021-01-01T00:00:00Z'
+          discarded_at: '2021-01-01T00:00:00Z'
+          endpoint: https://fcm.googleapis.com/fcm/send/fZhR0fsr0zw:APA91bE4pM-qo1KBJDU_Zp2N9nDP-Jdmwugm-v4KNL_NlJvYCrJeJUzPXmMyAXqAE0m6BFOrkSWT0ArGbUjEEpxQEYZLado8JeW1PZA5CHB8R6C7HT6-MD6Qs8ZaCn8_ffLGGU7WuvtN
+          id: '123'
+          keys:
+            auth: GoIO2ulhtQuyBM64lZuFuw
+            p256dh: BICAe4KtLhhPNFvynlqMRxjvpRnr94881QeuTCr8kCwJf-Fssj3FLIlnfFMjj7T1yNg5l6cn14350323_NSGZh0
+          updated_at: '2021-01-01T00:00:00Z'
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/WebPushToken'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    WebPushStartInstallationResponse:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - auth_token: eyGhb...GA2Bw
+        public_key: BHaJd...gRHDk
+      properties:
+        auth_token:
+          description: Auth secret returned from PushSubscription.getKey('auth').
+          minLength: 8
+          type: string
+        public_key:
+          description: VAPID public key generated for this web push installation.
+          maxLength: 128
+          minLength: 8
+          type: string
+      required:
+      - public_key
+      - auth_token
+      type: object
+    WebpushConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/WebpushConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    WebPushTokenPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - endpoint: https://fcm.googleapis.com/fcm/send/fZhR0fsr0zw:APA91bE4pM-qo1KBJDU_Zp2N9nDP-Jdmwugm-v4KNL_NlJvYCrJeJUzPXmMyAXqAE0m6BFOrkSWT0ArGbUjEEpxQEYZLado8JeW1PZA5CHB8R6C7HT6-MD6Qs8ZaCn8_ffLGGU7WuvtN
+        keys:
+          auth: GoIO2ulhtQuyBM64lZuFuw
+          p256dh: BICAe4KtLhhPNFvynlqMRxjvpRnr94881QeuTCr8kCwJf-Fssj3FLIlnfFMjj7T1yNg5l6cn14350323_NSGZh0
+      properties:
+        endpoint:
+          description: The push subscription URL obtained from PushSubscription.endpoint after calling registration.pushManager.subscribe(). This is the unique URL for this device that push messages will be sent to.
+          format: uri
+          type: string
+        keys:
+          description: The encryption keys from the PushSubscription.getKey() method, needed to encrypt push messages for this subscription.
+          properties:
+            auth:
+              contentEncoding: base64
+              description: The authentication secret obtained from PushSubscription.getKey('auth'). Used to encrypt push messages for this subscription.
+              type: string
+            p256dh:
+              contentEncoding: base64
+              description: The P-256 ECDH public key obtained from PushSubscription.getKey('p256dh'). Used to encrypt push messages for this subscription.
+              type: string
+          required:
+          - p256dh
+          - auth
+          type: object
+      required:
+      - endpoint
+      - keys
+      type: object
+    DiscardResult:
+      examples:
+      - discarded_at: '2021-01-01T00:00:00Z'
+        id: '123'
+      properties:
+        discarded_at:
+          description: The timestamp when the token was discarded.
+          type: string
+        id:
+          description: The unique identifier for the discarded token.
+          type: string
+      type: object
+    WebpushConfigCollection:
+      examples:
+      - data:
+        - config:
+            private_key: y56TIPdEzrQ0Ku_uQbGGkB84mYdF9pJl5IHvmAZ_fVs
+            public_key: BNKZeSrRX_c3QfqzOvv1oshpj1qPbDcUJHKET6Ahs2u9-F4HgllPYxtgaGvGSqfytuALumX5NYZPLD8YmCwBxcw
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/WebpushConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    WebpushConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - private_key: y56TIPdEzrQ0Ku_uQbGGkB84mYdF9pJl5IHvmAZ_fVs
+        public_key: BNKZeSrRX_c3QfqzOvv1oshpj1qPbDcUJHKET6Ahs2u9-F4HgllPYxtgaGvGSqfytuALumX5NYZPLD8YmCwBxcw
+      properties:
+        private_key:
+          description: VAPID private key.
+          maxLength: 128
+          minLength: 8
+          type: string
+        public_key:
+          description: VAPID public key - read more at https://magicbell.com/tools/vapid-keys.
+          maxLength: 128
+          minLength: 8
+          type: string
+      required:
+      - public_key
+      - private_key
+      type: object
+    WebPushToken:
+      examples:
+      - created_at: '2021-01-01T00:00:00Z'
+        discarded_at: '2021-01-01T00:00:00Z'
+        endpoint: https://fcm.googleapis.com/fcm/send/fZhR0fsr0zw:APA91bE4pM-qo1KBJDU_Zp2N9nDP-Jdmwugm-v4KNL_NlJvYCrJeJUzPXmMyAXqAE0m6BFOrkSWT0ArGbUjEEpxQEYZLado8JeW1PZA5CHB8R6C7HT6-MD6Qs8ZaCn8_ffLGGU7WuvtN
+        id: '123'
+        keys:
+          auth: GoIO2ulhtQuyBM64lZuFuw
+          p256dh: BICAe4KtLhhPNFvynlqMRxjvpRnr94881QeuTCr8kCwJf-Fssj3FLIlnfFMjj7T1yNg5l6cn14350323_NSGZh0
+        updated_at: '2021-01-01T00:00:00Z'
+      properties:
+        created_at:
+          description: The timestamp when the token was created.
+          format: date-time
+          type: string
+        discarded_at:
+          description: The timestamp when the token was discarded, if applicable.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        endpoint:
+          description: The push subscription URL obtained from PushSubscription.endpoint after calling registration.pushManager.subscribe(). This is the unique URL for this device that push messages will be sent to.
+          format: uri
+          type: string
+        id:
+          description: The unique identifier for the token.
+          type: string
+        keys:
+          description: The encryption keys from the PushSubscription.getKey() method, needed to encrypt push messages for this subscription.
+          properties:
+            auth:
+              contentEncoding: base64
+              description: The authentication secret obtained from PushSubscription.getKey('auth'). Used to encrypt push messages for this subscription.
+              type: string
+            p256dh:
+              contentEncoding: base64
+              description: The P-256 ECDH public key obtained from PushSubscription.getKey('p256dh'). Used to encrypt push messages for this subscription.
+              type: string
+          required:
+          - p256dh
+          - auth
+          type: object
+        updated_at:
+          description: The timestamp when the token metadata last changed.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - created_at
+      - endpoint
+      - id
+      - keys
+      type: object

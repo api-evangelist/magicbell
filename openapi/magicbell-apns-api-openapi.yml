@@ -1,0 +1,181 @@
+openapi: 3.2.0
+info:
+  title: MagicBell Apns API
+  description: OpenAPI 3.1.0 Specification for MagicBell API.
+  contact:
+    name: MagicBell
+    url: https://wwww.magicbell.com
+  version: 2.0.0
+servers:
+- url: https://api.magicbell.com/v2
+  description: MagicBell API (v2) Base URL
+tags:
+- name: apns
+paths:
+  /integrations/apns:
+    summary: Apple Push Notification service
+    description: Upload APNs credentials to deliver native iOS, iPadOS, and macOS push notifications.
+    get:
+      tags:
+      - apns
+      summary: List all APNs integrations
+      description: Retrieves the current APNs integration configurations for a specific integration type in the project. Returns configuration details and status information.
+      operationId: list_apns_integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSConfigCollection'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+    put:
+      tags:
+      - apns
+      summary: Save an APNs integration
+      description: Updates or creates the APNs integration for the project.
+      operationId: save_apns_integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APNSConfigPayload'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APNSConfigPayload'
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+    delete:
+      tags:
+      - apns
+      summary: Delete an APNs integration
+      description: Deletes the APNs integration configuration from the project. This will disable the integration's functionality within the project.
+      operationId: delete_apns_integration
+      parameters:
+      - name: id
+        in: query
+        description: the unique identifier of the integration to be deleted
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+      x-magicbell-auth-jwt-type: project
+      x-meta:
+        channel: mobile_push
+        displayName: APNs
+        name: apns
+components:
+  schemas:
+    APNSConfigCollection:
+      examples:
+      - data:
+        - config:
+            app_id: com.example.myapp
+            badge: unread
+            certificate: 'REDACTED_PRIVATE_KEY_EXAMPLE'
+            key_id: ABCD1234EF
+            team_id: ABCD1234EF
+          id: '123'
+          name: <provider-name>
+        links:
+          first: https://api.magicbell.com/v1/example
+          next: https://api.magicbell.com/v1/example?page_next=abc
+          prev: null
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/APNSConfig'
+          type: array
+        links:
+          $ref: '#/components/schemas/Links'
+      type: object
+    APNSConfig:
+      properties:
+        config:
+          $ref: '#/components/schemas/APNSConfigPayload'
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - id
+      - config
+      type: object
+    Links:
+      properties:
+        first:
+          type: string
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      type: object
+    APNSConfigPayload:
+      $schema: http://json-schema.org/draft-07/schema#
+      examples:
+      - app_id: com.example.myapp
+        badge: unread
+        certificate: 'REDACTED_PRIVATE_KEY_EXAMPLE'
+        key_id: ABCD1234EF
+        team_id: ABCD1234EF
+      properties:
+        app_id:
+          description: The default bundle identifier of the application that is configured with this project. It can be overriden on a per token basis, when registering device tokens.
+          pattern: ^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$
+          type: string
+        badge:
+          description: Controls whether the app icon badge counts unread or unseen notifications.
+          enum:
+          - unread
+          - unseen
+          type: string
+        certificate:
+          description: The APNs certificate in P8 format. Generate it at [developer.apple.com](https://developer.apple.com/account/resources/authkeys/add) with the 'Apple Push Notification service (APNs)' option selected.
+          pattern: ^-+?\s?BEGIN PRIVATE KEY-+\n([A-Za-z0-9+/\r\n]+={0,2})\n-+\s?END PRIVATE KEY+-+\n?$
+          type: string
+          x-ui:
+            tagName: textarea
+        key_id:
+          description: The 10-character Key ID from your Apple Developer account used with the P8 certificate.
+          maxLength: 10
+          minLength: 10
+          type: string
+        payload_version:
+          default: '2'
+          description: Internal payload format version used by MagicBell.
+          enum:
+          - '1'
+          - '2'
+          type: string
+          x-ui:
+            type: hidden
+        team_id:
+          description: The Apple Developer Team ID that owns the configured key.
+          maxLength: 10
+          minLength: 10
+          type: string
+      required:
+      - app_id
+      - certificate
+      - key_id
+      - team_id
+      - badge
+      type: object
