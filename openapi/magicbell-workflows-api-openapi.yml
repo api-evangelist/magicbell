@@ -363,3 +363,9 @@ components:
             type: object
           type: array
       type: object
+x-provenance:
+  method: harvested
+  publisher: MagicBell
+  source: https://www.magicbell.com/docs/api/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
