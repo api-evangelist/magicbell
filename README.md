@@ -1,4 +1,4 @@
-# MagicBell (magicbell)
+# MagicBell
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,99 +64,193 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-MagicBell is a multichannel push notification infrastructure platform that enables developers to deliver in-app, email, mobile push, web push, SMS, Slack, and Microsoft Teams notifications through a single unified REST API. The platform provides a ready-made notification inbox component, built-in user preference management, smart delivery workflows with fallback rules, and full delivery observability with event logging and debugging. MagicBell handles all channel routing and token management so product teams can focus on building rather than maintaining notification infrastructure.
+MagicBell is a multichannel push notification infrastructure platform that enables developers to deliver in-app, email, mobile push, web push, SMS, Slack, and Microsoft Teams notifications through a single unified REST API. The platform provides a ready-made notification inbox component, built-in user preference management, smart delivery workflows with fallback rules, and full delivery observability with event logging and debugging. MagicBell handles all channel routing and token management so product teams can focus on building rather than maintaining notification infrastructure. It is a Y Combinator (W21) company offering SDKs for JavaScript, React, Go, Swift, Java, and Android along with a CLI for project management.
 
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/magicbell/refs/heads/main/apis.yml
+**Areas:** Notification · Push Notifications · In-App Notifications · Email · SMS · Slack · Microsoft Teams · Webhook · notification inbox · Multi-Channel · Mobile Push · Web Push
 
-**Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=magicbell-api-evangelist&utm_content=repo
+## MagicBell on APIs.io
 
----
+Everything profiled for MagicBell is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/magicbell/](https://apis.io/providers/magicbell/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-notifications, push notifications, in-app notifications, email, SMS, Slack, Microsoft Teams, webhooks, notification inbox, multichannel, mobile push, web push
+- [MagicBell REST API v1](https://apis.io/apis/magicbell/rest-api-v1/) — The legacy MagicBell REST API (v1) for notification delivery, user management, and channel configuration. Supports API key and user external ID based…
+- [MagicBell Integrations API](https://apis.io/apis/magicbell/magicbell-integrations-api/) — The integrations API from MagicBell — 42 operation(s) for integrations.
+- [MagicBell Project API](https://apis.io/apis/magicbell/magicbell-project-api/) — The project API from MagicBell — 52 operation(s) for project.
+- [MagicBell User API](https://apis.io/apis/magicbell/magicbell-user-api/) — The user API from MagicBell — 20 operation(s) for user.
 
----
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### MagicBell REST API v2
+#### Agentic access (1)
 
-The primary MagicBell REST API (v2) for sending notifications, managing users, configuring delivery channels, creating broadcasts, defining workflows, and querying delivery events. Supports JWT-based authentication (Project JWT and User JWT) and returns 429 on rate limit exceeded.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Documentation:** https://www.magicbell.com/docs/api
-- **Reference:** https://www.magicbell.com/docs/api/reference
-- **Base URL:** https://api.magicbell.com/v2
-- **OpenAPI Spec:** https://public.magicbell.com/specs/openapi.v2.json
+- [Magicbell Agentic Access](https://apis.io/agentic-access/magicbell/magicbell-agentic-access/)
 
-### MagicBell REST API v1
+#### JSON Schema (11)
 
-The legacy MagicBell REST API (v1) for notification delivery, user management, and channel configuration. New integrations should use v2.
+The data models the API reads and writes.
 
-- **Documentation:** https://www.magicbell.com/docs/v1
-- **Base URL:** https://api.magicbell.com
+- [AccessToken](https://apis.io/schemas/magicbell/magicbell-accesstoken/)
+- [APNSToken](https://apis.io/schemas/magicbell/magicbell-apnstoken/)
+- [Broadcast](https://apis.io/schemas/magicbell/magicbell-broadcast/)
+- [Event](https://apis.io/schemas/magicbell/magicbell-event/)
+- [FCMToken](https://apis.io/schemas/magicbell/magicbell-fcmtoken/)
+- [Integration](https://apis.io/schemas/magicbell/magicbell-integration/)
+- [SlackToken](https://apis.io/schemas/magicbell/magicbell-slacktoken/)
+- [TeamsToken](https://apis.io/schemas/magicbell/magicbell-teamstoken/)
+- [topic](https://apis.io/schemas/magicbell/magicbell-topic/)
+- [user](https://apis.io/schemas/magicbell/magicbell-user/)
+- [WebPushToken](https://apis.io/schemas/magicbell/magicbell-webpushtoken/)
 
----
+#### JSON-LD (1)
 
-## Plans, Rate Limits, and FinOps
+Linked-data contexts for the provider's vocabulary.
 
-### Plans
+- [Magicbell Context](https://apis.io/jsonld/magicbell/magicbell-context/)
 
-| Plan | Cost | Deliveries/Month | Projects |
-|------|------|-----------------|----------|
-| Builder | Free | 1,000 | 1 |
-| Startup | $249/month | 50,000 (+$0.0025/overage) | 5 |
-| Enterprise | Custom | Unlimited | Unlimited |
+#### Vocabulary (1)
 
-Full plans detail: [plans/magicbell-plans-pricing.yml](plans/magicbell-plans-pricing.yml)
+The provider's domain terms, defined.
 
-### Rate Limits
+- [MagicBell API Vocabulary](https://apis.io/vocabularies/magicbell/magicbell-vocabulary/)
 
-| API | Method Type | Limit |
-|-----|-------------|-------|
-| REST v2 | GET / OPTIONS / HEAD | 250 req/min |
-| REST v2 | POST / PATCH / PUT / DELETE | 200 req/min |
-| REST v1 | GET / OPTIONS / HEAD | 100 req/min |
-| REST v1 | POST / PATCH / PUT / DELETE | 60 req/min |
+#### Examples (4)
 
-HTTP 429 returned on limit exceeded. Idempotency-Key header supported (UUID, 24-hour cache).
+Example requests and responses.
 
-Full rate limits detail: [rate-limits/magicbell-rate-limits.yml](rate-limits/magicbell-rate-limits.yml)
+- [Magicbell Broadcast Example](https://apis.io/examples/magicbell/magicbell-broadcast-example/)
+- [Magicbell Event Example](https://apis.io/examples/magicbell/magicbell-event-example/)
+- [Magicbell Notification Send Example](https://apis.io/examples/magicbell/magicbell-notification-send-example/)
+- [Magicbell User Example](https://apis.io/examples/magicbell/magicbell-user-example/)
 
-### FinOps
+#### Collections (27)
 
-Billing model: freemium tiered with overage. Primary meter is per-delivery (one notification, one user, one channel = one delivery). Multi-channel sends multiply the count.
+Postman and Open Collection request collections.
 
-Full FinOps detail: [finops/magicbell-finops.yml](finops/magicbell-finops.yml)
+- [MagicBell apns API](https://apis.io/collections/magicbell/open-magicbell-apns-api/)
+- [MagicBell apns awssns API](https://apis.io/collections/magicbell/open-magicbell-awssns-api/)
+- [MagicBell apns broadcasts API](https://apis.io/collections/magicbell/open-magicbell-broadcasts-api/)
+- [MagicBell apns channel/email API](https://apis.io/collections/magicbell/open-magicbell-channel-email-api/)
+- [MagicBell apns channel/mobile_push API](https://apis.io/collections/magicbell/open-magicbell-channel-mobile-push-api/)
+- [MagicBell apns channel/slack API](https://apis.io/collections/magicbell/open-magicbell-channel-slack-api/)
+- [MagicBell apns channel/sms API](https://apis.io/collections/magicbell/open-magicbell-channel-sms-api/)
+- [MagicBell apns channel/web_push API](https://apis.io/collections/magicbell/open-magicbell-channel-web-push-api/)
+- [MagicBell apns channels API](https://apis.io/collections/magicbell/open-magicbell-channels-api/)
+- [MagicBell apns expo API](https://apis.io/collections/magicbell/open-magicbell-expo-api/)
+- [MagicBell apns fcm API](https://apis.io/collections/magicbell/open-magicbell-fcm-api/)
+- [MagicBell apns github API](https://apis.io/collections/magicbell/open-magicbell-github-api/)
+- [MagicBell apns inbox API](https://apis.io/collections/magicbell/open-magicbell-inbox-api/)
+- [MagicBell apns integrations API](https://apis.io/collections/magicbell/open-magicbell-integrations-api/)
+- [MagicBell apns mailgun API](https://apis.io/collections/magicbell/open-magicbell-mailgun-api/)
+- [MagicBell apns mobile_push API](https://apis.io/collections/magicbell/open-magicbell-mobile-push-api/)
+- [MagicBell apns ping_email API](https://apis.io/collections/magicbell/open-magicbell-ping-email-api/)
+- [MagicBell apns project API](https://apis.io/collections/magicbell/open-magicbell-project-api/)
+- [MagicBell apns sendgrid API](https://apis.io/collections/magicbell/open-magicbell-sendgrid-api/)
+- [MagicBell apns ses API](https://apis.io/collections/magicbell/open-magicbell-ses-api/)
+- [MagicBell apns slack API](https://apis.io/collections/magicbell/open-magicbell-slack-api/)
+- [MagicBell apns stripe API](https://apis.io/collections/magicbell/open-magicbell-stripe-api/)
+- [MagicBell apns teams API](https://apis.io/collections/magicbell/open-magicbell-teams-api/)
+- [MagicBell apns templates API](https://apis.io/collections/magicbell/open-magicbell-templates-api/)
+- [MagicBell apns twilio API](https://apis.io/collections/magicbell/open-magicbell-twilio-api/)
+- …and 2 more published on APIs.io
 
----
+#### Governance rules (1)
 
-## Timestamps
+Spectral rulesets for the provider's contracts.
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+- [MagicBell — jsonschema rules](https://apis.io/rules/magicbell/magicbell-jsonschema-spectral-rules/)
 
----
+#### Security (2)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-| Property | URL |
-|----------|-----|
-| Website | https://www.magicbell.com/ |
-| Documentation | https://www.magicbell.com/docs |
-| API Reference | https://www.magicbell.com/docs/api/reference |
-| GitHub Organization | https://github.com/magicbell |
-| LinkedIn | https://www.linkedin.com/company/magicbell |
-| X / Twitter | https://x.com/magicbell_io |
-| Blog | https://www.magicbell.com/blog |
-| Pricing | https://www.magicbell.com/pricing |
-| Status Page | https://status.magicbell.com/ |
-| Changelog | https://github.com/orgs/magicbell/discussions/categories/product-changelog |
-| SDKs & Libraries | https://www.magicbell.com/docs/libraries |
-| Developer Tools | https://www.magicbell.com/tools |
+- [Magicbell Domain Security](https://apis.io/security/magicbell/magicbell-domain-security/)
+- [Magicbell Trust Center](https://apis.io/security/magicbell/magicbell-trust-center/)
 
----
+#### Plans and pricing (1)
 
-## Maintainers
+Published plans, tiers and prices.
 
-- **Kin Lane** — kin@apievangelist.com
+- [Magicbell Plans Pricing](https://apis.io/plans/magicbell/magicbell-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Magicbell Rate Limits](https://apis.io/rate-limits/magicbell/magicbell-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Magicbell Finops](https://apis.io/finops/magicbell/magicbell-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.magicbell.com/)
+- [Documentation](https://www.magicbell.com/docs)
+- [Pricing](https://www.magicbell.com/pricing)
+- [Changelog](https://github.com/orgs/magicbell/discussions/categories/product-changelog)
+- [Blog](https://www.magicbell.com/blog)
+- [GitHub](https://github.com/magicbell)
+- [Status](https://status.magicbell.com/)
+
+## API Evangelist rating
+
+**Kin Score 40.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.2 |
+| Contract governance | 23.5 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 26.3 |
+
+**Agent readiness 22.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 18.3** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/magicbell/](https://apis.io/providers/magicbell/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for MagicBell: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/magicbell/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
